@@ -1,4 +1,3 @@
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -19,8 +18,6 @@ class TallyUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: 
-    );
+    return MaterialApp(theme: GetIt.I<AppTheme>().currentTheme);
   }
 }
