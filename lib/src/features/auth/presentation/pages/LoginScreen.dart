@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:tally_up/src/features/auth/presentation/bloc/sign_in/sign_in_bloc.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -8,11 +11,34 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  var dir = 'lib/src/core/';
+  final _dir = 'lib/src/core/';
+  final _phoneController = TextEditingController();
+  var _phoneIsValid = false;
+  final _maskFormatter = MaskTextInputFormatter(
+      mask: '+7 (###) ###-##-##',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
+
+  String? get _phoneErrorMessage {
+    if (_phoneController.text.isEmpty) {
+      return "Введите телефон";
+    } else if (_maskFormatter.getUnmaskedText().length < 10) {
+      return "Введите полный номер телефона";
+    }
+    _phoneIsValid = true;
+    return null;
+  }
 
   @override
   void initState() {
+    _phoneIsValid = false;
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _phoneController.dispose();
+    super.dispose();
   }
 
   @override
@@ -22,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              "${dir}images/krug.png",
+              "${_dir}images/krug.png",
               //fit: BoxFit.cover,
             ),
           ),
@@ -56,11 +82,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                  padding: const EdgeInsets.only(
+                      left: 30, top: 20, right: 30, bottom: 5),
                   child: TextField(
+                    inputFormatters: [_maskFormatter],
+                    controller: _phoneController,
+                    onChanged: (_) => setState(() {}),
                     decoration: InputDecoration(
-                      fillColor: Colors.white,
+                      errorText: _phoneErrorMessage,
                       contentPadding: const EdgeInsets.all(15),
                       border: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -82,41 +111,33 @@ class _LoginScreenState extends State<LoginScreen> {
                     keyboardType: TextInputType.number,
                   ),
                 ),
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Container(
-                      width: 180,
-                      height: 45, // Устанавливаем желаемую ширину кнопки
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              const Color(0xFF0078FE)),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
-                        ),
-                        onPressed: () {
-                          // Обработка нажатия кнопки "Продолжить"
-                        },
-                        child: const Text(
-                          'Продолжить',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'Raleway',
-                            fontSize: 20,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w900, // regular
-                            letterSpacing: -0.02, // letter spacing -2%
-                          ),
-                        ),
+                TextButton(
+                  onPressed: null,
+                  style: ButtonStyle(
+                    backgroundColor: _phoneIsValid
+                        ? MaterialStateProperty.all<Color>(
+                            const Color(0xFF0078FE))
+                        : MaterialStateProperty.all<Color>(
+                            Color.fromARGB(255, 195, 195, 195)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
                       ),
                     ),
                   ),
-                ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Text('Продолжить',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Raleway-medium',
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500, // regular
+                          letterSpacing: -0.02, // letter spacing -2%),
+                        )),
+                  ),
+                )
               ],
             ),
           ),
