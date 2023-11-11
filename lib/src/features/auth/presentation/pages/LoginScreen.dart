@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -9,6 +8,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  var dir = 'lib/src/core/';
+
   @override
   void initState() {
     super.initState();
@@ -21,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              "lib/src/core/images/krug.png",
+              "${dir}images/krug.png",
               //fit: BoxFit.cover,
             ),
           ),
@@ -30,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  'TALLY \nUP',
+                  'TALLY\nUP',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'RubikMonoOne',
@@ -90,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
-                              Color(0xFF0078FE)),
+                              const Color(0xFF0078FE)),
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(

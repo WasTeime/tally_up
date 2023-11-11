@@ -19,8 +19,9 @@ class TallyUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(theme: GetIt.I<AppTheme>().currentTheme);
-    home:
-    LoginScreen();
+    return MaterialApp(
+      theme: GetIt.I<AppTheme>().currentTheme,
+      home: const LoginScreen(),
+    );
   }
 }
