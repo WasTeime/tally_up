@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tally_up/src/core/firebase_options.dart';
 import 'package:tally_up/src/core/theme.dart';
+import 'package:tally_up/src/features/auth/presentation/pages/LoginScreen.dart';
 
 void main() async {
   GetIt.I.registerSingleton(AppTheme());
@@ -19,5 +20,7 @@ class TallyUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(theme: GetIt.I<AppTheme>().currentTheme);
+    home:
+    Scaffold(body: LoginScreen());
   }
 }
