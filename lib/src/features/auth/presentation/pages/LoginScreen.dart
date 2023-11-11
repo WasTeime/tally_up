@@ -11,6 +11,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  //TODO: 1) сделать чтобы изначально отображался +7 и добавить поддержку разных регионов и стран
   final _dir = 'lib/src/core/';
   final _phoneController = TextEditingController();
   var _phoneIsValid = false;
@@ -20,10 +21,10 @@ class _LoginScreenState extends State<LoginScreen> {
       type: MaskAutoCompletionType.lazy);
 
   String? get _phoneErrorMessage {
-    if (_phoneController.text.isEmpty) {
-      return "Введите телефон";
-    } else if (_maskFormatter.getUnmaskedText().length < 10) {
-      return "Введите полный номер телефона";
+    _phoneIsValid = false;
+    if (_phoneController.text.isEmpty) return null;
+    if (_maskFormatter.getUnmaskedText().length < 10) {
+      return "Введите номер телефона";
     }
     _phoneIsValid = true;
     return null;
@@ -31,7 +32,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    _phoneIsValid = false;
     super.initState();
   }
 
@@ -82,8 +82,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
-                      left: 30, top: 20, right: 30, bottom: 5),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                   child: TextField(
                     inputFormatters: [_maskFormatter],
                     controller: _phoneController,
@@ -105,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           width: 2,
                         ),
                       ),
-                      hintText: 'Телефон',
+                      hintText: '+7 (000) 00-00-00',
                       hintStyle: const TextStyle(color: Color(0xFFD3E8FF)),
                     ),
                     keyboardType: TextInputType.number,
