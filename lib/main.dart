@@ -21,6 +21,6 @@ class TallyUp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(theme: GetIt.I<AppTheme>().currentTheme);
     home:
-    Scaffold(body: LoginScreen());
+    LoginScreen();
   }
 }
