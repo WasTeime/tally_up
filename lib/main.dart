@@ -4,13 +4,14 @@ import 'package:get_it/get_it.dart';
 import 'package:tally_up/src/core/firebase_options.dart';
 import 'package:tally_up/src/core/theme.dart';
 import 'package:tally_up/src/features/auth/presentation/pages/LoginScreen.dart';
+import 'package:tally_up/src/core/router.dart';
 
 void main() async {
   GetIt.I.registerSingleton(AppTheme());
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
   runApp(const TallyUp());
 }
 
@@ -19,9 +20,9 @@ class TallyUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       theme: GetIt.I<AppTheme>().currentTheme,
-      home: const LoginScreen(),
+      routerConfig: router,
     );
   }
 }
