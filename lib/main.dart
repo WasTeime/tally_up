@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tally_up/src/core/firebase_options.dart';
 import 'package:tally_up/src/core/theme.dart';
-import 'package:tally_up/src/features/auth/presentation/pages/GroupeScreen.dart';
-import 'package:tally_up/src/features/auth/presentation/pages/LoginScreen.dart';
 import 'package:tally_up/src/core/router.dart';
 
 void main() async {

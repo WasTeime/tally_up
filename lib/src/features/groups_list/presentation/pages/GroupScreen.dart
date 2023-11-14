@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class GroupeScreen extends StatefulWidget {
-  const GroupeScreen({super.key});
+class GroupScreen extends StatefulWidget {
+  const GroupScreen({super.key});
 
   @override
-  State<GroupeScreen> createState() => _GroupeScreenState();
+  State<GroupScreen> createState() => _GroupScreenState();
 }
 
-class _GroupeScreenState extends State<GroupeScreen> {
+class _GroupScreenState extends State<GroupScreen> {
   @override
   Widget _backGround() {
     return Padding(

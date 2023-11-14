@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 class ColumnGapWidget extends StatelessWidget {
-  const ColumnGapWidget({super.key});
+  final double height;
+
+  const ColumnGapWidget({this.height = 20, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(height: 20);
+    return SizedBox(height: height);
   }
 }

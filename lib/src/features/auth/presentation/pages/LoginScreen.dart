@@ -38,6 +38,7 @@ class PhoneErrorMessageProvider extends ChangeNotifier {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  //TODO: походу надо переменной не в state объявлять, а в классе виджета
   //functional
   final _phoneController = TextEditingController();
   final _maskFormatter = MaskTextInputFormatter(
@@ -110,8 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
           if (validationProvider.phoneIsValid) {
             context
                 .read<SignInBloc>()
-                .add(SendSmsCode(_maskFormatter.getUnmaskedText()));
-            //context.go('/smsCodeVerify');
+                .add(SendSmsCode("+7" + _maskFormatter.getUnmaskedText()));
           }
         }, "Продолжить")
       ]),
