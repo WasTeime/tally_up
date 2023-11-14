@@ -14,6 +14,8 @@ class SignInProcess extends SignInState {}
 
 class SignInSuccess extends SignInState {}
 
+class SendSmsCodeSuccess extends SignInState {}
+
 class SignInFailure extends SignInState {
   final String message;
 

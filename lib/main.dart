@@ -9,9 +9,9 @@ import 'package:tally_up/src/core/router.dart';
 void main() async {
   GetIt.I.registerSingleton(AppTheme());
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const TallyUp());
 }
 

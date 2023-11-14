@@ -1,12 +1,15 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
+import 'package:tally_up/src/core/theme.dart';
+import 'package:tally_up/src/core/widgets/view.dart';
+import 'package:tally_up/src/features/auth/presentation/widgets/view.dart';
 import 'package:tally_up/src/features/auth/presentation/bloc/sign_in/sign_in_bloc.dart';
-import 'package:tally_up/src/features/auth/presentation/pages/Test.dart';
+import 'package:tally_up/src/features/auth/presentation/pages/PinVerifyScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -33,294 +36,86 @@ class PhoneErrorMessageProvider extends ChangeNotifier {
     notifyListeners();
   }
 }
-// class _LoginScreenState extends State<LoginScreen> {
-//   //TODO: 1) сделать чтобы изначально отображался +7 и добавить поддержку разных регионов и стран
-//   final _dir = 'lib/src/core/';
-//   final _phoneController = TextEditingController();
-//   final _maskFormatter = MaskTextInputFormatter(
-//       mask: '+7 (###) ###-##-##',
-//       filter: {"#": RegExp(r'[0-9]')},
-//       type: MaskAutoCompletionType.lazy);
-
-//   @override
-//   void initState() {
-//     super.initState();
-//   }
-
-//   @override
-//   void dispose() {
-//     _phoneController.dispose();
-//     super.dispose();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return ChangeNotifierProvider(
-//       create: (_) => PhoneErrorMessageProvider(),
-//       builder: (context, child) {
-//         return Scaffold(
-//           body: Stack(
-//             children: [
-//               Positioned.fill(
-//                 child: Image.asset(
-//                   "${_dir}images/krug.png",
-//                   //fit: BoxFit.cover,
-//                 ),
-//               ),
-//               Center(
-//                 child: Column(
-//                   mainAxisAlignment: MainAxisAlignment.center,
-//                   children: [
-//                     const Text(
-//                       'TALLY\nUP',
-//                       textAlign: TextAlign.center,
-//                       style: TextStyle(
-//                         fontFamily: 'RubikMonoOne',
-//                         fontSize: 50,
-//                         color: Color(0xFF0079FF),
-//                         fontWeight: FontWeight.w900,
-//                         height: 1,
-//                       ),
-//                     ),
-//                     const SizedBox(
-//                       height: 30,
-//                     ),
-//                     const Text(
-//                       'Введите номер телефона',
-//                       textAlign: TextAlign.center,
-//                       style: TextStyle(
-//                         fontFamily: 'Raleway',
-//                         fontSize: 18,
-//                         color: Color(0xFF0079FF),
-//                         fontWeight: FontWeight.w900, // regular
-//                         letterSpacing: -0.02, // letter spacing -2%
-//                       ),
-//                     ),
-//                     Padding(
-//                       padding: const EdgeInsets.symmetric(
-//                           horizontal: 30, vertical: 20),
-//                       child: Selector<PhoneErrorMessageProvider, String?>(
-//                         selector: (_, provider) => provider.errorText,
-//                         builder: (_, errorMessage, __) {
-//                           return TextField(
-//                             inputFormatters: [_maskFormatter],
-//                             controller: _phoneController,
-//                             decoration: InputDecoration(
-//                               errorText: errorMessage,
-//                               contentPadding: const EdgeInsets.all(15),
-//                               border: const OutlineInputBorder(
-//                                 borderRadius:
-//                                     BorderRadius.all(Radius.circular(15)),
-//                                 borderSide: BorderSide(
-//                                   color: Color.fromRGBO(207, 203, 203, 0.989),
-//                                   width: 2,
-//                                 ),
-//                               ),
-//                               focusedBorder: OutlineInputBorder(
-//                                 borderRadius: BorderRadius.circular(15),
-//                                 borderSide: const BorderSide(
-//                                   color: Colors.blue,
-//                                   width: 2,
-//                                 ),
-//                               ),
-//                               hintText: '+7 (000) 00-00-00',
-//                               hintStyle:
-//                                   const TextStyle(color: Color(0xFFD3E8FF)),
-//                             ),
-//                             keyboardType: TextInputType.number,
-//                           );
-//                         },
-//                       ),
-//                     ),
-//                     TextButton(
-//                       onPressed: () {
-//                         var validationProvider =
-//                             context.read<PhoneErrorMessageProvider>();
-//                         validationProvider
-//                             .getErrorMessage(_maskFormatter.getUnmaskedText());
-//                         if (validationProvider.phoneIsValid) {
-//                           context.go('/smsCodeVerify');
-//                         }
-//                       },
-//                       style: ButtonStyle(
-//                         backgroundColor: MaterialStateProperty.all<Color>(
-//                             const Color(0xFF0078FE)),
-//                         shape:
-//                             MaterialStateProperty.all<RoundedRectangleBorder>(
-//                           RoundedRectangleBorder(
-//                             borderRadius: BorderRadius.circular(20),
-//                           ),
-//                         ),
-//                       ),
-//                       child: const Padding(
-//                         padding: EdgeInsets.symmetric(horizontal: 10),
-//                         child: Text('Продолжить',
-//                             textAlign: TextAlign.center,
-//                             style: TextStyle(
-//                               fontFamily: 'Raleway-medium',
-//                               fontSize: 20,
-//                               color: Colors.white,
-//                               fontWeight: FontWeight.w500, // regular
-//                               letterSpacing: -0.02, // letter spacing -2%),
-//                             )),
-//                       ),
-//                     )
-//                   ],
-//                 ),
-//               ),
-//             ],
-//           ),
-//         );
-//       },
-//     );
-//   }
-// }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController _phoneController = TextEditingController();
-
-  late String _numberPhone;
+  //functional
+  final _phoneController = TextEditingController();
+  final _maskFormatter = MaskTextInputFormatter(
+      mask: '+7 (###) ###-##-##',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
+  final theme = GetIt.I<AppTheme>().currentTheme;
 
   @override
-  Widget _logo() {
-    return Container(
-      child: Column(children: <Widget>[
-        Padding(
-            padding: const EdgeInsets.only(top: 300),
-            child: Container(
-              child: const Align(
-                child: Text(
-                  'TALLY \nUP',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: 'RubikMonoOne',
-                    fontSize: 50,
-                    color: Color(0xFF0079FF),
-                    fontWeight: FontWeight.w900,
-                    height: 1,
-                  ),
-                ),
-              ),
-            )),
-        Padding(
-            padding: const EdgeInsets.only(top: 30),
-            child: Container(
-              child: const Align(
-                child: Text(
-                  'Введите номер телефона',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: 'Raleway',
-                    fontSize: 18,
-                    color: Color(0xFF0079FF),
-                    fontWeight: FontWeight.w900, // regular
-                    letterSpacing: -0.02, // letter spacing -2%
-                  ),
-                ),
-              ),
-            ))
-      ]),
-    );
+  void initState() {
+    super.initState();
   }
 
-  Widget _background() {
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("lib/src/core/images/krug.png"),
-          //alignment: Alignment.center,
-          // fit: BoxFit.cover,
-        ),
-      ),
-    );
+  @override
+  void dispose() {
+    _phoneController.dispose();
+    super.dispose();
   }
+  //end functional
 
-  Widget _input(String hint, TextEditingController controller, bool obscure) {
-    return Container(
-      padding: EdgeInsets.only(top: 450, left: 30, right: 30),
-      child: TextField(
-        controller: controller,
-        obscureText: obscure,
-        decoration: InputDecoration(
-          fillColor: Colors.white,
-          contentPadding: const EdgeInsets.all(15),
-          enabledBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15)),
-            borderSide: BorderSide(
-              color: Color.fromRGBO(207, 203, 203, 0.989),
-              width: 1,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
-            borderSide: const BorderSide(
-              color: Colors.blue,
-              width: 3,
-            ),
-          ),
-          hintText: hint,
-          hintStyle: const TextStyle(color: Color(0xFFD3E8FF)),
-        ),
-        keyboardType: TextInputType.number,
-      ),
-    );
-  }
-
-  void _buttonAction() {
-    _numberPhone = _phoneController.text;
-    _phoneController.clear();
-  }
-
-  Widget _button(void func()) {
-    return Container(
-      width: 180,
-      height: 45,
-      child: ElevatedButton(
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF0078FE)),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-          ),
-        ),
-        onPressed: () {
-          func();
-        },
-        child: const Text(
-          'Продолжить',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontFamily: 'Raleway',
-            fontSize: 20,
-            color: Colors.white,
-            fontWeight: FontWeight.w900, // regular
-            letterSpacing: -0.02, // letter spacing -2%
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _form(void func()) {
-    return Container(
-      child: Column(children: <Widget>[
-        Padding(
-          padding: EdgeInsets.only(bottom: 30, top: 10, left: 50, right: 50),
-          child: _input("Телефон", _phoneController, false),
-        ),
-        Padding(padding: EdgeInsets.only(), child: _button(func))
-      ]),
-    );
-  }
-
+  //widgets
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Stack(
-          children: [_background(), _logo(), _form(_buttonAction)],
-        ));
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+            create: (context) => PhoneErrorMessageProvider()),
+        BlocProvider(create: (context) => SignInBloc())
+      ],
+      builder: (context, child) {
+        return BlocListener<SignInBloc, SignInState>(
+          listener: (context, state) {
+            if (state is SendSmsCodeSuccess) {
+              context.go('/smsCodeVerify');
+            }
+          },
+          child: Scaffold(
+              resizeToAvoidBottomInset: false,
+              body: Stack(
+                children: [
+                  const BackgroundCircleWidget(),
+                  _contentWrapper(context)
+                ],
+              )),
+        );
+      },
+    );
   }
+
+  Widget _contentWrapper(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 300, left: 30, right: 30),
+      child: Column(children: [
+        const LogoTextToAuthPageWidget("Введите телефон"),
+        const ColumnGapWidget(),
+        Selector<PhoneErrorMessageProvider, String?>(
+            selector: (_, provider) => provider.errorText,
+            builder: (_, errorMessage, __) {
+              return InputFieldWidget(
+                "+7 (000) 00-00-00",
+                _phoneController,
+                errorMessage: errorMessage,
+                inputFormatters: [_maskFormatter],
+              );
+            }),
+        const ColumnGapWidget(),
+        TextButtonWidget(() {
+          var validationProvider = context.read<PhoneErrorMessageProvider>();
+          validationProvider.getErrorMessage(_maskFormatter.getUnmaskedText());
+          if (validationProvider.phoneIsValid) {
+            context
+                .read<SignInBloc>()
+                .add(SendSmsCode(_maskFormatter.getUnmaskedText()));
+            //context.go('/smsCodeVerify');
+          }
+        }, "Продолжить")
+      ]),
+    );
+  }
+  //end widgets
 }

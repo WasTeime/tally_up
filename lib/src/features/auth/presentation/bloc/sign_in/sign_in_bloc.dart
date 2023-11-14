@@ -27,8 +27,10 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     on<SendSmsCode>((event, emit) async {
       try {
         await _authController.sendPhoneCode(event.phoneNumber);
+        emit(SendSmsCodeSuccess());
       } catch (e) {
         print(e);
+        emit(SignInFailure(e.toString()));
       }
     });
 
