@@ -84,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _contentWrapper(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 300, left: 30, right: 30),
+      padding: const EdgeInsets.only(top: 200, left: 30, right: 30),
       child: Column(children: [
         const LogoTextToAuthPageWidget("Введите телефон"),
         const ColumnGapWidget(),
@@ -105,7 +105,8 @@ class _LoginScreenState extends State<LoginScreen> {
           if (validationProvider.phoneIsValid) {
             context
                 .read<SignInBloc>()
-                .add(SendSmsCode("+7${_maskFormatter.getUnmaskedText()}"));
+                .setPhone("+7${_maskFormatter.getUnmaskedText()}");
+            context.read<SignInBloc>().add(SendSmsCode());
           }
         }, "Продолжить")
       ]),

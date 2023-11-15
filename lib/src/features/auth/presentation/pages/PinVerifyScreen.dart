@@ -18,14 +18,26 @@ class _PinVerifyScreenState extends State<PinVerifyScreen> {
   String code = "";
 
   @override
+  void dispose() {
+    context.read<SignInBloc>().dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocListener<SignInBloc, SignInState>(
       listener: (context, state) {
         if (state is SignInSuccess) {
           context.go('/');
         }
+        if (state is SignInFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(state.message, textAlign: TextAlign.center),
+              backgroundColor: Colors.red));
+        }
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Stack(children: [
           const BackgroundCircleWidget(),
           Padding(

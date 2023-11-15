@@ -8,11 +8,7 @@ abstract class SignInEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class SendSmsCode extends SignInEvent {
-  final String phoneNumber;
-
-  const SendSmsCode(this.phoneNumber);
-}
+class SendSmsCode extends SignInEvent {}
 
 class SignIn extends SignInEvent {
   final String smsCode;
