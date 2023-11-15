@@ -12,12 +12,12 @@ class ButtonAdd extends StatelessWidget {
         onPressed: () {},
         style: ElevatedButton.styleFrom(
           shape: const CircleBorder(),
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(8),
           backgroundColor: const Color(0xFF0079FF), // <-- Button color
           foregroundColor: Colors.blue, // <-- Splash color
         ),
         child: const Icon(
-          Icons.add,
+          Icons.add_rounded,
           color: Colors.white,
           size: 60,
         ),

@@ -7,8 +7,8 @@ import 'package:tally_up/src/features/auth/presentation/pages/PinVerifyScreen.da
 import 'package:tally_up/src/features/groups_list/presentation/EventsScreen.dart';
 import 'package:tally_up/src/features/groups_list/presentation/pages/GroupScreen.dart';
 
-  final authBloc = SignInBloc();
-  final router = GoRouter(initialLocation: '/groupe', routes: [
+final authBloc = SignInBloc();
+final router = GoRouter(initialLocation: '/groupe', routes: [
   GoRoute(path: '/', builder: (context, state) => const HomePage()),
   GoRoute(
     path: '/login',
@@ -30,6 +30,6 @@ import 'package:tally_up/src/features/groups_list/presentation/pages/GroupScreen
       path: '/groupe',
       builder: (context, state) {
         return BlocProvider<SignInBloc>.value(
-            value: authBloc, child: GroupScreen());
+            value: authBloc, child: EventsScreen());
       }),
 ]);
