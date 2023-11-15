@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -9,7 +8,6 @@ import 'package:tally_up/src/core/theme.dart';
 import 'package:tally_up/src/core/widgets/view.dart';
 import 'package:tally_up/src/features/auth/presentation/widgets/view.dart';
 import 'package:tally_up/src/features/auth/presentation/bloc/sign_in/sign_in_bloc.dart';
-import 'package:tally_up/src/features/auth/presentation/pages/PinVerifyScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -62,12 +60,8 @@ class _LoginScreenState extends State<LoginScreen> {
   //widgets
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-            create: (context) => PhoneErrorMessageProvider()),
-        BlocProvider(create: (context) => SignInBloc())
-      ],
+    return ChangeNotifierProvider(
+      create: (context) => PhoneErrorMessageProvider(),
       builder: (context, child) {
         return BlocListener<SignInBloc, SignInState>(
           listener: (context, state) {
@@ -111,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
           if (validationProvider.phoneIsValid) {
             context
                 .read<SignInBloc>()
-                .add(SendSmsCode("+7" + _maskFormatter.getUnmaskedText()));
+                .add(SendSmsCode("+7${_maskFormatter.getUnmaskedText()}"));
           }
         }, "Продолжить")
       ]),

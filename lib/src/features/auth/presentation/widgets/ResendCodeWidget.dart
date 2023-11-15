@@ -30,7 +30,7 @@ class _ResendCodeWidgetState extends State<ResendCodeWidget> {
         ),
         const SizedBox(width: 10),
         TimerWidget(
-          10,
+          30,
           restartTimer: restart,
           timerIsActive: (value) {
             timerIsActive = value;
