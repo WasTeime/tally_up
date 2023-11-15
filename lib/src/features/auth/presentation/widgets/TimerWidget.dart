@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class TimerWidget extends StatefulWidget {
-  ValueChanged<bool> timerIsActive;
+  ValueChanged<bool> timerIsStop;
   bool restartTimer;
   int seconds;
 
   TimerWidget(this.seconds,
-      {required this.timerIsActive, this.restartTimer = false, super.key});
+      {required this.timerIsStop, this.restartTimer = false, super.key});
 
   @override
   State<TimerWidget> createState() => _TimerWidgetState();
@@ -21,7 +21,7 @@ class _TimerWidgetState extends State<TimerWidget> {
   @override
   void initState() {
     _time = widget.seconds;
-    widget.timerIsActive(false);
+    widget.timerIsStop(true);
     startTimer();
     super.initState();
   }
@@ -47,11 +47,11 @@ class _TimerWidgetState extends State<TimerWidget> {
       if (_time > 0) {
         setState(() {
           _time--;
-          widget.timerIsActive(false);
+          widget.timerIsStop(false);
         });
       } else {
         setState(() {
-          widget.timerIsActive(true);
+          widget.timerIsStop(true);
           _timer.cancel();
         });
       }

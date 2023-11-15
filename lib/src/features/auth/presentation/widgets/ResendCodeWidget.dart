@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tally_up/src/features/auth/presentation/bloc/sign_in/sign_in_bloc.dart';
 import 'package:tally_up/src/features/auth/presentation/widgets/TimerWidget.dart';
 
 class ResendCodeWidget extends StatefulWidget {
@@ -9,7 +11,7 @@ class ResendCodeWidget extends StatefulWidget {
 }
 
 class _ResendCodeWidgetState extends State<ResendCodeWidget> {
-  bool timerIsActive = false;
+  bool timerIsStop = true;
   bool restart = false;
 
   void restartTimer() {
@@ -32,8 +34,8 @@ class _ResendCodeWidgetState extends State<ResendCodeWidget> {
         TimerWidget(
           30,
           restartTimer: restart,
-          timerIsActive: (value) {
-            timerIsActive = value;
+          timerIsStop: (value) {
+            timerIsStop = value;
           },
         ),
         TextButton(
@@ -42,15 +44,21 @@ class _ResendCodeWidgetState extends State<ResendCodeWidget> {
                 MaterialStateProperty.all<Color>(const Color(0xFF0079FF)),
           ),
           onPressed: () {
-            if (timerIsActive) restartTimer();
+            print(timerIsStop);
+            if (timerIsStop) {
+              context.read<SignInBloc>().add(SendSmsCode());
+              restartTimer();
+            }
           },
-          child: const Text(
+          child: Text(
             "повторить",
             style: TextStyle(
                 fontSize: 15,
                 fontFamily: 'Rubik',
                 decoration: TextDecoration.underline,
-                decorationColor: Color(0xFF0079FF),
+                decorationColor: timerIsStop
+                    ? const Color(0xFF0079FF)
+                    : const Color(0xFF0079FF).withOpacity(0.6),
                 decorationThickness: 1),
           ),
         )
