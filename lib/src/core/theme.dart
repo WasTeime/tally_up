@@ -14,6 +14,12 @@ class AppTheme {
       dividerColor: Colors.black12,
       primaryColorLight: const Color(0xff0079FF),
       textTheme: const TextTheme(
+          headlineMedium: TextStyle(
+            fontFamily: 'Rubik',
+            fontSize: 18,
+            color: Colors.black,
+            decoration: TextDecoration.none,
+          ),
           titleLarge: TextStyle(
             fontFamily: 'RubikMonoOne',
             fontSize: 50,
