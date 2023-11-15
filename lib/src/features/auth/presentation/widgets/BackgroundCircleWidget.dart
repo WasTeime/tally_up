@@ -14,6 +14,5 @@ class BackgroundCircleWidget extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }
