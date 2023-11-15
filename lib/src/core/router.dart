@@ -4,11 +4,17 @@ import 'package:tally_up/src/features/auth/presentation/bloc/sign_in/sign_in_blo
 import 'package:tally_up/src/features/auth/presentation/pages/HomePage.dart';
 import 'package:tally_up/src/features/auth/presentation/pages/LoginScreen.dart';
 import 'package:tally_up/src/features/auth/presentation/pages/PinVerifyScreen.dart';
+import 'package:tally_up/src/features/groups_list/presentation/pages/GroupScreen.dart';
 
 final authBloc = SignInBloc();
 
 final router = GoRouter(initialLocation: '/login', routes: [
-  GoRoute(path: '/', builder: (context, state) => const HomePage()),
+  GoRoute(
+      path: '/',
+      builder: (context, state) {
+        authBloc.dispose();
+        return const GroupScreen();
+      }),
   GoRoute(
     path: '/login',
     builder: (context, state) {
