@@ -32,4 +32,12 @@ final router = GoRouter(initialLocation: '/login', routes: [
             value: authBloc, child: PinVerifyScreen());
       }),
   GoRoute(path: '/events', builder: (context, state) => const EventsScreen()),
+
+  GoRoute(
+      path: '/groupe',
+      builder: (context, state) {
+        return BlocProvider<SignInBloc>.value(
+            value: authBloc, child: EventsScreen());
+      }),
+
 ]);
