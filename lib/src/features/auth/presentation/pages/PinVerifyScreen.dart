@@ -15,8 +15,6 @@ class PinVerifyScreen extends StatefulWidget {
 }
 
 class _PinVerifyScreenState extends State<PinVerifyScreen> {
-  String code = "";
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<SignInBloc, SignInState>(
@@ -31,36 +29,43 @@ class _PinVerifyScreenState extends State<PinVerifyScreen> {
         }
       },
       child: Scaffold(
-        appBar: AppBar(
-          leading: BackButton(onPressed: () => context.go('/login')),
-        ),
-        resizeToAvoidBottomInset: false,
+        // appBar: AppBar(
+        //   leading: BackButton(onPressed: () => context.go('/login')),
+        // ),
+        // resizeToAvoidBottomInset: false,
         body: Stack(children: [
+          BackButton(
+              onPressed: () => context.go(
+                  '/login')), // хз, попробовал Стек, контейнер и колонку - выдает ошибку, так вроде работает
           const BackgroundCircleWidget(),
-          Padding(
-            padding: const EdgeInsets.only(top: 200, left: 20, right: 20),
-            child: Column(
-              children: <Widget>[
-                const LogoTextToAuthPageWidget('Введите код'),
-                const ColumnGapWidget(),
-                Container(
-                  margin: const EdgeInsets.only(left: 10),
-                  child: Pinput(
-                    length: 6,
-                    onCompleted: (pin) => code = pin,
-                  ),
-                ),
-                const ColumnGapWidget(),
-                TextButtonWidget(
-                    () => {context.read<SignInBloc>().add(SignIn(code))},
-                    "Отправить"),
-                const ColumnGapWidget(height: 30),
-                const ResendCodeWidget(),
-              ],
-            ),
-          )
+          _content(context)
         ]),
       ),
     );
   }
+}
+
+Widget _content(BuildContext context) {
+  String code = "";
+  return Padding(
+    padding: const EdgeInsets.only(top: 200, left: 20, right: 20),
+    child: Column(
+      children: <Widget>[
+        const LogoTextToAuthPageWidget('Введите код'),
+        const ColumnGapWidget(),
+        Container(
+          margin: const EdgeInsets.only(left: 10),
+          child: Pinput(
+            length: 6,
+            onCompleted: (pin) => code = pin,
+          ),
+        ),
+        const ColumnGapWidget(),
+        TextButtonWidget(
+            () => {context.read<SignInBloc>().add(SignIn(code))}, "Отправить"),
+        const ColumnGapWidget(height: 30),
+        const ResendCodeWidget(),
+      ],
+    ),
+  );
 }

@@ -10,6 +10,7 @@ class LogoTextToAuthPageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
+      const SizedBox(height: 60),
       Text(
         'TALLY \nUP',
         textAlign: TextAlign.center,
