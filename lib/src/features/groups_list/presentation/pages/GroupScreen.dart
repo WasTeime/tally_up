@@ -78,6 +78,7 @@ class _GroupScreenState extends State<GroupScreen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 218, 235, 255),
       body: Stack(
         children: [
           _backGround(),
