@@ -8,8 +8,14 @@ import 'package:tally_up/src/features/groups_list/presentation/EventsScreen.dart
 import 'package:tally_up/src/features/groups_list/presentation/pages/GroupScreen.dart';
 
 final authBloc = SignInBloc();
-final router = GoRouter(initialLocation: '/groupe', routes: [
-  GoRoute(path: '/', builder: (context, state) => const HomePage()),
+
+final router = GoRouter(initialLocation: '/login', routes: [
+  GoRoute(
+      path: '/',
+      builder: (context, state) {
+        authBloc.dispose();
+        return const GroupScreen();
+      }),
   GoRoute(
     path: '/login',
     builder: (context, state) {
@@ -26,10 +32,12 @@ final router = GoRouter(initialLocation: '/groupe', routes: [
             value: authBloc, child: PinVerifyScreen());
       }),
   GoRoute(path: '/events', builder: (context, state) => const EventsScreen()),
+
   GoRoute(
       path: '/groupe',
       builder: (context, state) {
         return BlocProvider<SignInBloc>.value(
             value: authBloc, child: EventsScreen());
       }),
+
 ]);

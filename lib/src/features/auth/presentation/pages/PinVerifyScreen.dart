@@ -18,12 +18,6 @@ class _PinVerifyScreenState extends State<PinVerifyScreen> {
   String code = "";
 
   @override
-  void dispose() {
-    context.read<SignInBloc>().dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocListener<SignInBloc, SignInState>(
       listener: (context, state) {
@@ -37,6 +31,9 @@ class _PinVerifyScreenState extends State<PinVerifyScreen> {
         }
       },
       child: Scaffold(
+        appBar: AppBar(
+          leading: BackButton(onPressed: () => context.go('/login')),
+        ),
         resizeToAvoidBottomInset: false,
         body: Stack(children: [
           const BackgroundCircleWidget(),
