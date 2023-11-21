@@ -5,6 +5,8 @@ import 'package:tally_up/src/features/auth/presentation/pages/HomePage.dart';
 import 'package:tally_up/src/features/auth/presentation/pages/LoginScreen.dart';
 import 'package:tally_up/src/features/auth/presentation/pages/PinVerifyScreen.dart';
 import 'package:tally_up/src/features/groups_list/presentation/pages/GroupScreen.dart';
+import 'package:tally_up/src/features/cheque_list/presentation/pages/CreateNewChequeScreen.dart';
+import 'package:tally_up/src/features/cheque_list/presentation/pages/AddObjectScreen.dart';
 
 final authBloc = SignInBloc();
 
@@ -29,5 +31,5 @@ final router = GoRouter(initialLocation: '/login', routes: [
       builder: (context, state) {
         return BlocProvider<SignInBloc>.value(
             value: authBloc, child: PinVerifyScreen());
-      })
+      }),
 ]);
