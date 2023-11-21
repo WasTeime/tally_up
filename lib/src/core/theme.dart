@@ -20,6 +20,16 @@ class AppTheme {
             color: Colors.black,
             decoration: TextDecoration.none,
           ),
+          headlineLarge: TextStyle(
+              fontFamily: 'Rubik',
+              color: Colors.black,
+              fontSize: 25,
+              fontWeight: FontWeight.bold),
+          bodyLarge: TextStyle(
+              fontFamily: 'Rubik',
+              color: Colors.black,
+              fontSize: 15,
+              fontWeight: FontWeight.bold),
           titleLarge: TextStyle(
             fontFamily: 'RubikMonoOne',
             fontSize: 50,
