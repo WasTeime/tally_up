@@ -30,7 +30,7 @@ class _CreateNewChequeScreenState extends State<CreateNewChequeScreen> {
             child: Column(
               children: [
                 Text(
-                  'Ввести чек вручную',
+                  'Ввести чек вучную',
                   style: theme.textTheme.headlineLarge,
                 ),
                 const ColumnGapWidget(),
@@ -44,7 +44,7 @@ class _CreateNewChequeScreenState extends State<CreateNewChequeScreen> {
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.5),
-                        blurRadius: 4,
+                        blurRadius: 48,
                         offset: Offset(4, 8),
                       ),
                     ],
