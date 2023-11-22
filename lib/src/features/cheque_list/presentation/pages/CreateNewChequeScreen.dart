@@ -14,19 +14,17 @@ class CreateNewChequeScreen extends StatefulWidget {
 
 class _CreateNewChequeScreenState extends State<CreateNewChequeScreen> {
   String? get code => null;
-  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final TextEditingController inputController = TextEditingController();
     Widget _addCheque() {
       return Padding(
         padding: EdgeInsets.only(top: 40),
         child: Align(
           alignment: Alignment.center,
           child: Padding(
-            padding: EdgeInsets.all(30.0),
+            padding: EdgeInsets.all(20.0),
             child: Column(
               children: [
                 Text(
@@ -35,9 +33,9 @@ class _CreateNewChequeScreenState extends State<CreateNewChequeScreen> {
                 ),
                 const ColumnGapWidget(),
                 Container(
-                  height: 338,
-                  width: 300,
-                  padding: EdgeInsets.only(left: 15, right: 15),
+                  height: 405,
+                  width: 400,
+                  padding: EdgeInsets.only(left: 10, right: 10),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20),
@@ -52,17 +50,22 @@ class _CreateNewChequeScreenState extends State<CreateNewChequeScreen> {
                   child: const Form(
                       child: Column(
                     children: [
-                      EnterChek(label: "Дата:"),
-                      EnterChek(label: "Время:"),
-                      EnterChek(label: "Сумма:"),
-                      EnterChek(label: "ФН№:"),
-                      EnterChek(label: "ФД№:"),
-                      EnterChek(label: "ФПД:"),
+                      EnterChek(label: "Дата:", hint: "Введите дату чека"),
+                      Divider(),
+                      EnterChek(label: "Время:", hint: "Введите время чека"),
+                      Divider(),
+                      EnterChek(label: "Итого:", hint: "Введите сумму чека"),
+                      Divider(),
+                      EnterChek(label: "ФН№:", hint: "Введите ФН№ чека"),
+                      Divider(),
+                      EnterChek(label: "ФД№:", hint: "Введите ФД№ чека"),
+                      Divider(),
+                      EnterChek(label: "ФПД:", hint: "Введите ФПД чека"),
                     ],
                   )),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 250),
+                  margin: EdgeInsets.only(top: 200),
                   child: TextButtonWidget(
                       () => {context.read<SignInBloc>().add(SignIn(code!))},
                       "Продолжить"),

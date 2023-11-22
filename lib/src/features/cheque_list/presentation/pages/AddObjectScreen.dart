@@ -30,9 +30,9 @@ class AddObjectScreen extends StatefulWidget {
 
 class _AddObjectScreenState extends State<AddObjectScreen> {
   final List<Product> _items = [
-    Product("Чоколадка Милка", 0, 0, 54),
-    Product("CoolCola", 0, 0, 10),
-    Product("Негр", 0, 0, 20),
+    Product("Чоколадка Милка", 1, 54, 54),
+    Product("CoolCola", 1, 10, 10),
+    Product("Негр", 1, 20, 20),
   ];
 
   get code => null;
@@ -52,7 +52,9 @@ class _AddObjectScreenState extends State<AddObjectScreen> {
   Widget _prodList() {
     final theme = Theme.of(context);
     return Container(
-      margin: const EdgeInsets.only(left: 30, right: 30, top: 120, bottom: 350),
+      margin: const EdgeInsets.only(left: 25, right: 25, top: 120, bottom: 40),
+      height: 352,
+      width: 400,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -64,52 +66,83 @@ class _AddObjectScreenState extends State<AddObjectScreen> {
           ),
         ],
       ),
-      child: ListView.builder(
+      child: ListView.separated(
         itemCount: _items.length,
+        separatorBuilder: (context, index) => Divider(
+          height: 1,
+        ),
         itemBuilder: (context, index) {
           return ListTile(
-            title: TextFormField(
-              initialValue: _items[index].name,
-              onChanged: (newValue) {
-                setState(() {
-                  _items[index].setName(newValue);
-                });
-              },
-              decoration: InputDecoration(),
-            ),
-            subtitle: Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
-              IconButton(
-                icon: const Icon(
-                  Icons.remove,
-                  color: Color(0xFF0079FF),
-                ),
-                onPressed: () {
+            title: Align(
+              alignment: Alignment.bottomLeft,
+              child: TextFormField(
+                initialValue: _items[index].name,
+                style: theme.textTheme.displayLarge,
+                onChanged: (newValue) {
                   setState(() {
-                    if (_items[index].quantity > 0) {
-                      _items[index].quantity--;
-                      _items[index].updatePrice();
-                    }
+                    _items[index].setName(newValue);
                   });
                 },
+                decoration: const InputDecoration(),
               ),
-              Text(
-                _items[index].quantity.toString(),
-                style: theme.textTheme.bodyLarge,
-              ),
-              IconButton(
-                icon: const Icon(Icons.add, color: Color(0xFF0079FF)),
-                onPressed: () {
+            ),
+            subtitle: Align(
+              alignment: Alignment.topLeft,
+              child: Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                IconButton(
+                  icon: const Icon(
+                    Icons.remove,
+                    color: Color(0xFF0079FF),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      if (_items[index].quantity > 0) {
+                        _items[index].quantity--;
+                        _items[index].updatePrice();
+                      }
+                    });
+                  },
+                ),
+                Text(
+                  _items[index].quantity.toString(),
+                  style: theme.textTheme.displayLarge,
+                ),
+                IconButton(
+                  icon: const Icon(Icons.add, color: Color(0xFF0079FF)),
+                  onPressed: () {
+                    setState(() {
+                      _items[index].quantity++;
+                      _items[index].updatePrice();
+                    });
+                  },
+                ),
+              ]),
+            ),
+            trailing: Container(
+              width: 70,
+              height: 500,
+              margin: EdgeInsets.only(top: 1),
+              child: TextFormField(
+                initialValue: '${_items[index].price} РУБ',
+                style: theme.textTheme.displayLarge,
+                onChanged: (newValue) {
                   setState(() {
-                    _items[index].quantity++;
+                    newValue = newValue.replaceAll(" РУБ", ""); //сумму можно ввести вручную, но она не изменяется при изменении количества, пока не знаю, как исправить.
+                    _items[index].price = double.parse(newValue);
                     _items[index].updatePrice();
                   });
                 },
-              ),
-            ]),
-            trailing: Container(
-              child: Text(
-                '${_items[index].price} РУБ',
-                style: theme.textTheme.bodyLarge,
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                decoration: const InputDecoration(
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.transparent),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.transparent,
+                    ),
+                  ),
+                ),
               ),
             ),
           );
@@ -120,7 +153,7 @@ class _AddObjectScreenState extends State<AddObjectScreen> {
 
   Widget _addButton() {
     return Container(
-        margin: EdgeInsets.only(left: 165, top: 490),
+        margin: EdgeInsets.only(left: 165, top: 450),
         child: FloatingActionButton(
           backgroundColor: Color(0xFF0079FF),
           mini: true,
