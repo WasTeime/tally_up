@@ -40,13 +40,28 @@ class _AddObjectScreenState extends State<AddObjectScreen> {
   Widget _had() {
     final theme = Theme.of(context);
     return Container(
-      margin: const EdgeInsets.only(left: 90, right: 30, top: 50),
-      child: Text(
-        'Ввести чек вучную',
-        style: theme.textTheme.headlineLarge,
-        textAlign: TextAlign.center,
-      ),
-    );
+        margin: const EdgeInsets.only(right: 30, top: 45),
+        width: 500,
+        child: Row(
+          children: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.arrow_back_rounded,
+                size: 30,
+                color: Color(0xFF0079FF),
+              ),
+            ),
+            const SizedBox(
+              width: 40,
+            ),
+            Text(
+              'Ввести чек вучную',
+              style: theme.textTheme.headlineMedium
+                  ?.copyWith(fontSize: 25, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ));
   }
 
   Widget _prodList() {
@@ -68,7 +83,7 @@ class _AddObjectScreenState extends State<AddObjectScreen> {
       ),
       child: ListView.separated(
         itemCount: _items.length,
-        separatorBuilder: (context, index) => Divider(
+        separatorBuilder: (context, index) => const Divider(
           height: 1,
         ),
         itemBuilder: (context, index) {
@@ -77,7 +92,7 @@ class _AddObjectScreenState extends State<AddObjectScreen> {
               alignment: Alignment.bottomLeft,
               child: TextFormField(
                 initialValue: _items[index].name,
-                style: theme.textTheme.displayLarge,
+                style: theme.textTheme.headlineMedium?.copyWith(fontSize: 15),
                 onChanged: (newValue) {
                   setState(() {
                     _items[index].setName(newValue);
@@ -105,7 +120,7 @@ class _AddObjectScreenState extends State<AddObjectScreen> {
                 ),
                 Text(
                   _items[index].quantity.toString(),
-                  style: theme.textTheme.displayLarge,
+                  style: theme.textTheme.headlineMedium?.copyWith(fontSize: 15),
                 ),
                 IconButton(
                   icon: const Icon(Icons.add, color: Color(0xFF0079FF)),
@@ -124,10 +139,11 @@ class _AddObjectScreenState extends State<AddObjectScreen> {
               margin: EdgeInsets.only(top: 1),
               child: TextFormField(
                 initialValue: '${_items[index].price} РУБ',
-                style: theme.textTheme.displayLarge,
+                style: theme.textTheme.headlineMedium?.copyWith(fontSize: 15),
                 onChanged: (newValue) {
                   setState(() {
-                    newValue = newValue.replaceAll(" РУБ", ""); //сумму можно ввести вручную, но она не изменяется при изменении количества, пока не знаю, как исправить.
+                    newValue = newValue.replaceAll(" РУБ",
+                        ""); //сумму можно ввести вручную, но она не изменяется при изменении количества, пока не знаю, как исправить.
                     _items[index].price = double.parse(newValue);
                     _items[index].updatePrice();
                   });
@@ -153,7 +169,7 @@ class _AddObjectScreenState extends State<AddObjectScreen> {
 
   Widget _addButton() {
     return Container(
-        margin: EdgeInsets.only(left: 165, top: 450),
+        margin: const EdgeInsets.only(left: 165, top: 450),
         child: FloatingActionButton(
           backgroundColor: Color(0xFF0079FF),
           mini: true,
@@ -163,7 +179,7 @@ class _AddObjectScreenState extends State<AddObjectScreen> {
               _items.add(Product("", 0, 0, 0));
             });
           },
-          child: Icon(
+          child: const Icon(
             Icons.add_rounded,
             color: Colors.white,
             size: 30,
@@ -173,7 +189,7 @@ class _AddObjectScreenState extends State<AddObjectScreen> {
 
   Widget _buttonNext() {
     return Container(
-      margin: EdgeInsets.only(left: 120, top: 700),
+      margin: const EdgeInsets.only(left: 120, top: 700),
       child: TextButtonWidget(
           () => {context.read<SignInBloc>().add(SignIn(code!))}, "Продолжить"),
     );
@@ -182,7 +198,7 @@ class _AddObjectScreenState extends State<AddObjectScreen> {
   @override
   Widget build(BuildContext context) {
     backgroundColor:
-    Color.fromARGB(255, 218, 235, 255);
+    const Color.fromARGB(255, 218, 235, 255);
     return Scaffold(
       body: Stack(
         children: [

@@ -17,7 +17,8 @@ class EnterChek extends StatelessWidget {
           children: [
             Text(
               label,
-              style: theme.textTheme.bodyLarge,
+              style: theme.textTheme.headlineMedium
+                  ?.copyWith(fontWeight: FontWeight.bold),
             ),
             Expanded(
               child: Container(
@@ -26,7 +27,8 @@ class EnterChek extends StatelessWidget {
                     textAlign: TextAlign.right,
                     decoration: InputDecoration(
                       hintText: hint,
-                      hintStyle: theme.textTheme.bodySmall,
+                      hintStyle: theme.textTheme.titleMedium
+                          ?.copyWith(color: Color(0xFF94C7FF), fontSize: 15),
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.transparent),
                       ),

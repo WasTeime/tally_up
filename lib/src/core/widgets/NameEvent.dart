@@ -67,13 +67,18 @@ class NameEvent extends StatelessWidget {
                       ),
                       title: Text(
                         name,
-                        style: theme.textTheme.headlineSmall,
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontSize: 17,
+                          fontFamily: 'Rubik',
+                          fontWeight: FontWeight.bold,
+                        ),
                         overflow: TextOverflow
                             .ellipsis, // добавил, чтобы невлезший текст не переносился на следующую стрку, как уходил за стенку контейнера, показываясь точками.
                       ),
                       subtitle: Text(
                         people,
-                        style: theme.textTheme.displaySmall,
+                        style: theme.textTheme.titleMedium
+                            ?.copyWith(fontSize: 12, fontFamily: 'Rubik'),
                       ),
                     ),
                   )),

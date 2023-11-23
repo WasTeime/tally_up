@@ -29,11 +29,12 @@ class _CreateNewChequeScreenState extends State<CreateNewChequeScreen> {
               children: [
                 Text(
                   'Ввести чек вучную',
-                  style: theme.textTheme.headlineLarge,
+                  style: theme.textTheme.headlineMedium
+                      ?.copyWith(fontSize: 25, fontWeight: FontWeight.bold),
                 ),
                 const ColumnGapWidget(),
                 Container(
-                  height: 405,
+                  height: 395,
                   width: 400,
                   padding: EdgeInsets.only(left: 10, right: 10),
                   decoration: BoxDecoration(

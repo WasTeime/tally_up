@@ -39,6 +39,7 @@ class _EventsScreenState extends State<EventsScreen> {
   }
 
   Widget _events() {
+    final theme = Theme.of(context);
     return Container(
       margin: const EdgeInsets.only(left: 30, right: 30, top: 130, bottom: 160),
       child: ListView.builder(
@@ -74,20 +75,13 @@ class _EventsScreenState extends State<EventsScreen> {
                       ),
                     ),
                   ),
-                  title: Text(
-                    'Мероприятие №$i',
-                    style: const TextStyle(
-                      fontFamily: 'Rubik',
-                      fontSize: 18,
-                      color: Colors.white,
-                    ), // Иконка "подробнее"
-                  ),
-                  subtitle: const Text(
-                    '11.12.2003',
-                    style: TextStyle(
-                        fontSize: 13, fontFamily: 'Rubik', color: Colors.white),
-                  ),
-                  trailing: Icon(Icons.info), // Иконка "подробнее"
+                  title: Text('Мероприятие №$i',
+                      style: theme.textTheme.headlineMedium
+                          ?.copyWith(color: Colors.white)),
+                  subtitle: Text('11.12.2003',
+                      style: theme.textTheme.headlineMedium
+                          ?.copyWith(fontSize: 13, color: Colors.white)),
+                  trailing: Icon(Icons.info),
                 ),
               ),
             ),
