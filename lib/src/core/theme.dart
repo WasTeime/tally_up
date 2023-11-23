@@ -44,6 +44,10 @@ class AppTheme {
           ),
           bodySmall: TextStyle(
               fontFamily: 'Rubik', fontSize: 15, color: Color(0xFF94C7FF)),
+          headlineSmall: TextStyle(
+              fontFamily: 'Rubik', fontSize: 17, color: Color(0xFF0079FF)),
+          displaySmall: TextStyle(
+              fontFamily: 'Rubik', fontSize: 12, color: Color(0xFF0079FF)),
           titleMedium: TextStyle(fontSize: 20, color: Color(0xff0079FF)),
           labelLarge: TextStyle(fontSize: 20, color: Colors.white)),
     );
