@@ -4,6 +4,8 @@ import 'package:tally_up/src/features/auth/presentation/bloc/sign_in/sign_in_blo
 import 'package:tally_up/src/features/auth/presentation/pages/HomePage.dart';
 import 'package:tally_up/src/features/auth/presentation/pages/LoginScreen.dart';
 import 'package:tally_up/src/features/auth/presentation/pages/PinVerifyScreen.dart';
+import 'package:tally_up/src/features/cheque_list/presentation/pages/DetailedChequeScreen.dart';
+import 'package:tally_up/src/features/groups_list/presentation/pages/EventsScreen.dart';
 import 'package:tally_up/src/features/groups_list/presentation/pages/GroupScreen.dart';
 import 'package:tally_up/src/features/cheque_list/presentation/pages/CreateNewChequeScreen.dart';
 import 'package:tally_up/src/features/cheque_list/presentation/pages/AddObjectScreen.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tally_up/src/core/widgets/EnterChek.dart';
+import 'package:tally_up/src/core/widgets/EnterChekWidget.dart';
 import 'package:tally_up/src/core/widgets/view.dart';
 import 'package:tally_up/src/features/auth/presentation/bloc/sign_in/sign_in_bloc.dart';
 
@@ -51,17 +51,20 @@ class _CreateNewChequeScreenState extends State<CreateNewChequeScreen> {
                   child: const Form(
                       child: Column(
                     children: [
-                      EnterChek(label: "Дата:", hint: "Введите дату чека"),
+                      EnterChekWidget(
+                          label: "Дата:", hint: "Введите дату чека"),
                       Divider(),
-                      EnterChek(label: "Время:", hint: "Введите время чека"),
+                      EnterChekWidget(
+                          label: "Время:", hint: "Введите время чека"),
                       Divider(),
-                      EnterChek(label: "Итого:", hint: "Введите сумму чека"),
+                      EnterChekWidget(
+                          label: "Итого:", hint: "Введите сумму чека"),
                       Divider(),
-                      EnterChek(label: "ФН№:", hint: "Введите ФН№ чека"),
+                      EnterChekWidget(label: "ФН№:", hint: "Введите ФН№ чека"),
                       Divider(),
-                      EnterChek(label: "ФД№:", hint: "Введите ФД№ чека"),
+                      EnterChekWidget(label: "ФД№:", hint: "Введите ФД№ чека"),
                       Divider(),
-                      EnterChek(label: "ФПД:", hint: "Введите ФПД чека"),
+                      EnterChekWidget(label: "ФПД:", hint: "Введите ФПД чека"),
                     ],
                   )),
                 ),

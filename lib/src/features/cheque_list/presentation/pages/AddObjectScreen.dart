@@ -6,14 +6,15 @@ import 'package:tally_up/src/core/widgets/view.dart';
 import 'package:tally_up/src/features/auth/presentation/bloc/sign_in/sign_in_bloc.dart';
 
 class Product {
+  int id;
   String name;
   int quantity;
+  double finalPrice;
   double price;
-  double itemPrice;
-  Product(this.name, this.quantity, this.price, this.itemPrice);
+  Product(this.id, this.name, this.quantity, this.finalPrice, this.price);
 
   void updatePrice() {
-    price = quantity * itemPrice;
+    finalPrice = quantity * price;
   }
 
   void setName(String newName) {
@@ -29,10 +30,10 @@ class AddObjectScreen extends StatefulWidget {
 }
 
 class _AddObjectScreenState extends State<AddObjectScreen> {
-  final List<Product> _items = [
-    Product("Чоколадка Милка", 1, 54, 54),
-    Product("CoolCola", 1, 10, 10),
-    Product("Негр", 1, 20, 20),
+  final List<Product> products = [
+    Product(1, "Чоколадка Милка", 1, 54, 54),
+    Product(2, "CoolCola", 1, 10, 10),
+    Product(3, "Негр", 1, 20, 20),
   ];
 
   get code => null;
@@ -82,7 +83,7 @@ class _AddObjectScreenState extends State<AddObjectScreen> {
         ],
       ),
       child: ListView.separated(
-        itemCount: _items.length,
+        itemCount: products.length,
         separatorBuilder: (context, index) => const Divider(
           height: 1,
         ),
@@ -91,11 +92,11 @@ class _AddObjectScreenState extends State<AddObjectScreen> {
             title: Align(
               alignment: Alignment.bottomLeft,
               child: TextFormField(
-                initialValue: _items[index].name,
+                initialValue: products[index].name,
                 style: theme.textTheme.headlineMedium?.copyWith(fontSize: 15),
                 onChanged: (newValue) {
                   setState(() {
-                    _items[index].setName(newValue);
+                    products[index].setName(newValue);
                   });
                 },
                 decoration: const InputDecoration(),
@@ -111,23 +112,23 @@ class _AddObjectScreenState extends State<AddObjectScreen> {
                   ),
                   onPressed: () {
                     setState(() {
-                      if (_items[index].quantity > 0) {
-                        _items[index].quantity--;
-                        _items[index].updatePrice();
+                      if (products[index].quantity > 0) {
+                        products[index].quantity--;
+                        products[index].updatePrice();
                       }
                     });
                   },
                 ),
                 Text(
-                  _items[index].quantity.toString(),
+                  products[index].quantity.toString(),
                   style: theme.textTheme.headlineMedium?.copyWith(fontSize: 15),
                 ),
                 IconButton(
                   icon: const Icon(Icons.add, color: Color(0xFF0079FF)),
                   onPressed: () {
                     setState(() {
-                      _items[index].quantity++;
-                      _items[index].updatePrice();
+                      products[index].quantity++;
+                      products[index].updatePrice();
                     });
                   },
                 ),
@@ -138,14 +139,14 @@ class _AddObjectScreenState extends State<AddObjectScreen> {
               height: 500,
               margin: EdgeInsets.only(top: 1),
               child: TextFormField(
-                initialValue: '${_items[index].price} РУБ',
+                initialValue: '${products[index].finalPrice} РУБ',
                 style: theme.textTheme.headlineMedium?.copyWith(fontSize: 15),
                 onChanged: (newValue) {
                   setState(() {
                     newValue = newValue.replaceAll(" РУБ",
                         ""); //сумму можно ввести вручную, но она не изменяется при изменении количества, пока не знаю, как исправить.
-                    _items[index].price = double.parse(newValue);
-                    _items[index].updatePrice();
+                    products[index].finalPrice = double.parse(newValue);
+                    products[index].updatePrice();
                   });
                 },
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
@@ -176,7 +177,7 @@ class _AddObjectScreenState extends State<AddObjectScreen> {
           shape: CircleBorder(),
           onPressed: () {
             setState(() {
-              _items.add(Product("", 0, 0, 0));
+              products.add(Product(0, "", 0, 0, 0));
             });
           },
           child: const Icon(

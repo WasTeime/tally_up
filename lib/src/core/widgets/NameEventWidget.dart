@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class NameEvent extends StatelessWidget {
+class NameEventWidget extends StatelessWidget {
   final String name;
   final String people;
-  const NameEvent({super.key, required this.name, required this.people});
+  const NameEventWidget({super.key, required this.name, required this.people});
 
   @override
   Widget build(BuildContext context) {

@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
-class EnterChek extends StatelessWidget {
+class EnterChekWidget extends StatelessWidget {
   final String label;
   final String hint;
-  const EnterChek({super.key, required this.label, required this.hint});
+  const EnterChekWidget({super.key, required this.label, required this.hint});
 
   @override
   Widget build(BuildContext context) {
