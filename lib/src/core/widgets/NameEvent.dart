@@ -10,7 +10,7 @@ class NameEvent extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Padding(
-      padding: const EdgeInsets.only(top: 30),
+      padding: const EdgeInsets.only(top: 40),
       child: Row(
         children: [
           SizedBox(
@@ -35,9 +35,9 @@ class NameEvent extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10)),
               child: SizedBox(
                   width: 500,
-                  height: 70,
+                  height: 65,
                   child: Align(
-                    alignment: Alignment.topCenter,
+                    alignment: Alignment.center,
                     child: ListTile(
                       leading: Container(
                         width: 40,

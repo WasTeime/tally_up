@@ -32,6 +32,5 @@ class TextButtonWidget extends StatelessWidget {
             )),
       ),
     );
-    ;
   }
 }
