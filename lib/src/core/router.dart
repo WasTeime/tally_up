@@ -4,16 +4,15 @@ import 'package:tally_up/src/features/auth/presentation/bloc/sign_in/sign_in_blo
 import 'package:tally_up/src/features/auth/presentation/pages/HomePage.dart';
 import 'package:tally_up/src/features/auth/presentation/pages/LoginScreen.dart';
 import 'package:tally_up/src/features/auth/presentation/pages/PinVerifyScreen.dart';
-import 'package:tally_up/src/features/cheque_list/presentation/pages/ChequeListInEvent.dart';
+import 'package:tally_up/src/features/cheque_list/presentation/pages/DetailedChequeScreen.dart';
+import 'package:tally_up/src/features/groups_list/presentation/pages/EventsScreen.dart';
 import 'package:tally_up/src/features/groups_list/presentation/pages/GroupScreen.dart';
 import 'package:tally_up/src/features/cheque_list/presentation/pages/CreateNewChequeScreen.dart';
 import 'package:tally_up/src/features/cheque_list/presentation/pages/AddObjectScreen.dart';
 
-import '../features/groups_list/presentation/pages/EventsScreen.dart';
-
 final authBloc = SignInBloc();
 
-final router = GoRouter(initialLocation: '/chequeList', routes: [
+final router = GoRouter(initialLocation: '/login', routes: [
   GoRoute(
       path: '/',
       builder: (context, state) {
@@ -34,17 +33,5 @@ final router = GoRouter(initialLocation: '/chequeList', routes: [
       builder: (context, state) {
         return BlocProvider<SignInBloc>.value(
             value: authBloc, child: PinVerifyScreen());
-      }),
-  GoRoute(
-      path: '/events',
-      builder: (context, state) {
-        return BlocProvider<SignInBloc>.value(
-            value: authBloc, child: EventsScreen());
-      }),
-  GoRoute(
-      path: '/chequeList',
-      builder: (context, state) {
-        return BlocProvider<SignInBloc>.value(
-            value: authBloc, child: ChequeListInEvent());
       }),
 ]);

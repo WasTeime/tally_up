@@ -6,14 +6,15 @@ import 'package:tally_up/src/core/widgets/view.dart';
 import 'package:tally_up/src/features/auth/presentation/bloc/sign_in/sign_in_bloc.dart';
 
 class Product {
+  int id;
   String name;
   int quantity;
+  double finalPrice;
   double price;
-  double itemPrice;
-  Product(this.name, this.quantity, this.price, this.itemPrice);
+  Product(this.id, this.name, this.quantity, this.finalPrice, this.price);
 
   void updatePrice() {
-    price = quantity * itemPrice;
+    finalPrice = quantity * price;
   }
 
   void setName(String newName) {
@@ -29,10 +30,10 @@ class AddObjectScreen extends StatefulWidget {
 }
 
 class _AddObjectScreenState extends State<AddObjectScreen> {
-  final List<Product> _items = [
-    Product("Чоколадка Милка", 1, 54, 54),
-    Product("CoolCola", 1, 10, 10),
-    Product("Негр", 1, 20, 20),
+  final List<Product> products = [
+    Product(1, "Чоколадка Милка", 1, 54, 54),
+    Product(2, "CoolCola", 1, 10, 10),
+    Product(3, "Негр", 1, 20, 20),
   ];
 
   get code => null;
@@ -40,13 +41,28 @@ class _AddObjectScreenState extends State<AddObjectScreen> {
   Widget _had() {
     final theme = Theme.of(context);
     return Container(
-      margin: const EdgeInsets.only(left: 90, right: 30, top: 50),
-      child: Text(
-        'Ввести чек вучную',
-        style: theme.textTheme.headlineLarge,
-        textAlign: TextAlign.center,
-      ),
-    );
+        margin: const EdgeInsets.only(right: 30, top: 45),
+        width: 500,
+        child: Row(
+          children: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.arrow_back_rounded,
+                size: 30,
+                color: Color(0xFF0079FF),
+              ),
+            ),
+            const SizedBox(
+              width: 40,
+            ),
+            Text(
+              'Ввести чек вучную',
+              style: theme.textTheme.headlineMedium
+                  ?.copyWith(fontSize: 25, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ));
   }
 
   Widget _prodList() {
@@ -67,8 +83,8 @@ class _AddObjectScreenState extends State<AddObjectScreen> {
         ],
       ),
       child: ListView.separated(
-        itemCount: _items.length,
-        separatorBuilder: (context, index) => Divider(
+        itemCount: products.length,
+        separatorBuilder: (context, index) => const Divider(
           height: 1,
         ),
         itemBuilder: (context, index) {
@@ -76,11 +92,11 @@ class _AddObjectScreenState extends State<AddObjectScreen> {
             title: Align(
               alignment: Alignment.bottomLeft,
               child: TextFormField(
-                initialValue: _items[index].name,
-                style: theme.textTheme.displayLarge,
+                initialValue: products[index].name,
+                style: theme.textTheme.headlineMedium?.copyWith(fontSize: 15),
                 onChanged: (newValue) {
                   setState(() {
-                    _items[index].setName(newValue);
+                    products[index].setName(newValue);
                   });
                 },
                 decoration: const InputDecoration(),
@@ -96,23 +112,23 @@ class _AddObjectScreenState extends State<AddObjectScreen> {
                   ),
                   onPressed: () {
                     setState(() {
-                      if (_items[index].quantity > 0) {
-                        _items[index].quantity--;
-                        _items[index].updatePrice();
+                      if (products[index].quantity > 0) {
+                        products[index].quantity--;
+                        products[index].updatePrice();
                       }
                     });
                   },
                 ),
                 Text(
-                  _items[index].quantity.toString(),
-                  style: theme.textTheme.displayLarge,
+                  products[index].quantity.toString(),
+                  style: theme.textTheme.headlineMedium?.copyWith(fontSize: 15),
                 ),
                 IconButton(
                   icon: const Icon(Icons.add, color: Color(0xFF0079FF)),
                   onPressed: () {
                     setState(() {
-                      _items[index].quantity++;
-                      _items[index].updatePrice();
+                      products[index].quantity++;
+                      products[index].updatePrice();
                     });
                   },
                 ),
@@ -123,13 +139,14 @@ class _AddObjectScreenState extends State<AddObjectScreen> {
               height: 500,
               margin: EdgeInsets.only(top: 1),
               child: TextFormField(
-                initialValue: '${_items[index].price} РУБ',
-                style: theme.textTheme.displayLarge,
+                initialValue: '${products[index].finalPrice} РУБ',
+                style: theme.textTheme.headlineMedium?.copyWith(fontSize: 15),
                 onChanged: (newValue) {
                   setState(() {
-                    newValue = newValue.replaceAll(" РУБ", ""); //сумму можно ввести вручную, но она не изменяется при изменении количества, пока не знаю, как исправить.
-                    _items[index].price = double.parse(newValue);
-                    _items[index].updatePrice();
+                    newValue = newValue.replaceAll(" РУБ",
+                        ""); //сумму можно ввести вручную, но она не изменяется при изменении количества, пока не знаю, как исправить.
+                    products[index].finalPrice = double.parse(newValue);
+                    products[index].updatePrice();
                   });
                 },
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
@@ -153,17 +170,17 @@ class _AddObjectScreenState extends State<AddObjectScreen> {
 
   Widget _addButton() {
     return Container(
-        margin: EdgeInsets.only(left: 165, top: 450),
+        margin: const EdgeInsets.only(left: 165, top: 450),
         child: FloatingActionButton(
           backgroundColor: Color(0xFF0079FF),
           mini: true,
           shape: CircleBorder(),
           onPressed: () {
             setState(() {
-              _items.add(Product("", 0, 0, 0));
+              products.add(Product(0, "", 0, 0, 0));
             });
           },
-          child: Icon(
+          child: const Icon(
             Icons.add_rounded,
             color: Colors.white,
             size: 30,
@@ -173,7 +190,7 @@ class _AddObjectScreenState extends State<AddObjectScreen> {
 
   Widget _buttonNext() {
     return Container(
-      margin: EdgeInsets.only(left: 120, top: 700),
+      margin: const EdgeInsets.only(left: 120, top: 700),
       child: TextButtonWidget(
           () => {context.read<SignInBloc>().add(SignIn(code!))}, "Продолжить"),
     );
@@ -182,7 +199,7 @@ class _AddObjectScreenState extends State<AddObjectScreen> {
   @override
   Widget build(BuildContext context) {
     backgroundColor:
-    Color.fromARGB(255, 218, 235, 255);
+    const Color.fromARGB(255, 218, 235, 255);
     return Scaffold(
       body: Stack(
         children: [
