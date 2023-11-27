@@ -50,7 +50,7 @@ class _DetailedChequeScreenState extends State<DetailedChequeScreen> {
       body: Stack(
         children: [
           NavigIconsBar(),
-          NameEventWidget(name: 'Мяу', people: '5 участников'),
+          NameEventWidget(name: 'Мероприятие Мяу', people: '5 участников'),
           _namberCheque(),
           ChequeWidget(),
           _creator(),

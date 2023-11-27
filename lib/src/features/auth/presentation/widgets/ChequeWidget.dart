@@ -15,6 +15,15 @@ class _ChequeWidgetState extends State<ChequeWidget> {
     Product(2, "CoolCola", 1, 10, 10),
     Product(3, "Негр", 1, 20, 20),
   ];
+
+  double totalFinalPrice(List<Product> products) {
+    double totalFinalPrice = 0;
+    for (var product in products) {
+      totalFinalPrice += product.finalPrice;
+    }
+    return totalFinalPrice;
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -232,7 +241,7 @@ class _ChequeWidgetState extends State<ChequeWidget> {
                     width: 195,
                   ),
                   Text(
-                    '450.90',
+                    '${totalFinalPrice(products)}',
                     style: theme.textTheme.headlineMedium
                         ?.copyWith(fontWeight: FontWeight.bold, fontSize: 22),
                   )
