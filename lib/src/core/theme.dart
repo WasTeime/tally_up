@@ -26,6 +26,13 @@ class AppTheme {
             fontWeight: FontWeight.w900,
             height: 1,
           ),
+          headlineLarge: TextStyle(
+            fontFamily: 'Raleway-medium',
+            fontSize: 15,
+            color: Colors.white,
+            fontWeight: FontWeight.w500,
+            letterSpacing: -0.02,
+          ),
           titleMedium: TextStyle(fontSize: 20, color: Color(0xff0079FF)),
           labelLarge: TextStyle(fontSize: 20, color: Colors.white)),
     );

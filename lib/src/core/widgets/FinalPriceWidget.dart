@@ -3,10 +3,41 @@ import 'package:flutter/material.dart';
 import 'package:tally_up/src/core/widgets/TextButtonWidget.dart';
 
 class FinalPriceWidget extends StatelessWidget {
-  const FinalPriceWidget({super.key});
+  final String word;
+  final double price;
+  final String button;
+  const FinalPriceWidget(
+      {super.key,
+      required this.word,
+      required this.price,
+      required this.button});
 
   @override
   Widget build(BuildContext context) {
+    Widget _TextButtonCheque() {
+      final theme = Theme.of(context);
+      return TextButton(
+        onPressed: () {},
+        style: ButtonStyle(
+          backgroundColor:
+              MaterialStateProperty.all<Color>(const Color(0xFF0078FE)),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Text(
+            button,
+            textAlign: TextAlign.center,
+            style: theme.textTheme.headlineLarge,
+          ),
+        ),
+      );
+    }
+
     final theme = Theme.of(context);
     return Align(
       alignment: Alignment.bottomCenter,
@@ -33,18 +64,17 @@ class FinalPriceWidget extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Мой долг:',
-                        style: theme.textTheme.headlineLarge?.copyWith(
+                    Text(word,
+                        style: theme.textTheme.headlineMedium?.copyWith(
                             fontWeight: FontWeight.bold, fontSize: 22)),
-                    Text('100.00 РУБ',
-                        style: theme.textTheme.headlineLarge
+                    Text('${price} РУБ',
+                        style: theme.textTheme.headlineMedium
                             ?.copyWith(fontSize: 22))
                   ],
                 ),
               ),
               Container(
-                // margin: EdgeInsets.only(top: 200),
-                child: TextButtonWidget(() => {}, "Перевести"),
+                child: _TextButtonCheque(),
               ),
             ],
           )),

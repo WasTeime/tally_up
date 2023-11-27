@@ -31,13 +31,13 @@ class _DetailedChequeScreenState extends State<DetailedChequeScreen> {
         alignment: Alignment.bottomLeft,
         child: Row(children: [
           Text('Создатель:',
-              style: theme.textTheme.headlineLarge
+              style: theme.textTheme.headlineMedium
                   ?.copyWith(fontSize: 15, fontWeight: FontWeight.w500)),
           SizedBox(
             width: 15,
           ),
           Text('Бог',
-              style: theme.textTheme.headlineLarge
+              style: theme.textTheme.headlineMedium
                   ?.copyWith(fontSize: 14, fontWeight: FontWeight.w900)),
         ]),
       ),
@@ -54,7 +54,7 @@ class _DetailedChequeScreenState extends State<DetailedChequeScreen> {
           _namberCheque(),
           ChequeWidget(),
           _creator(),
-          FinalPriceWidget()
+          FinalPriceWidget(word: 'Мой долг', price: 100.00, button: 'Перевести')
         ],
       ),
     );
