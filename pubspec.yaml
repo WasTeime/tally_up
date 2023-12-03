@@ -45,6 +45,8 @@ dependencies:
   flutter_countdown_timer: ^4.1.0
   pinput: ^3.0.1
   firebase_crashlytics: ^3.4.4
+  firebase_storage: ^11.5.1
+  cloud_firestore: ^4.13.1
 
 dev_dependencies:
   flutter_test:
