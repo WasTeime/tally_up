@@ -12,9 +12,7 @@ class AuthController {
   Stream<String?> get verificationErrorsStream =>
       _verificationFailedController.stream;
 
-  Stream<User?> get userChanges {
-    return _firebaseAuth.authStateChanges();
-  }
+  Stream<User?> get userChanges => _firebaseAuth.authStateChanges();
 
   Future<void> sendPhoneCode(phoneNumber) async {
     await _firebaseAuth.verifyPhoneNumber(
@@ -23,6 +21,7 @@ class AuthController {
         await _firebaseAuth.signInWithCredential(credential);
       },
       verificationFailed: (FirebaseAuthException e) {
+        //TODO: разобраться с отображением ошибок и вообще почему отсюда не выбрасывается exception
         // if (e.code == "invalid-phone-number") {
         //   _verificationFailedController.add("Ой что-то пошло не так");
         // }
