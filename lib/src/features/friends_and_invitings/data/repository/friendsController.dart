@@ -2,17 +2,16 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:tally_up/src/features/friends_and_invitings/data/models/FriendDBModel.dart';
 
 class FriendsController {
-  final _db = FirebaseFirestore.instance;
   final _userUid = FirebaseAuth.instance.currentUser!.uid;
-  late final CollectionReference _friendsCollection;
+  late final FriendDBModel _friendsDBModel;
   late final Stream<QuerySnapshot> _friendsStream;
 
   FriendsController() {
-    _friendsCollection =
-        _db.collection('users').doc(_userUid).collection('friends');
-    _friendsStream = _friendsCollection.snapshots();
+    _friendsStream =
+        _friendsDBModel.getCollection(userUid: _userUid).snapshots();
   }
 
   Stream<QuerySnapshot> get friendsListInDBStream => _friendsStream;
@@ -40,7 +39,9 @@ class FriendsController {
 
   void deleteContact(Map<String, dynamic> dataForDelete) {
     //удаляем документы в коллекциях friends у обоих пользователей
-    _friendsCollection.doc(dataForDelete['executorUserDocRef']).delete();
+    _friendsDBModel
+        .getDoc(_userUid, docId: dataForDelete['executorUserDocRef'])
+        .delete();
     DocumentReference friendDocRef = dataForDelete['friendDocRef'];
     friendDocRef.delete();
   }

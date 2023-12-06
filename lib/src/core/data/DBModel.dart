@@ -3,17 +3,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 abstract class DBModel {
   final _db = FirebaseFirestore.instance;
   final String _collectionName;
-  final String _subCollectionName;
 
-  DBModel({collectionName = "users", subCollectionName = ""})
-      : _collectionName = collectionName,
-        _subCollectionName = subCollectionName;
+  DBModel({collectionName = "users"}) : _collectionName = collectionName;
 
-  CollectionReference getCollection(String userUid) =>
+  CollectionReference getCollection({String? userUid}) =>
       _db.collection(_collectionName);
 
-  CollectionReference getSubCollectionInUsers(String userUid) =>
-      _db.collection('users').doc(userUid).collection(_subCollectionName);
+  DocumentReference getDoc(String userUid, {String docId = ""}) =>
+      getCollection().doc(userUid);
+
+  // CollectionReference getSubCollection(String userUid) =>
+  //     _db.collection('users').doc(userUid).collection(_subCollectionName);
 
   get getCollectionName => _collectionName;
 }

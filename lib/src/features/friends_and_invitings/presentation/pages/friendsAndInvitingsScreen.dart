@@ -1,7 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:tally_up/src/features/friends_and_invitings/presentation/pages/friends_list.dart';
 import 'package:tally_up/src/features/friends_and_invitings/presentation/pages/invitings_list.dart';
 

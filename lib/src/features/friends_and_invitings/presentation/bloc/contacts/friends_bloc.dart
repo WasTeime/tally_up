@@ -17,7 +17,6 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
             add(FriendsLoadingEvent(querySnapshot)));
 
     on<FriendsLoadingEvent>((event, emit) async {
-      List<Map<String, dynamic>> friends = [];
       //TODO: протестировать если пользователь будет находиться на другой странице, будет ли ui обновляться
       //Ожидание: ничего не должно обновляться на ui, только когда пользователь сюда заходит, пусть тут обновляется
       //TODO: нужна оптимизация с помощью equatable и чтобы если появился новый пользователь заново все не переделывать, а просто посмотреть новые добавленные документы docsChanges
