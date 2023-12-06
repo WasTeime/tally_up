@@ -11,6 +11,7 @@ import 'package:tally_up/src/features/friends_and_invitings/presentation/pages/f
 import 'package:tally_up/src/features/cheque_list/presentation/pages/ChequeListInEvent.dart';
 import 'package:tally_up/src/features/cheque_list/presentation/pages/DetailedChequeScreen.dart';
 import 'package:tally_up/src/features/friends_and_invitings/presentation/pages/invitings_list.dart';
+import 'package:tally_up/src/features/contacts/presentation/pages/newContact.dart';
 import 'package:tally_up/src/features/groups_list/presentation/pages/EventsScreen.dart';
 import 'package:tally_up/src/features/groups_list/presentation/pages/GroupScreen.dart';
 import 'package:tally_up/src/features/cheque_list/presentation/pages/CreateNewChequeScreen.dart';
@@ -62,8 +63,4 @@ final router = GoRouter(initialLocation: '/loginState', routes: [
         return BlocProvider<SignInBloc>.value(
             value: signInBloc, child: PinVerifyScreen());
       }),
-  GoRoute(
-    path: '/friends',
-    builder: (context, state) => FriendsList(),
-  ),
 ]);

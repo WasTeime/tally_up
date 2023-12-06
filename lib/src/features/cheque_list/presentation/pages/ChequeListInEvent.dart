@@ -23,16 +23,64 @@ class _ChequeListInEventState extends State<ChequeListInEvent> {
     final theme = Theme.of(context);
 
     Widget _dateListCheque() {
-      return Center(
-        child: Container(
-          margin: const EdgeInsets.only(bottom: 530),
-          child: Text(
-            DateFormat('dd.MM.yyyy').format(DateTime(2002, 10, 10)),
-            style: theme.textTheme.headlineSmall?.copyWith(
-              fontSize: 24, // Размер шрифта
-              fontWeight: FontWeight.bold, // Жирный шрифт
+      return Container(
+        margin: const EdgeInsets.only(top: 115),
+        child: Column(
+          children: [
+            Center(
+              child: Text(
+                DateFormat('dd.MM.yyyy').format(DateTime(2002, 10, 10)),
+                style: theme.textTheme.headlineSmall?.copyWith(
+                  fontSize: 24, // Размер шрифта
+                  fontWeight: FontWeight.bold, // Жирный шрифт
+                  color: Color(0xFF0079FF),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget _TextButtonCheque() {
+      return TextButton(
+        onPressed: () {
+          // Действие при нажатии кнопки
+        },
+        style: ButtonStyle(
+          backgroundColor:
+              MaterialStateProperty.all<Color>(const Color(0xFF0078FE)),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
             ),
           ),
+          // Указываем минимальный размер кнопки
+        ),
+        child: const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Text(
+            'Разделить \nпоровну',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'Raleway-medium',
+              fontSize: 15,
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+              letterSpacing: -0.02,
+            ),
+          ),
+        ),
+      );
+    }
+
+    Widget _lastSum() {
+      return Container(
+        margin: const EdgeInsets.only(top: 700, left: 20, right: 20),
+        child: Card(
+          child: ListTile(
+              title: const Text('Итого \n2000 Руб'),
+              trailing: _TextButtonCheque()),
         ),
       );
     }
@@ -71,11 +119,6 @@ class _ChequeListInEventState extends State<ChequeListInEvent> {
                           ),
                         ],
                       ),
-                      // shadowColor: Colors.black,
-                      // elevation: 5,
-                      // shape: RoundedRectangleBorder(
-                      //   borderRadius: BorderRadius.circular(20),
-                      // ),
                       child: Row(
                         children: [
                           const Expanded(
