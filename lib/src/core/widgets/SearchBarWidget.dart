@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SearchBarWidget extends StatelessWidget {
-  const SearchBarWidget({super.key});
+  final String? hint;
+  final List<TextInputFormatter>? inputFormatters;
+  final TextInputType? textInputType;
+  final TextEditingController? inputController;
+  const SearchBarWidget(
+      {this.hint,
+      this.inputFormatters,
+      this.inputController,
+      this.textInputType,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
     return Flexible(
       child: TextField(
+        inputFormatters: inputFormatters,
+        keyboardType: textInputType,
+        controller: inputController,
         decoration: InputDecoration(
           prefixIcon: const Icon(Icons.search),
           fillColor: Colors.white,
@@ -24,7 +37,8 @@ class SearchBarWidget extends StatelessWidget {
               width: 3,
             ),
           ),
-          hintStyle: const TextStyle(color: Colors.white),
+          hintText: hint,
+          hintStyle: const TextStyle(color: Colors.black),
         ),
       ),
     );
