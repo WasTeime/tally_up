@@ -6,7 +6,7 @@ import 'package:tally_up/src/features/friends_and_invitings/data/models/FriendDB
 
 class FriendsController {
   final _userUid = FirebaseAuth.instance.currentUser!.uid;
-  late final FriendDBModel _friendsDBModel;
+  final _friendsDBModel = FriendDBModel();
   late final Stream<QuerySnapshot> _friendsStream;
 
   FriendsController() {

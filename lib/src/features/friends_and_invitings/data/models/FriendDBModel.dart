@@ -5,12 +5,10 @@ class FriendDBModel extends DBModel {
   FriendDBModel() : super();
 
   @override
-  CollectionReference getCollection({String? userUid}) {
-    return super.getDoc(userUid!).collection('friends');
-  }
+  CollectionReference getCollection({String userUid = ""}) =>
+      super.getCollection().doc(userUid).collection('friends');
 
   @override
-  DocumentReference getDoc(String userUid, {String docId = ""}) {
-    return getCollection().doc(docId);
-  }
+  DocumentReference getDoc(String userUid, {String docId = ""}) =>
+      getCollection().doc(docId);
 }
