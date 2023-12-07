@@ -12,10 +12,9 @@ import 'package:tally_up/src/features/cheque_list/presentation/pages/ChequeListI
 import 'package:tally_up/src/features/cheque_list/presentation/pages/DetailedChequeScreen.dart';
 import 'package:tally_up/src/features/friends_and_invitings/presentation/pages/invitings_list.dart';
 import 'package:tally_up/src/features/contacts/presentation/pages/newContact.dart';
-import 'package:tally_up/src/features/groups_list/presentation/pages/EventsScreen.dart';
-import 'package:tally_up/src/features/groups_list/presentation/pages/GroupScreen.dart';
 import 'package:tally_up/src/features/cheque_list/presentation/pages/CreateNewChequeScreen.dart';
 import 'package:tally_up/src/features/cheque_list/presentation/pages/AddObjectScreen.dart';
+import 'package:tally_up/src/features/home/presentation/pages/HomeScreen.dart';
 
 final signInBloc = SignInBloc();
 
@@ -28,7 +27,7 @@ final router = GoRouter(initialLocation: '/loginState', routes: [
         child: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state.status == AuthStatus.authenticated) {
-              context.go('/friendsAndInvitings');
+              context.go('/');
             } else {
               context.go('/login');
             }
@@ -42,7 +41,7 @@ final router = GoRouter(initialLocation: '/loginState', routes: [
       path: '/',
       builder: (context, state) {
         signInBloc.dispose();
-        return const GroupScreen();
+        return HomeScreen();
       }),
   GoRoute(
     path: '/friendsAndInvitings',

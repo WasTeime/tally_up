@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tally_up/src/features/friends_and_invitings/data/repository/invitingsController.dart';
@@ -7,10 +9,11 @@ part 'invitings_state.dart';
 
 class InvitingsBloc extends Bloc<InvitingsEvent, InvitingsState> {
   final invitingsController = InvitingsController();
+  late final StreamSubscription invitingsFriendsSub;
 
   InvitingsBloc() : super(InvitingsInitial()) {
-    invitingsController.friendsInvitationsListInDBStream.listen(
-        (QuerySnapshot querySnapshot) =>
+    invitingsFriendsSub = invitingsController.friendsInvitationsListInDBStream
+        .listen((QuerySnapshot querySnapshot) =>
             add(InvitingsListLoading(querySnapshot)));
 
     on<SearchUserForPhone>((event, emit) async {
@@ -40,5 +43,11 @@ class InvitingsBloc extends Bloc<InvitingsEvent, InvitingsState> {
       emit(InvitingsLoaded(invitings));
       //await Future.delayed(Duration(seconds: 1));
     });
+  }
+
+  @override
+  Future<void> close() {
+    invitingsFriendsSub.cancel();
+    return super.close();
   }
 }

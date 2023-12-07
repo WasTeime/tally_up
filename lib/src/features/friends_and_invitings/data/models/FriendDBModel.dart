@@ -4,11 +4,9 @@ import 'package:tally_up/src/core/data/DBModel.dart';
 class FriendDBModel extends DBModel {
   FriendDBModel() : super();
 
-  @override
-  CollectionReference getCollection({String userUid = ""}) =>
-      super.getCollection().doc(userUid).collection('friends');
+  CollectionReference getCollection(String userUid) =>
+      super.getRootDoc(userUid).collection('friends');
 
-  @override
-  DocumentReference getDoc(String userUid, {String docId = ""}) =>
-      getCollection().doc(docId);
+  DocumentReference getDoc(String userUid, String docId) =>
+      getCollection(userUid).doc(docId);
 }

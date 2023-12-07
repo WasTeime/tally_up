@@ -11,7 +11,7 @@ class FriendsLoading extends FriendsState {}
 
 //TODO: разобраться с Equatable
 class FriendsLoaded extends FriendsState {
-  final List friends;
+  final List<Map<String, dynamic>> friends;
 
   FriendsLoaded(this.friends);
 }

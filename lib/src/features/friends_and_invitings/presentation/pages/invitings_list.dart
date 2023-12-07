@@ -93,7 +93,6 @@ class _InvitingsListState extends State<InvitingsList> {
                                 );
                               } else if (state is InvitingsLoaded) {
                                 var invitings = state.invitings;
-                                //TODO: приделать кнопки отказать и принять
                                 return ListView.builder(
                                     itemCount: invitings.length,
                                     itemBuilder: (context, index) {

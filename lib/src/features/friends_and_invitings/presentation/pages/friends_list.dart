@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tally_up/src/features/friends_and_invitings/presentation/bloc/contacts/friends_bloc.dart';
+import 'package:tally_up/src/features/friends_and_invitings/presentation/bloc/friends/friends_bloc.dart';
 
 class FriendsList extends StatefulWidget {
   const FriendsList({super.key});
@@ -39,10 +39,25 @@ class _FriendsListState extends State<FriendsList> {
     );
   }
 
-  Widget friendsListItem(index, friends) {
+  Widget friendsListItemWithCheckboxes(index, friends) {
+    Widget checkBox = ValueListenableBuilder(
+      valueListenable: friends['check'],
+      builder: (context, bool value, child) {
+        return Checkbox(
+            value: value,
+            onChanged: (onChanged) {
+              friends['check'].value = onChanged!;
+              print("after: ${friends['check']}");
+            });
+      },
+    );
+    return friendsListItem(index, friends, widget: checkBox);
+  }
+
+  Widget friendsListItem(index, friends,
+      {Widget widget = const Icon(Icons.circle)}) {
     return ListTile(
-      contentPadding: EdgeInsets.zero,
-      leading: Icon(Icons.circle),
+      leading: widget,
       trailing: IconButton(
         onPressed: () =>
             _friendsBloc.add(DeleteFriend(friends['data_for_delete'])),
@@ -65,8 +80,10 @@ class _FriendsListState extends State<FriendsList> {
                 child: CircularProgressIndicator(),
               );
             } else if (state is FriendsLoaded) {
-              List friends = state.friends;
-
+              List<Map<String, dynamic>> friends = state.friends;
+              friends.forEach((element) {
+                element['check'] = ValueNotifier(false);
+              });
               return ListView.separated(
                 itemCount: friends.length,
                 separatorBuilder: (context, index) {
@@ -86,7 +103,7 @@ class _FriendsListState extends State<FriendsList> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         friendsDivider(friends[index]['username'][0]),
-                        friendsListItem(index, friends[index])
+                        friendsListItemWithCheckboxes(index, friends[index])
                       ],
                     );
                   }

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class DBModel {
   final _db = FirebaseFirestore.instance;
@@ -6,10 +7,10 @@ class DBModel {
 
   DBModel({collectionName = "users"}) : _collectionName = collectionName;
 
-  CollectionReference getCollection({String userUid = ""}) =>
-      _db.collection(_collectionName);
+  CollectionReference getRootCollection() => _db.collection(_collectionName);
 
-  DocumentReference getDoc(String userUid) => getCollection().doc(userUid);
+  DocumentReference getRootDoc(String userUid) =>
+      getRootCollection().doc(userUid);
 
   get getCollectionName => _collectionName;
 }

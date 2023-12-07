@@ -10,11 +10,9 @@ class FriendInvitationDBModel extends DBModel {
   //   return super.getDoc(userUid!).collection('friends_invitation');
   // }
 
-  @override
   CollectionReference getCollection({String? userUid}) =>
-      super.getCollection().doc(userUid).collection('friends_invitations');
+      super.getRootCollection().doc(userUid).collection('friends_invitations');
 
-  @override
   DocumentReference getDoc(String userUid, {String docId = ""}) =>
-      getCollection().doc(docId);
+      getCollection(userUid: userUid).doc(docId);
 }

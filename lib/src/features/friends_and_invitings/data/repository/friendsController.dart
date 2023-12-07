@@ -10,8 +10,7 @@ class FriendsController {
   late final Stream<QuerySnapshot> _friendsStream;
 
   FriendsController() {
-    _friendsStream =
-        _friendsDBModel.getCollection(userUid: _userUid).snapshots();
+    _friendsStream = _friendsDBModel.getCollection(_userUid).snapshots();
   }
 
   Stream<QuerySnapshot> get friendsListInDBStream => _friendsStream;
@@ -29,8 +28,9 @@ class FriendsController {
       await getDocFieldsOnRef(doc.get('user')).then((friendData) {
         friendData['data_for_delete'] = {
           'executorUserDocRef': doc.id,
-          'friendDocRef': doc.get('ref_on_doc_in_another_user_friend_list')
+          'friendDocRef': doc.get('ref_on_doc_in_another_user_friend_list'),
         };
+        //friendData['check'] = false;
         friendsList.add(friendData);
       });
     }
@@ -40,7 +40,7 @@ class FriendsController {
   void deleteContact(Map<String, dynamic> dataForDelete) {
     //удаляем документы в коллекциях friends у обоих пользователей
     _friendsDBModel
-        .getDoc(_userUid, docId: dataForDelete['executorUserDocRef'])
+        .getDoc(_userUid, dataForDelete['executorUserDocRef'])
         .delete();
     DocumentReference friendDocRef = dataForDelete['friendDocRef'];
     friendDocRef.delete();

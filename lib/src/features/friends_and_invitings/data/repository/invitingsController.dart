@@ -17,7 +17,7 @@ class InvitingsController {
 
   InvitingsController() {
     _friendsInvitationsStream =
-        _friendsDBModel.getCollection(userUid: _userUid).snapshots();
+        _friendsInvitationsDBModel.getCollection(userUid: _userUid).snapshots();
   }
 
   Stream<QuerySnapshot> get friendsInvitationsListInDBStream =>
@@ -35,35 +35,43 @@ class InvitingsController {
     //TODO: проверку есть ли пользователь уже в друзьях
     //TODO: сделать оповещение
     var recieverUserDoc = await _usersDBModel
-        .getCollection()
+        .getRootCollection()
         .where('phone', isEqualTo: phone)
         .get()
         .then((QuerySnapshot querySnapshot) =>
             {if (querySnapshot.size > 0) querySnapshot.docs[0]})
         .then((recieverUserDoc) => recieverUserDoc.first);
-    DocumentReference senderUserDoc = _usersDBModel.getDoc(_userUid);
+    DocumentReference senderUserDoc = _usersDBModel.getRootDoc(_userUid);
     _friendsInvitationsDBModel
         .getCollection(userUid: recieverUserDoc.id)
         .add({'user': senderUserDoc});
     return recieverUserDoc.exists;
   }
 
+  //TODO ВАЖНО ПИЗДА ПРОСТО
+  //TODO: короче какая хуйня с async await, со стримами надо короче посмотреть как все работает, потому что пока все как-то хаотично, дебагером еще раз пройтись по пути создания приглашения, принятия заявки и т.д.
   void acceptUserToFriend(String docId) async {
     DocumentReference invitingList_senderUserDoc =
         _friendsInvitationsDBModel.getDoc(_userUid, docId: docId);
 
     DocumentReference senderUserRef =
         await invitingList_senderUserDoc.get().then((doc) => doc.get('user'));
-    DocumentReference recieverUserRef = _usersDBModel.getDoc(_userUid);
+    DocumentReference recieverUserRef = _usersDBModel.getRootDoc(_userUid);
 
     invitingList_senderUserDoc.delete();
 
     DocumentReference recieverDocRefInFriendList = await _friendsDBModel
-        .getCollection(userUid: _userUid)
-        .add({'user': senderUserRef});
+        .getCollection(_userUid)
+        .add({
+      'user': senderUserRef,
+      'ref_on_doc_in_another_user_friend_list': ""
+    });
     DocumentReference senderDocRefInFriendList = await _friendsDBModel
-        .getCollection(userUid: senderUserRef.id)
-        .add({'user': recieverUserRef});
+        .getCollection(senderUserRef.id)
+        .add({
+      'user': recieverUserRef,
+      'ref_on_doc_in_another_user_friend_list': ""
+    });
 
     await recieverDocRefInFriendList.set(
         {'ref_on_doc_in_another_user_friend_list': senderDocRefInFriendList},
