@@ -12,13 +12,13 @@ class InvitingsBloc extends Bloc<InvitingsEvent, InvitingsState> {
   late final StreamSubscription invitingsFriendsSub;
 
   InvitingsBloc() : super(InvitingsInitial()) {
-    invitingsFriendsSub = invitingsController.friendsInvitationsListInDBStream
+    invitingsFriendsSub = invitingsController.getFriendsInvitationsStream
         .listen((QuerySnapshot querySnapshot) =>
             add(InvitingsListLoading(querySnapshot)));
 
     on<SearchUserForPhone>((event, emit) async {
-      var isPhoneExist =
-          await invitingsController.sendRequestToFriend(event.phone);
+      bool isPhoneExist =
+          await invitingsController.sendFriendRequestToAnotherUser(event.phone);
       //TODO: сюда можно try catch
       isPhoneExist ? emit(PeopleFound()) : emit(PeopleNotFound());
     });

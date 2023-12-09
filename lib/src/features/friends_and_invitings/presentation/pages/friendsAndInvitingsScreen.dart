@@ -22,8 +22,8 @@ class _FriendsAndInvitingsScreenState extends State<FriendsAndInvitingsScreen> {
               style: TextStyle(fontSize: 15),
             ),
           ),
-          body: const Column(children: [
-            TabBar(
+          body: Column(children: [
+            const TabBar(
               tabs: [
                 Tab(
                   text: 'друзья',
@@ -34,7 +34,12 @@ class _FriendsAndInvitingsScreenState extends State<FriendsAndInvitingsScreen> {
               ],
             ),
             Expanded(
-              child: TabBarView(children: [FriendsList(), InvitingsList()]),
+              child: TabBarView(children: [
+                FriendsList(
+                  enableCheckboxes: false,
+                ),
+                InvitingsList()
+              ]),
             )
           ]),
         ));

@@ -35,7 +35,7 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
     });
 
     on<DeleteFriend>((event, emit) {
-      friendsController.deleteContact(event.dataForDelete);
+      friendsController.deleteFriend(event.dataForDelete);
     });
   }
 
