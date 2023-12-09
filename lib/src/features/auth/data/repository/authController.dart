@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter/foundation.dart';
+import 'package:tally_up/src/features/auth/domain/models/UserModel.dart';
 
 class AuthController {
   final _firebaseAuth = FirebaseAuth.instance;
@@ -37,8 +37,16 @@ class AuthController {
 
   Future<void> signIn(smsCode) async {
     try {
-      await _firebaseAuth.signInWithCredential(PhoneAuthProvider.credential(
-          verificationId: _verificationId, smsCode: smsCode));
+      await _firebaseAuth
+          .signInWithCredential(PhoneAuthProvider.credential(
+              verificationId: _verificationId, smsCode: smsCode))
+          .then((userCredential) {
+        var authUser = userCredential.user;
+        var user = UserModel(authUser!.uid, authUser.metadata.creationTime,
+            authUser.phoneNumber);
+        //TODO: проверять что пользователя еще не существует, если существует, то просто залогинить
+        user.createNewUserInDB();
+      });
     } on FirebaseAuthException catch (e) {
       print(e.message);
       rethrow; //передает ошибку в следующие catch https://dart.dev/language/error-handling
