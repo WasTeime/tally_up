@@ -11,14 +11,14 @@ class EditIconOnPhoto extends StatelessWidget {
       color: Colors.white,
       all: 3,
       child: CircleWidget(
-        color: const Color(0XFF0079FF),
-        all: 8,
-        child: const Icon(
-          Icons.edit,
-          color: Colors.white,
-          size: 20,
-        ),
-      ),
+          color: const Color(0XFF0079FF),
+          all: 1,
+          child: IconButton(
+            icon: const Icon(Icons.edit, color: Colors.white, size: 20),
+            onPressed: () {
+              // Действие при нажатии на IconButton
+            },
+          )),
     );
   }
 }

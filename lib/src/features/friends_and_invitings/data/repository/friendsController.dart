@@ -2,45 +2,38 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:tally_up/src/core/data/Controller.dart';
 import 'package:tally_up/src/features/friends_and_invitings/data/models/FriendDBModel.dart';
 
-class FriendsController {
-  final _userUid = FirebaseAuth.instance.currentUser!.uid;
-  final _friendsDBModel = FriendDBModel();
-  late final Stream<QuerySnapshot> _friendsStream;
+class FriendsController extends Controller {
+  late final FriendDBModel _friendsDBModel;
 
   FriendsController() {
-    _friendsStream = _friendsDBModel.getCollection(_userUid).snapshots();
+    _friendsDBModel = FriendDBModel(super.getUserUid);
   }
 
-  Stream<QuerySnapshot> get friendsListInDBStream => _friendsStream;
-
-  Future<Map<String, dynamic>> getDocFieldsOnRef(
-      DocumentReference docRef) async {
-    DocumentSnapshot doc = await docRef.get();
-    return doc.data() as Map<String, dynamic>;
-  }
+  Stream<QuerySnapshot> get friendsListInDBStream => _friendsDBModel.getStream;
 
   Future<List<Map<String, dynamic>>> getUserFriends(
       QuerySnapshot querySnapshot) async {
     List<Map<String, dynamic>> friendsList = [];
     for (var doc in querySnapshot.docs) {
-      await getDocFieldsOnRef(doc.get('user')).then((friendData) {
+      await getDocFieldsByRef(doc.get('user')).then((friendData) {
         friendData['data_for_delete'] = {
           'executorUserDocRef': doc.id,
           'friendDocRef': doc.get('ref_on_doc_in_another_user_friend_list'),
         };
-        //friendData['check'] = false;
         friendsList.add(friendData);
       });
     }
     return friendsList;
   }
 
-  void deleteContact(Map<String, dynamic> dataForDelete) {
+  void deleteFriend(Map<String, dynamic> dataForDelete) {
     //удаляем документы в коллекциях friends у обоих пользователей
     _friendsDBModel
-        .getDoc(_userUid, dataForDelete['executorUserDocRef'])
+        .getCollection()
+        .doc(dataForDelete['executorUserDocRef'])
         .delete();
     DocumentReference friendDocRef = dataForDelete['friendDocRef'];
     friendDocRef.delete();
