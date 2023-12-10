@@ -10,3 +10,5 @@ export 'ProfileActionCard.dart';
 export 'UserInfoCard.dart';
 export 'EditIconOnPhoto.dart';
 export 'InfoUserCardEditable.dart';
+export 'AppBarForEditScreen.dart';
+export 'BottomNavigationBarAllScreen.dart';

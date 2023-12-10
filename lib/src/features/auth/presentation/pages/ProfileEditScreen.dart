@@ -45,41 +45,12 @@ class EditProfilePage extends StatelessWidget {
   }
 
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final color = Theme.of(context).colorScheme.primary;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 218, 235, 255),
-        title: Center(
-          child: Text(
-            'Редактировать',
-            style: theme.textTheme.headlineMedium
-                ?.copyWith(fontSize: 23, fontWeight: FontWeight.bold),
-          ),
-        ),
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(
-            Icons.arrow_back_rounded,
-            size: 30,
-            color: Color(0xFF0079FF),
-          ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.pop(context, true);
-            },
-            icon: const Icon(
-              Icons.check,
-              size: 30,
-              color: Color(0xFF0079FF),
-            ),
-          ),
-        ],
-      ),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: AppBarForEditScreen(color: color, name: 'Редактировать'),
+      ), // Using an instance of AppBarForEditScreen
       backgroundColor: Color.fromARGB(255, 218, 235, 255),
       body: Stack(
         children: [
