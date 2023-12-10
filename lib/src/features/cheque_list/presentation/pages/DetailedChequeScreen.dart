@@ -4,6 +4,7 @@ import 'package:tally_up/src/core/widgets/FinalPriceWidget.dart';
 import 'package:tally_up/src/core/widgets/NameEventWidget.dart';
 import 'package:tally_up/src/core/widgets/view.dart';
 import 'package:tally_up/src/features/auth/presentation/widgets/ChequeWidget.dart';
+import 'package:tally_up/src/features/cheque_list/domain/models/ProductModel.dart';
 
 class DetailedChequeScreen extends StatefulWidget {
   const DetailedChequeScreen({super.key});
@@ -13,6 +14,12 @@ class DetailedChequeScreen extends StatefulWidget {
 }
 
 class _DetailedChequeScreenState extends State<DetailedChequeScreen> {
+  final List<Product> products = [
+    Product(1, "Чоколадка Милка", ValueNotifier(1), 54),
+    Product(2, "CoolCola", ValueNotifier(1), 100),
+    Product(3, "Негр", ValueNotifier(1), 20),
+  ];
+
   Widget _namberCheque() {
     final theme = Theme.of(context);
     return Container(
@@ -52,7 +59,7 @@ class _DetailedChequeScreenState extends State<DetailedChequeScreen> {
           NavigIconsBar(),
           NameEventWidget(name: 'Мероприятие Мяу', people: '5 участников'),
           _namberCheque(),
-          ChequeWidget(),
+          ChequeWidget(product: products),
           _creator(),
           FinalPriceWidget(word: 'Мой долг', price: 100.00, button: 'Перевести')
         ],

@@ -13,7 +13,7 @@ import 'package:tally_up/src/features/cheque_list/presentation/pages/DetailedChe
 import 'package:tally_up/src/features/friends_and_invitings/presentation/pages/invitings_list.dart';
 import 'package:tally_up/src/features/contacts/presentation/pages/newContact.dart';
 import 'package:tally_up/src/features/cheque_list/presentation/pages/CreateNewChequeScreen.dart';
-import 'package:tally_up/src/features/cheque_list/presentation/pages/AddObjectScreen.dart';
+import 'package:tally_up/src/features/cheque_list/presentation/pages/EnterProductsManuallyScreen.dart';
 import 'package:tally_up/src/features/home/presentation/pages/HomeScreen.dart';
 
 final signInBloc = SignInBloc();

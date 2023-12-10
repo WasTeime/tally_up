@@ -1,25 +1,21 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:tally_up/src/features/cheque_list/presentation/pages/AddObjectScreen.dart';
+import 'package:tally_up/src/features/cheque_list/domain/models/ProductModel.dart';
 
 class ChequeWidget extends StatefulWidget {
-  const ChequeWidget({super.key});
+  final List<Product> product;
+  const ChequeWidget({super.key, required this.product});
 
   @override
   State<ChequeWidget> createState() => _ChequeWidgetState();
 }
 
 class _ChequeWidgetState extends State<ChequeWidget> {
-  final List<Product> products = [
-    Product(1, "Чоколадка Милка", 1, 54, 54),
-    Product(2, "CoolCola", 1, 10, 10),
-    Product(3, "Негр", 1, 20, 20),
-  ];
-
+  late final List<Product> products;
   double totalFinalPrice(List<Product> products) {
     double totalFinalPrice = 0;
     for (var product in products) {
-      totalFinalPrice += product.finalPrice;
+      totalFinalPrice += product.getFinelPrice();
     }
     return totalFinalPrice;
   }
@@ -110,116 +106,121 @@ class _ChequeWidgetState extends State<ChequeWidget> {
               )),
           Expanded(
             child: Container(
+                height: 40,
                 child: ListView.builder(
-              itemCount: products.length,
-              itemExtent: 40,
-              itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                  title: Row(
-                    children: [
-                      Container(
-                        width: 20,
-                        child: Text(
-                          textAlign: TextAlign.left,
-                          '${products[index].id}.',
-                          style: theme.textTheme.headlineMedium
-                              ?.copyWith(fontSize: 10),
-                        ),
+                  itemCount: widget.product.length,
+                  itemExtent: 40,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ListTile(
+                      title: Row(
+                        children: [
+                          Container(
+                            width: 20,
+                            child: Text(
+                              textAlign: TextAlign.left,
+                              '${widget.product[index].id}.',
+                              style: theme.textTheme.headlineMedium
+                                  ?.copyWith(fontSize: 10),
+                            ),
+                          ),
+                          Container(
+                            width: 120,
+                            child: Text(
+                              '${widget.product[index].name}',
+                              style: theme.textTheme.headlineMedium
+                                  ?.copyWith(fontSize: 10),
+                            ),
+                          ),
+                          Container(
+                            width: 30,
+                            child: Text(
+                              textAlign: TextAlign.center,
+                              '${widget.product[index].price}',
+                              style: theme.textTheme.headlineMedium
+                                  ?.copyWith(fontSize: 10),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 25,
+                          ),
+                          Container(
+                            height: 37,
+                            decoration: BoxDecoration(
+                              color: Colors.white70,
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.4),
+                                  blurRadius: 10,
+                                  offset: Offset(4, 8),
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                SizedBox(
+                                  width: 40,
+                                  child: IconButton(
+                                    icon: const Icon(
+                                      Icons.remove,
+                                      color: Color(0xFF0079FF),
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        widget.product[index].quantity.value--;
+                                      });
+                                    },
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: ValueListenableBuilder(
+                                    valueListenable:
+                                        widget.product[index].quantity,
+                                    builder: (context, int quantity, _) {
+                                      return Text(
+                                        widget.product[index].quantity.value
+                                            .toString(),
+                                        style: theme.textTheme.headlineMedium
+                                            ?.copyWith(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 35,
+                                  child: IconButton(
+                                    icon: const Icon(
+                                      Icons.add,
+                                      color: Color(0xFF0079FF),
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        widget.product[index].quantity.value++;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                      Container(
-                        width: 120,
-                        child: Text(
-                          '${products[index].name}',
-                          style: theme.textTheme.headlineMedium
-                              ?.copyWith(fontSize: 10),
-                        ),
-                      ),
-                      Container(
+                      trailing: Container(
                         width: 30,
                         child: Text(
                           textAlign: TextAlign.center,
-                          '${products[index].price}',
+                          '${widget.product[index].getFinelPrice()}',
                           style: theme.textTheme.headlineMedium
                               ?.copyWith(fontSize: 10),
                         ),
                       ),
-                      SizedBox(
-                        width: 25,
-                      ),
-                      Container(
-                        height: 32,
-                        decoration: BoxDecoration(
-                          color: Colors.white70,
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.4),
-                              blurRadius: 10,
-                              offset: Offset(4, 8),
-                            ),
-                          ],
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            SizedBox(
-                                width: 35,
-                                child: IconButton(
-                                  icon: const Icon(
-                                    Icons.remove,
-                                    color: Color(0xFF0079FF),
-                                    size: 18,
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      if (products[index].quantity > 0) {
-                                        products[index].quantity--;
-                                        products[index].updatePrice();
-                                      }
-                                    });
-                                  },
-                                )),
-                            Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                products[index].quantity.toString(),
-                                style: theme.textTheme.headlineMedium?.copyWith(
-                                    fontSize: 12, fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 35,
-                              child: IconButton(
-                                icon: const Icon(
-                                  Icons.add,
-                                  color: Color(0xFF0079FF),
-                                  size: 18,
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    products[index].quantity++;
-                                    products[index].updatePrice();
-                                  });
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  trailing: Container(
-                    width: 30,
-                    child: Text(
-                      textAlign: TextAlign.center,
-                      '${products[index].finalPrice}',
-                      style: theme.textTheme.headlineMedium
-                          ?.copyWith(fontSize: 10),
-                    ),
-                  ),
-                );
-              },
-            )),
+                    );
+                  },
+                )),
           ),
           const Divider(
             height: 1.0,
@@ -241,7 +242,7 @@ class _ChequeWidgetState extends State<ChequeWidget> {
                     width: 195,
                   ),
                   Text(
-                    '${totalFinalPrice(products)}',
+                    '${totalFinalPrice(widget.product as List<Product>)}',
                     style: theme.textTheme.headlineMedium
                         ?.copyWith(fontWeight: FontWeight.bold, fontSize: 22),
                   )

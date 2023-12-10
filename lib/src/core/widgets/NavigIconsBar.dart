@@ -21,5 +21,23 @@ class NavigIconsBar extends StatelessWidget {
         ],
       ),
     );
+    // Padding(
+    //     padding: EdgeInsets.only(top: 710),
+    //     child: BottomNavigationBar(
+    //       items: <BottomNavigationBarItem>[
+    //         BottomNavigationBarItem(
+    //           icon: Image.asset('assets/images/myCheque.png'),
+    //           label: 'Home',
+    //         ),
+    //         BottomNavigationBarItem(
+    //           icon: Image.asset('assets/images/home.png'),
+    //           label: 'Search',
+    //         ),
+    //         BottomNavigationBarItem(
+    //           icon: Image.asset('assets/images/profile.png'),
+    //           label: 'Profile',
+    //         ),
+    //       ],
+    //     ));
   }
 }
