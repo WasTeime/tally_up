@@ -3,7 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tally_up/src/features/friends_and_invitings/presentation/bloc/friends/friends_bloc.dart';
 
 class FriendsList extends StatefulWidget {
-  const FriendsList({super.key});
+  final bool enableCheckboxes;
+  //todo!https://stackoverflow.com/questions/53692798/flutter-calling-child-class-function-from-parent-class
+  static final GlobalKey<_FriendsListState> globalKey = GlobalKey();
+  FriendsList({
+    required this.enableCheckboxes,
+  }) : super(key: globalKey);
 
   @override
   State<FriendsList> createState() => _FriendsListState();
@@ -11,10 +16,21 @@ class FriendsList extends StatefulWidget {
 
 class _FriendsListState extends State<FriendsList> {
   final _friendsBloc = FriendsBloc();
+  List<Map<String, dynamic>> friends = [];
 
   @override
   void initState() {
     super.initState();
+  }
+
+  List<Map<String, dynamic>> getSelectedFriends() {
+    List<Map<String, dynamic>> selectedFriends = [];
+    for (final element in friends) {
+      if (element['check'].value == true) {
+        selectedFriends.add(element);
+      }
+    }
+    return selectedFriends;
   }
 
   @override
@@ -39,7 +55,7 @@ class _FriendsListState extends State<FriendsList> {
     );
   }
 
-  Widget friendsListItemWithCheckboxes(index, friends) {
+  Widget friendsListItemWithCheckbox(index, friends) {
     Widget checkBox = ValueListenableBuilder(
       valueListenable: friends['check'],
       builder: (context, bool value, child) {
@@ -47,7 +63,6 @@ class _FriendsListState extends State<FriendsList> {
             value: value,
             onChanged: (onChanged) {
               friends['check'].value = onChanged!;
-              print("after: ${friends['check']}");
             });
       },
     );
@@ -80,7 +95,7 @@ class _FriendsListState extends State<FriendsList> {
                 child: CircularProgressIndicator(),
               );
             } else if (state is FriendsLoaded) {
-              List<Map<String, dynamic>> friends = state.friends;
+              friends = state.friends;
               friends.forEach((element) {
                 element['check'] = ValueNotifier(false);
               });
@@ -103,11 +118,15 @@ class _FriendsListState extends State<FriendsList> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         friendsDivider(friends[index]['username'][0]),
-                        friendsListItemWithCheckboxes(index, friends[index])
+                        widget.enableCheckboxes
+                            ? friendsListItemWithCheckbox(index, friends[index])
+                            : friendsListItem(index, friends[index])
                       ],
                     );
                   }
-                  return friendsListItem(index, friends[index]);
+                  return widget.enableCheckboxes
+                      ? friendsListItemWithCheckbox(index, friends[index])
+                      : friendsListItem(index, friends[index]);
                 },
               );
             } else if (state is FriendsListEmpty) {

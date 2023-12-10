@@ -2,17 +2,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tally_up/src/core/data/DBModel.dart';
 
 class FriendInvitationDBModel extends DBModel {
-  FriendInvitationDBModel() : super();
+  late final Map<String, String?> _collectionsDocsPath;
 
-  //вот так нельзя (почему: https://stackoverflow.com/questions/73514859/why-does-the-call-to-a-parent-class-constructor-not-call-the-parents-methods-th)
-  // @override
-  // CollectionReference getCollection({String? userUid}) {
-  //   return super.getDoc(userUid!).collection('friends_invitation');
-  // }
+  FriendInvitationDBModel(String userUid)
+      : super(
+            pathToCollection: {'users': userUid, 'friends_invitations': null}) {
+    _collectionsDocsPath = {'users': userUid, 'friends_invitations': null};
+  }
 
-  CollectionReference getCollection({String? userUid}) =>
-      super.getRootCollection().doc(userUid).collection('friends_invitations');
-
-  DocumentReference getDoc(String userUid, {String docId = ""}) =>
-      getCollection(userUid: userUid).doc(docId);
+  CollectionReference getFriendsInvitationsCollectionForAnotherUser(
+      String userUid) {
+    final anotherCollection = _collectionsDocsPath;
+    anotherCollection['users'] = userUid;
+    return super.getCollection(anotherCollectionDocPaths: anotherCollection);
+  }
 }

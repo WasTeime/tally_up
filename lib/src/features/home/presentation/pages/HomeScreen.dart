@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tally_up/src/core/widgets/view.dart';
 import 'package:tally_up/src/features/home/presentation/bloc/events/events_bloc.dart';
 import 'package:tally_up/src/features/home/presentation/bloc/groups/groups_bloc.dart';
@@ -15,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  int bottomNavigationBarIndex = 1;
 
   @override
   void initState() {
@@ -63,7 +65,8 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(top: 50),
         child: Column(
           children: [
             _searchAndArchive(),
@@ -94,10 +97,24 @@ class _HomeScreenState extends State<HomeScreen>
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.go('/createGroup');
+        },
+        child: const Icon(Icons.add),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(label: "fjd", icon: Icon(Icons.abc)),
-          BottomNavigationBarItem(label: "dsas", icon: Icon(Icons.abc))
+        currentIndex: bottomNavigationBarIndex,
+        onTap: (index) {
+          bottomNavigationBarIndex = index;
+          //todo приделать функционал
+          setState(() {});
+        },
+        items: const [
+          BottomNavigationBarItem(label: "", icon: Icon(Icons.receipt)),
+          BottomNavigationBarItem(label: "", icon: Icon(Icons.home)),
+          BottomNavigationBarItem(label: "", icon: Icon(Icons.person))
         ],
       ),
     );

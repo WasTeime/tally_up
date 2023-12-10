@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -6,12 +5,14 @@ import 'package:tally_up/src/features/auth/presentation/bloc/auth/auth_bloc.dart
 import 'package:tally_up/src/features/auth/presentation/bloc/sign_in/sign_in_bloc.dart';
 import 'package:tally_up/src/features/auth/presentation/pages/LoginScreen.dart';
 import 'package:tally_up/src/features/auth/presentation/pages/PinVerifyScreen.dart';
+<<<<<<< HEAD
 import 'package:tally_up/src/features/auth/presentation/pages/ProfileScreen.dart';
+=======
+import 'package:tally_up/src/features/createGroup/presentation/pages/createGroupScreen.dart';
+>>>>>>> 6fd7c87c20f7a234c97beda48e1f2d79995288b5
 import 'package:tally_up/src/features/friends_and_invitings/presentation/pages/friendsAndInvitingsScreen.dart';
-import 'package:tally_up/src/features/friends_and_invitings/presentation/pages/friends_list.dart';
 import 'package:tally_up/src/features/cheque_list/presentation/pages/ChequeListInEvent.dart';
 import 'package:tally_up/src/features/cheque_list/presentation/pages/DetailedChequeScreen.dart';
-import 'package:tally_up/src/features/friends_and_invitings/presentation/pages/invitings_list.dart';
 import 'package:tally_up/src/features/contacts/presentation/pages/newContact.dart';
 import 'package:tally_up/src/features/cheque_list/presentation/pages/CreateNewChequeScreen.dart';
 import 'package:tally_up/src/features/cheque_list/presentation/pages/AddObjectScreen.dart';
@@ -49,6 +50,10 @@ final router = GoRouter(initialLocation: '/loginState', routes: [
   GoRoute(
     path: '/friendsAndInvitings',
     builder: (context, state) => FriendsAndInvitingsScreen(),
+  ),
+  GoRoute(
+    path: '/createGroup',
+    builder: (context, state) => CreateGroupScreen(),
   ),
   GoRoute(
     path: '/login',
