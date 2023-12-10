@@ -19,6 +19,7 @@ class FriendsController extends Controller {
     List<Map<String, dynamic>> friendsList = [];
     for (var doc in querySnapshot.docs) {
       await getDocFieldsByRef(doc.get('user')).then((friendData) {
+        friendData['user_ref'] = doc.get('user');
         friendData['data_for_delete'] = {
           'executorUserDocRef': doc.id,
           'friendDocRef': doc.get('ref_on_doc_in_another_user_friend_list'),

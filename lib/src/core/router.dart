@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -5,17 +6,15 @@ import 'package:tally_up/src/features/auth/presentation/bloc/auth/auth_bloc.dart
 import 'package:tally_up/src/features/auth/presentation/bloc/sign_in/sign_in_bloc.dart';
 import 'package:tally_up/src/features/auth/presentation/pages/LoginScreen.dart';
 import 'package:tally_up/src/features/auth/presentation/pages/PinVerifyScreen.dart';
-<<<<<<< HEAD
 import 'package:tally_up/src/features/auth/presentation/pages/ProfileScreen.dart';
-=======
 import 'package:tally_up/src/features/createGroup/presentation/pages/createGroupScreen.dart';
->>>>>>> 6fd7c87c20f7a234c97beda48e1f2d79995288b5
 import 'package:tally_up/src/features/friends_and_invitings/presentation/pages/friendsAndInvitingsScreen.dart';
 import 'package:tally_up/src/features/cheque_list/presentation/pages/ChequeListInEvent.dart';
 import 'package:tally_up/src/features/cheque_list/presentation/pages/DetailedChequeScreen.dart';
 import 'package:tally_up/src/features/contacts/presentation/pages/newContact.dart';
 import 'package:tally_up/src/features/cheque_list/presentation/pages/CreateNewChequeScreen.dart';
 import 'package:tally_up/src/features/cheque_list/presentation/pages/EnterProductsManuallyScreen.dart';
+import 'package:tally_up/src/features/group/presentation/pages/GroupScreen.dart';
 import 'package:tally_up/src/features/home/presentation/pages/HomeScreen.dart';
 
 import '../features/auth/presentation/pages/HomeScreanArchive.dart';
@@ -55,6 +54,13 @@ final router = GoRouter(initialLocation: '/loginState', routes: [
     path: '/createGroup',
     builder: (context, state) => CreateGroupScreen(),
   ),
+  GoRoute(
+      path: '/group',
+      builder: (context, state) {
+        return GroupScreen(
+          groupRef: state.extra as DocumentReference,
+        );
+      }),
   GoRoute(
     path: '/login',
     builder: (context, state) {

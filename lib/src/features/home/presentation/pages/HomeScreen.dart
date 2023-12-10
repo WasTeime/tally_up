@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.only(top: 50),
+        padding: const EdgeInsets.only(top: 50),
         child: Column(
           children: [
             _searchAndArchive(),
@@ -74,22 +74,14 @@ class _HomeScreenState extends State<HomeScreen>
             Expanded(
               child: TabBarView(
                 controller: _tabController,
-                children: [
+                children: const [
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 15),
-                    child: BlocProvider(
-                      create: (context) => GroupsBloc(),
-                      child: GroupsListWidget(),
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    child: GroupsListWidget(),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 15),
-                    child: BlocProvider(
-                      create: (context) => EventsBloc(),
-                      child: EventsListWidget(),
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    child: EventsListWidget(),
                   ),
                 ],
               ),

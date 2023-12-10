@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tally_up/src/features/friends_and_invitings/data/repository/friendsController.dart';
 
@@ -29,6 +30,9 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
         } else {
           //TODO: нужны проверки, если чето не так
           friends.sort((a, b) => a['username'].compareTo(b['username']));
+          friends.forEach((element) {
+            element['check'] = ValueNotifier(false);
+          });
           emit(FriendsLoaded(friends));
         }
       });

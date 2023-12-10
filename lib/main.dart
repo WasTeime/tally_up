@@ -30,6 +30,7 @@ class TallyUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       theme: GetIt.I<AppTheme>().currentTheme,
       routerConfig: router,
     );

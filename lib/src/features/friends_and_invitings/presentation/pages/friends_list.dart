@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tally_up/src/features/friends_and_invitings/presentation/bloc/friends/friends_bloc.dart';
@@ -23,11 +24,11 @@ class _FriendsListState extends State<FriendsList> {
     super.initState();
   }
 
-  List<Map<String, dynamic>> getSelectedFriends() {
-    List<Map<String, dynamic>> selectedFriends = [];
+  List<DocumentReference> getSelectedFriends() {
+    List<DocumentReference> selectedFriends = [];
     for (final element in friends) {
       if (element['check'].value == true) {
-        selectedFriends.add(element);
+        selectedFriends.add(element['user_ref']);
       }
     }
     return selectedFriends;
@@ -96,9 +97,9 @@ class _FriendsListState extends State<FriendsList> {
               );
             } else if (state is FriendsLoaded) {
               friends = state.friends;
-              friends.forEach((element) {
-                element['check'] = ValueNotifier(false);
-              });
+              // friends.forEach((element) {
+              //   element['check'] = ValueNotifier(false);
+              // });
               return ListView.separated(
                 itemCount: friends.length,
                 separatorBuilder: (context, index) {
