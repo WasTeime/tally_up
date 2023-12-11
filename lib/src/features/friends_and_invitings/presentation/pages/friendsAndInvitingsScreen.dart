@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tally_up/src/features/friends_and_invitings/presentation/pages/friends_list.dart';
-import 'package:tally_up/src/features/friends_and_invitings/presentation/pages/invitings_list.dart';
+import 'package:tally_up/src/features/friends_and_invitings/presentation/pages/FriendsScreen.dart';
+import 'package:tally_up/src/features/friends_and_invitings/presentation/pages/InvitingsFriendsScreen.dart';
 
 class FriendsAndInvitingsScreen extends StatefulWidget {
   const FriendsAndInvitingsScreen({super.key});
@@ -34,12 +34,7 @@ class _FriendsAndInvitingsScreenState extends State<FriendsAndInvitingsScreen> {
               ],
             ),
             Expanded(
-              child: TabBarView(children: [
-                FriendsList(
-                  enableCheckboxes: false,
-                ),
-                InvitingsList()
-              ]),
+              child: TabBarView(children: [FriendsScreen(), InvitingsList()]),
             )
           ]),
         ));

@@ -7,7 +7,9 @@ import 'package:tally_up/src/features/auth/presentation/bloc/sign_in/sign_in_blo
 import 'package:tally_up/src/features/auth/presentation/pages/LoginScreen.dart';
 import 'package:tally_up/src/features/auth/presentation/pages/PinVerifyScreen.dart';
 import 'package:tally_up/src/features/auth/presentation/pages/ProfileScreen.dart';
+import 'package:tally_up/src/features/createEvent/presentation/pages/CreateEventScreen.dart';
 import 'package:tally_up/src/features/createGroup/presentation/pages/createGroupScreen.dart';
+import 'package:tally_up/src/features/event/presentation/pages/eventScreen.dart';
 import 'package:tally_up/src/features/friends_and_invitings/presentation/pages/friendsAndInvitingsScreen.dart';
 import 'package:tally_up/src/features/cheque_list/presentation/pages/ChequeListInEvent.dart';
 import 'package:tally_up/src/features/cheque_list/presentation/pages/DetailedChequeScreen.dart';
@@ -55,12 +57,25 @@ final router = GoRouter(initialLocation: '/loginState', routes: [
     builder: (context, state) => CreateGroupScreen(),
   ),
   GoRoute(
-      path: '/group',
-      builder: (context, state) {
-        return GroupScreen(
-          groupRef: state.extra as DocumentReference,
-        );
-      }),
+    path: '/createEvent',
+    builder: (context, state) => CreateEventScreen(),
+  ),
+  GoRoute(
+    path: '/group',
+    builder: (context, state) {
+      return GroupScreen(
+        groupRef: state.extra as DocumentReference,
+      );
+    },
+  ),
+  GoRoute(
+    path: '/event',
+    builder: (context, state) {
+      return EventScreen(
+        groupRef: state.extra as DocumentReference,
+      );
+    },
+  ),
   GoRoute(
     path: '/login',
     builder: (context, state) {
