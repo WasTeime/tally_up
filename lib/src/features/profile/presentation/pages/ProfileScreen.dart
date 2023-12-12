@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/view.dart';
+import '../widgets/view.dart';
 import 'ProfileEditScreen.dart';
 
 class ProfilePage extends StatefulWidget {

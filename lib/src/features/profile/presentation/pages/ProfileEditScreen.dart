@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter/material.dart';
 
+
 import '../../../../core/widgets/view.dart';
+import '../widgets/view.dart';
 import 'ProfileScreen.dart';
 
 class EditProfilePage extends StatelessWidget {

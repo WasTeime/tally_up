@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:tally_up/src/features/auth/presentation/pages/qrscaneroverlay.dart';
+import 'package:tally_up/src/features/qr_scaner/presentation/widgets/view.dart';
 
 import '../../../../core/theme.dart';
 import 'QRResultScreen.dart';

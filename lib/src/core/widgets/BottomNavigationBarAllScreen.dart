@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tally_up/src/features/profile/presentation/pages/ProfileScreen.dart';
+import 'package:tally_up/src/features/cheque_list/presentation/pages/ChequeListInEvent.dart';
+import 'package:tally_up/src/features/home/presentation/pages/HomeScreen.dart';
 
 class BottomNavigationBarWidget extends StatelessWidget {
   const BottomNavigationBarWidget({super.key});

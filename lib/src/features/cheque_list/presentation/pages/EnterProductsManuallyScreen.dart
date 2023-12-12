@@ -4,7 +4,7 @@ import 'package:tally_up/src/core/widgets/TextButtonWidget.dart';
 import 'package:tally_up/src/core/widgets/view.dart';
 import 'package:tally_up/src/features/auth/presentation/bloc/sign_in/sign_in_bloc.dart';
 import 'package:tally_up/src/features/cheque_list/domain/models/ProductModel.dart';
-import 'package:tally_up/src/features/cheque_list/presentation/widgets/ProductsManuallyListItem.dart';
+import 'package:tally_up/src/features/cheque_list/presentation/widgets/view.dart';
 
 class EnterProductsManuallyScreen extends StatefulWidget {
   const EnterProductsManuallyScreen({super.key});

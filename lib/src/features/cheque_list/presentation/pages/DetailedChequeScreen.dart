@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:tally_up/src/core/widgets/FinalPriceWidget.dart';
-import 'package:tally_up/src/core/widgets/NameEventWidget.dart';
-import 'package:tally_up/src/core/widgets/view.dart';
-import 'package:tally_up/src/features/auth/presentation/widgets/ChequeWidget.dart';
+import 'package:tally_up/src/features/cheque_list/presentation/widgets/NameEventWidget.dart';
 import 'package:tally_up/src/features/cheque_list/domain/models/ProductModel.dart';
+import 'package:tally_up/src/features/cheque_list/presentation/widgets/view.dart';
+
+import '../../../../core/widgets/view.dart';
 
 class DetailedChequeScreen extends StatefulWidget {
   const DetailedChequeScreen({super.key});
