@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tally_up/src/features/auth/presentation/pages/ProfileScreen.dart';
+import 'package:tally_up/src/features/profile/presentation/pages/ProfileScreen.dart';
 import 'package:tally_up/src/features/cheque_list/presentation/pages/ChequeListInEvent.dart';
 import 'package:tally_up/src/features/home/presentation/pages/HomeScreen.dart';
 

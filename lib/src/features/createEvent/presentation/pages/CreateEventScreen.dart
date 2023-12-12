@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tally_up/src/core/widgets/ColumnGapWidget.dart';
-import 'package:tally_up/src/core/widgets/InputWidget.dart';
+import 'package:tally_up/src/features/createGroup/presentation/widgets/InputWidget.dart';
 import 'package:tally_up/src/core/widgets/LoadingWidget.dart';
 import 'package:tally_up/src/core/widgets/contactsList.dart';
 import 'package:tally_up/src/features/group/presentation/bloc/group/group_bloc.dart';

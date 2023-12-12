@@ -6,7 +6,7 @@ import 'package:tally_up/src/features/auth/presentation/bloc/auth/auth_bloc.dart
 import 'package:tally_up/src/features/auth/presentation/bloc/sign_in/sign_in_bloc.dart';
 import 'package:tally_up/src/features/auth/presentation/pages/LoginScreen.dart';
 import 'package:tally_up/src/features/auth/presentation/pages/PinVerifyScreen.dart';
-import 'package:tally_up/src/features/auth/presentation/pages/ProfileScreen.dart';
+import 'package:tally_up/src/features/profile/presentation/pages/ProfileScreen.dart';
 import 'package:tally_up/src/features/createEvent/presentation/pages/CreateEventScreen.dart';
 import 'package:tally_up/src/features/createGroup/presentation/pages/createGroupScreen.dart';
 import 'package:tally_up/src/features/event/presentation/pages/eventScreen.dart';
@@ -19,7 +19,7 @@ import 'package:tally_up/src/features/cheque_list/presentation/pages/EnterProduc
 import 'package:tally_up/src/features/group/presentation/pages/GroupScreen.dart';
 import 'package:tally_up/src/features/home/presentation/pages/HomeScreen.dart';
 
-import '../features/auth/presentation/pages/HomeScreanArchive.dart';
+import '../features/home_archive/presentation/pages/HomeScreanArchive.dart';
 
 final signInBloc = SignInBloc();
 
