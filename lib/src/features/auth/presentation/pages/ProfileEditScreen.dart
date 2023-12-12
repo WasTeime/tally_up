@@ -55,7 +55,7 @@ class EditProfilePage extends StatelessWidget {
       body: Stack(
         children: [
           PhotoAndBox(color),
-          NavigIconsBar(),
+          const BottomNavigationBarWidget(),
         ],
       ),
     );

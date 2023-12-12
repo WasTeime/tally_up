@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+//!Этот актуальный
+//разница, что тут textFormField, потом надо будет в авторизации заменить на этот виджет
 class InputWidget extends StatelessWidget {
   final TextEditingController inputController;
   final String hintText;

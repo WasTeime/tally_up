@@ -56,7 +56,7 @@ class _DetailedChequeScreenState extends State<DetailedChequeScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          NavigIconsBar(),
+          const BottomNavigationBarWidget(),
           NameEventWidget(name: 'Мероприятие Мяу', people: '5 участников'),
           _namberCheque(),
           ChequeWidget(product: products),

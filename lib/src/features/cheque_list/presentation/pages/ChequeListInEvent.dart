@@ -166,7 +166,7 @@ class _ChequeListInEventState extends State<ChequeListInEvent> {
           _chequeList(),
           FinalPriceWidget(
               word: 'Итого', price: 2000.0, button: 'Разделить\n поровну'),
-          NavigIconsBar(),
+          const BottomNavigationBarWidget(),
         ],
       ),
     );

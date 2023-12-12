@@ -59,7 +59,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ProfileActionCard(title: 'Мои долги', value: '3'),
               ProfileActionCard(title: 'Импорт контактов', value: 'Готово'),
               const SizedBox(height: 140.0),
-              LogoutInProfileButton()
+              LogoutInProfileButtonWidget()
             ],
           ),
           Positioned(
@@ -90,7 +90,7 @@ class __ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 218, 235, 255),
         body: Stack(
-          children: [ProfilePage(), NavigIconsBar()],
+          children: [ProfilePage(), const BottomNavigationBarWidget()],
         ));
   }
 }

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tally_up/src/core/widgets/view.dart';
-import 'package:tally_up/src/features/home/presentation/bloc/events/events_bloc.dart';
-import 'package:tally_up/src/features/home/presentation/bloc/groups/groups_bloc.dart';
 import 'package:tally_up/src/features/home/presentation/widgets/view.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -20,8 +17,8 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this);
     super.initState();
+    _tabController = TabController(length: 2, vsync: this);
   }
 
   Widget _tabs() {
@@ -96,19 +93,7 @@ class _HomeScreenState extends State<HomeScreen>
         child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: bottomNavigationBarIndex,
-        onTap: (index) {
-          bottomNavigationBarIndex = index;
-          //todo приделать функционал
-          setState(() {});
-        },
-        items: const [
-          BottomNavigationBarItem(label: "", icon: Icon(Icons.receipt)),
-          BottomNavigationBarItem(label: "", icon: Icon(Icons.home)),
-          BottomNavigationBarItem(label: "", icon: Icon(Icons.person))
-        ],
-      ),
+      bottomNavigationBar: const BottomNavigationBarWidget(),
     );
   }
 }

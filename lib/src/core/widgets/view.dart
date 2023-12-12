@@ -1,10 +1,8 @@
 export 'ColumnGapWidget.dart';
 export 'InputFieldWidget.dart';
 export 'TextButtonWidget.dart';
-export 'NavigIconsBar.dart';
-export 'ButtomAdd.dart';
 export 'SearchBarWidget.dart';
-export 'LogoutInProfileButton.dart';
+export 'LogoutInProfileButtonWidget.dart';
 export 'ProfilePhoto.dart';
 export 'ProfileActionCard.dart';
 export 'UserInfoCard.dart';

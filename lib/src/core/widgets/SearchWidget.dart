@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 
 class SearchWidget extends StatelessWidget {
   final TextEditingController textController;
-  final String hintText;
   const SearchWidget({
     required this.textController,
-    required this.hintText,
     super.key,
   });
 
@@ -33,7 +31,7 @@ class SearchWidget extends StatelessWidget {
           ),
           filled: true,
           fillColor: Colors.white,
-          hintText: hintText,
+          hintText: "Search",
           hintStyle:
               const TextStyle(color: Colors.grey, fontWeight: FontWeight.w300),
           contentPadding:

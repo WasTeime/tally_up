@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tally_up/src/core/widgets/SearchWidget.dart';
 import 'package:tally_up/src/features/home/presentation/bloc/groups/groups_bloc.dart';
 
 import '../../../../core/widgets/view.dart';
@@ -58,7 +59,9 @@ class _HomeScreanArchiveState extends State<HomeScreanArchive>
           const SizedBox(
             width: 10,
           ),
-          SearchBarWidget(),
+          SearchWidget(
+            textController: TextEditingController(),
+          ),
         ],
       ),
     );
@@ -112,6 +115,6 @@ class _HomeScreanArchiveState extends State<HomeScreanArchive>
             ],
           ),
         ),
-        bottomNavigationBar: BottomNavigationBarAllScreen());
+        bottomNavigationBar: BottomNavigationBarWidget());
   }
 }

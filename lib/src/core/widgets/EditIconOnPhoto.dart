@@ -29,6 +29,7 @@ class CircleWidget extends StatelessWidget {
   final Color color;
 
   const CircleWidget({
+    super.key,
     required this.child,
     required this.all,
     required this.color,

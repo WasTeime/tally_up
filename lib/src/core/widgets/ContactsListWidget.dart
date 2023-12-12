@@ -2,23 +2,24 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tally_up/src/core/widgets/SearchWidget.dart';
 
-class ContactsList extends StatefulWidget {
+class ContactsListWidget extends StatefulWidget {
   final bool enableCheckboxes;
   final bool enableSearch;
   final List<Map<String, dynamic>> contacts;
   //https://stackoverflow.com/questions/53692798/flutter-calling-child-class-function-from-parent-class
-  static final GlobalKey<_ContactsListState> globalKey = GlobalKey();
-  ContactsList({
+  static final GlobalKey<_ContactsListWidgetState> globalKey = GlobalKey();
+  ContactsListWidget({
     required this.contacts,
     this.enableCheckboxes = false,
     this.enableSearch = true,
   }) : super(key: globalKey);
 
   @override
-  State<ContactsList> createState() => _ContactsListState();
+  State<ContactsListWidget> createState() => _ContactsListWidgetState();
 }
 
-class _ContactsListState extends State<ContactsList> {
+class _ContactsListWidgetState extends State<ContactsListWidget> {
+  //todo можно не только ссылку в бд хранить, но например и фотку с именем как поля в документе
   late List<Map<String, dynamic>> contacts;
   final searchController = TextEditingController();
 
@@ -124,8 +125,7 @@ class _ContactsListState extends State<ContactsList> {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-            child: SearchWidget(
-                textController: searchController, hintText: "search"),
+            child: SearchWidget(textController: searchController),
           ),
           Expanded(child: contactsList())
         ],

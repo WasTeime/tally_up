@@ -57,7 +57,6 @@ class AppBarWidget extends StatelessWidget {
       leading: enableBackButton ? const BackButton() : null,
       title: enableSearch
           ? SearchWidget(
-              hintText: "Search",
               textController: TextEditingController(),
             )
           : null,

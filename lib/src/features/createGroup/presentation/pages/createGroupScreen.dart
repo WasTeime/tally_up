@@ -6,7 +6,7 @@ import 'package:tally_up/src/core/widgets/ColumnGapWidget.dart';
 import 'package:tally_up/src/core/widgets/InputFieldWidget.dart';
 import 'package:tally_up/src/core/widgets/InputWidget.dart';
 import 'package:tally_up/src/core/widgets/LoadingWidget.dart';
-import 'package:tally_up/src/core/widgets/contactsList.dart';
+import 'package:tally_up/src/core/widgets/contactsListWidget.dart';
 import 'package:tally_up/src/features/createGroup/presentation/bloc/create_group/create_group_bloc.dart';
 import 'package:tally_up/src/features/friends_and_invitings/presentation/bloc/friends/friends_bloc.dart';
 import 'package:tally_up/src/features/friends_and_invitings/presentation/pages/FriendsScreen.dart';
@@ -58,7 +58,8 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
           IconButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  final selectedFriends = ContactsList.globalKey.currentState!
+                  final selectedFriends = ContactsListWidget
+                      .globalKey.currentState!
                       .getListRefsForSelectedPeople();
                   if (selectedFriends.isEmpty) {
                     isFriendsSelected.value = false;
@@ -128,7 +129,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                                                   Radius.circular(10)))
                                           : null,
                                       elevation: 5,
-                                      child: ContactsList(
+                                      child: ContactsListWidget(
                                         contacts: state.friends,
                                         enableCheckboxes: true,
                                       ),

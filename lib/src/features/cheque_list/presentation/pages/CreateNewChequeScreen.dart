@@ -86,7 +86,7 @@ class _CreateNewChequeScreenState extends State<CreateNewChequeScreen> {
       body: Stack(
         children: [
           _addCheque(),
-          NavigIconsBar(),
+          const BottomNavigationBarWidget(),
         ],
       ),
     );
