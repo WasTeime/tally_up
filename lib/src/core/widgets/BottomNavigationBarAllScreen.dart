@@ -10,6 +10,7 @@ class BottomNavigationBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      backgroundColor: Color.fromARGB(255, 218, 235, 255),
       items: [
         BottomNavigationBarItem(
           label: "",

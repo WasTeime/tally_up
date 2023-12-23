@@ -60,7 +60,9 @@ class _ProfilePageState extends State<ProfilePage> {
               ProfileActionCard(title: 'Мои долги', value: '3'),
               ProfileActionCard(title: 'Импорт контактов', value: 'Готово'),
               const SizedBox(height: 140.0),
-              LogoutInProfileButtonWidget()
+              LogoutInProfileButtonWidget(
+                name: 'Выход',
+              )
             ],
           ),
           Positioned(
