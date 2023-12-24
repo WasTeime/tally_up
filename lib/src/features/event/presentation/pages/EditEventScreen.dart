@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:tally_up/src/core/widgets/view.dart';
-import 'package:tally_up/src/features/cheque_list/presentation/widgets/view.dart';
+import 'package:tally_up/src/features/event/presentation/widgets/EditCardEvent.dart';
 
 import '../../../../core/theme.dart';
 import '../../../profile/presentation/widgets/view.dart';
+import '../widgets/view.dart';
 
 class CheckListEditScreen extends StatefulWidget {
   const CheckListEditScreen({super.key});
@@ -130,7 +131,7 @@ class _CheckListEditScreenState extends State<CheckListEditScreen> {
           height: 20,
         ),
         const LogoutInProfileButtonWidget(
-          name: 'Удалить мероприятие',
+          name: 'Удалить чек',
         )
       ]),
       bottomNavigationBar: const BottomNavigationBarWidget(),
