@@ -5,8 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:tally_up/src/features/cheque_list/presentation/widgets/FinalPriceWidget.dart';
 import 'package:tally_up/src/features/cheque_list/presentation/widgets/NameEventWidget.dart';
 
-import '../../../../core/widgets/view.dart';
-import '../../../auth/presentation/bloc/sign_in/sign_in_bloc.dart';
+import 'package:tally_up/src/core/widgets/view.dart';
 
 class ChequeListInEvent extends StatefulWidget {
   const ChequeListInEvent({super.key});

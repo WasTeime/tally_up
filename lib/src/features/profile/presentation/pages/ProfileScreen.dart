@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter/material.dart';
-
-import '../../../../core/widgets/view.dart';
-import '../widgets/view.dart';
-import 'ProfileEditScreen.dart';
+import 'package:tally_up/src/core/widgets/view.dart';
+import 'package:tally_up/src/features/profile/presentation/pages/ProfileEditScreen.dart';
+import 'package:tally_up/src/features/profile/presentation/widgets/view.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -60,9 +57,9 @@ class _ProfilePageState extends State<ProfilePage> {
               ProfileActionCard(title: 'Мои долги', value: '3'),
               ProfileActionCard(title: 'Импорт контактов', value: 'Готово'),
               const SizedBox(height: 140.0),
-              LogoutInProfileButtonWidget(
-                name: 'Выход',
-              )
+              // LogoutInProfileButtonWidget(
+              //   name: 'Выход',
+              // )
             ],
           ),
           Positioned(

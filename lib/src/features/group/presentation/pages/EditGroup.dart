@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:tally_up/src/core/theme.dart';
+import 'package:tally_up/src/core/widgets/view.dart';
 import 'package:tally_up/src/features/group/presentation/widgets/CustomEventList.dart';
 import 'package:tally_up/src/features/group/presentation/widgets/EditCardGroup.dart';
-
-import '../../../../core/theme.dart';
-import '../../../../core/widgets/view.dart';
-import '../../../profile/presentation/widgets/view.dart';
 
 class EditGroupScreen extends StatefulWidget {
   const EditGroupScreen({super.key});
@@ -31,9 +29,9 @@ class _EdditGroupScreenState extends State<EditGroupScreen> {
         SizedBox(
           height: 10,
         ),
-        LogoutInProfileButtonWidget(
-          name: 'Удалить Мероприятие',
-        )
+        // LogoutInProfileButtonWidget(
+        //   name: 'Удалить Мероприятие',
+        // )
       ]),
       bottomNavigationBar: const BottomNavigationBarWidget(),
     );

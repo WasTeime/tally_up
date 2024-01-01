@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:tally_up/src/core/widgets/SearchWidget.dart';
+import 'package:tally_up/src/core/widgets/view.dart';
 
 class ContactsListWidget extends StatefulWidget {
   final bool enableCheckboxes;

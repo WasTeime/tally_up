@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:tally_up/src/core/widgets/SearchBarWidget.dart';
+import 'package:tally_up/src/core/widgets/view.dart';
 import 'package:tally_up/src/features/friends_and_invitings/presentation/bloc/invitings/invitings_bloc.dart';
 
 class InvitingsList extends StatefulWidget {

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tally_up/src/core/layouts/mainLayout.dart';
-import 'package:tally_up/src/core/widgets/AppBarWidget.dart';
 import 'package:tally_up/src/core/widgets/view.dart';
 import 'package:tally_up/src/features/home/presentation/widgets/view.dart';
 

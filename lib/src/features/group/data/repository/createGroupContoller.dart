@@ -36,10 +36,8 @@ class CreateGroupController extends Controller {
             .set(memberGroupModel.toJson());
       }
     }
-    DocumentReference createdGroupRef = await _groupsDBModel
-        .getCollection()
-        .doc(groupDocId)
-        .set(creatorGroupModel.toJson());
+    DocumentReference createdGroupRef =
+        await _groupsDBModel.getCollection().add(creatorGroupModel.toJson());
     return createdGroupRef;
   }
 }

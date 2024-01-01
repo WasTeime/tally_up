@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:tally_up/src/core/widgets/TextButtonWidget.dart';
 
 class FinalPriceWidget extends StatelessWidget {
   final String word;

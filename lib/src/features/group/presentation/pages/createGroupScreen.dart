@@ -3,11 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tally_up/src/core/layouts/mainLayout.dart';
-import 'package:tally_up/src/core/widgets/AppBarWidget.dart';
-import 'package:tally_up/src/core/widgets/ColumnGapWidget.dart';
-import 'package:tally_up/src/core/widgets/InputWidget.dart';
-import 'package:tally_up/src/core/widgets/contacts/ContactsListCardWidget.dart';
-import 'package:tally_up/src/core/widgets/LoadingWidget.dart';
+import 'package:tally_up/src/core/widgets/view.dart';
 import 'package:tally_up/src/features/friends_and_invitings/presentation/bloc/friends/friends_bloc.dart';
 import 'package:tally_up/src/features/group/presentation/bloc/create_group/create_group_bloc.dart';
 

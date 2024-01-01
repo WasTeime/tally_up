@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tally_up/src/features/group/presentation/widgets/IconWithBackgroundWidget.dart';
+import 'package:tally_up/src/core/widgets/IconWithBackgroundWidget.dart';
 
 class CardTitleForEventWidget extends StatelessWidget {
   const CardTitleForEventWidget({
