@@ -19,6 +19,22 @@ class GroupController extends Controller {
     return data;
   }
 
+  Future<List<Map<String, dynamic>>> getGroupParticipants() async {
+    List<Map<String, dynamic>> groupParticipantsData = [];
+    List<dynamic> groupParticipantsRefs = await _groupsDBModel
+        .getCollection()
+        .doc(_groupRef.id)
+        .get()
+        .then((groupData) => groupData.get('participants'));
+    for (DocumentReference participant in groupParticipantsRefs) {
+      await getDocFieldsByRef(participant).then((data) {
+        data['user_ref'] = participant;
+        groupParticipantsData.add(data);
+      });
+    }
+    return groupParticipantsData;
+  }
+
   Stream<QuerySnapshot> get getGroupEventsListStream => _groupsDBModel
       .getCollection()
       .doc(_groupRef.id)

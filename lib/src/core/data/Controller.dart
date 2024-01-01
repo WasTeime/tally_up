@@ -8,14 +8,18 @@ class Controller {
 
   User? get getUser => _user;
 
+  //получить данные документы по ссылке (DocumentReference) на документ
   Future<Map<String, dynamic>> getDocFieldsByRef(
-      DocumentReference docRef) async {
+    DocumentReference docRef,
+  ) async {
     DocumentSnapshot doc = await docRef.get();
     return doc.data() as Map<String, dynamic>;
   }
 
+  //получить все документы коллекции по запросу (QuerySnapshot)
   Future<List<Map<String, dynamic>>> getCollectionDocs(
-      QuerySnapshot querySnapshot) async {
+    QuerySnapshot querySnapshot,
+  ) async {
     List<Map<String, dynamic>> docsList = [];
     for (var doc in querySnapshot.docs) {
       docsList.add(doc.data() as Map<String, dynamic>);
@@ -23,8 +27,10 @@ class Controller {
     return docsList;
   }
 
+  //получить все документы коллекции по запросу (QuerySnapshot), где есть только одно поле: ссылка на пользователя
   Future<List<Map<String, dynamic>>> getCollectionDocsWithUserRefField(
-      QuerySnapshot querySnapshot) async {
+    QuerySnapshot querySnapshot,
+  ) async {
     List<Map<String, dynamic>> docsList = [];
     for (var doc in querySnapshot.docs) {
       await getDocFieldsByRef(doc.get('user')).then((docData) {

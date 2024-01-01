@@ -6,40 +6,40 @@ class SearchBarWidget extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final TextInputType? textInputType;
   final TextEditingController? inputController;
-  const SearchBarWidget(
-      {this.hint,
-      this.inputFormatters,
-      this.inputController,
-      this.textInputType,
-      super.key});
+
+  const SearchBarWidget({
+    super.key,
+    this.hint,
+    this.inputFormatters,
+    this.inputController,
+    this.textInputType,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: TextField(
-        inputFormatters: inputFormatters,
-        keyboardType: textInputType,
-        controller: inputController,
-        decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.search),
-          fillColor: Colors.white,
-          enabledBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(40)),
-            borderSide: BorderSide(
-              color: Color.fromRGBO(207, 203, 203, 0.989),
-              width: 1,
-            ),
+    return TextField(
+      inputFormatters: inputFormatters,
+      keyboardType: textInputType,
+      controller: inputController,
+      decoration: InputDecoration(
+        prefixIcon: const Icon(Icons.search),
+        fillColor: Colors.white,
+        enabledBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(40)),
+          borderSide: BorderSide(
+            color: Color.fromRGBO(207, 203, 203, 0.989),
+            width: 1,
           ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(40),
-            borderSide: const BorderSide(
-              color: Colors.blue,
-              width: 3,
-            ),
-          ),
-          hintText: hint,
-          hintStyle: const TextStyle(color: Colors.black),
         ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(40),
+          borderSide: const BorderSide(
+            color: Colors.blue,
+            width: 3,
+          ),
+        ),
+        hintText: hint,
+        hintStyle: const TextStyle(color: Colors.black),
       ),
     );
   }

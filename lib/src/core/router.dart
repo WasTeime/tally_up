@@ -6,20 +6,13 @@ import 'package:tally_up/src/features/auth/presentation/bloc/auth/auth_bloc.dart
 import 'package:tally_up/src/features/auth/presentation/bloc/sign_in/sign_in_bloc.dart';
 import 'package:tally_up/src/features/auth/presentation/pages/LoginScreen.dart';
 import 'package:tally_up/src/features/auth/presentation/pages/PinVerifyScreen.dart';
+import 'package:tally_up/src/features/event/presentation/pages/createEventScreen.dart';
 import 'package:tally_up/src/features/profile/presentation/pages/ProfileScreen.dart';
-import 'package:tally_up/src/features/createEvent/presentation/pages/CreateEventScreen.dart';
-import 'package:tally_up/src/features/createGroup/presentation/pages/createGroupScreen.dart';
-import 'package:tally_up/src/features/event/presentation/pages/eventScreen.dart';
+import 'package:tally_up/src/features/group/presentation/pages/createGroupScreen.dart';
 import 'package:tally_up/src/features/friends_and_invitings/presentation/pages/friendsAndInvitingsScreen.dart';
 import 'package:tally_up/src/features/cheque_list/presentation/pages/ChequeListInEvent.dart';
-import 'package:tally_up/src/features/cheque_list/presentation/pages/DetailedChequeScreen.dart';
-import 'package:tally_up/src/features/contacts/presentation/pages/newContact.dart';
-import 'package:tally_up/src/features/cheque_list/presentation/pages/CreateNewChequeScreen.dart';
-import 'package:tally_up/src/features/cheque_list/presentation/pages/EnterProductsManuallyScreen.dart';
 import 'package:tally_up/src/features/group/presentation/pages/GroupScreen.dart';
 import 'package:tally_up/src/features/home/presentation/pages/HomeScreen.dart';
-
-import '../features/home_archive/presentation/pages/HomeScreanArchive.dart';
 
 final signInBloc = SignInBloc();
 
@@ -43,11 +36,12 @@ final router = GoRouter(initialLocation: '/loginState', routes: [
     },
   ),
   GoRoute(
-      path: '/',
-      builder: (context, state) {
-        signInBloc.dispose();
-        return HomeScreen();
-      }),
+    path: '/',
+    builder: (context, state) {
+      signInBloc.dispose();
+      return HomeScreen();
+    },
+  ),
   GoRoute(
     path: '/friendsAndInvitings',
     builder: (context, state) => FriendsAndInvitingsScreen(),
@@ -55,10 +49,6 @@ final router = GoRouter(initialLocation: '/loginState', routes: [
   GoRoute(
     path: '/createGroup',
     builder: (context, state) => CreateGroupScreen(),
-  ),
-  GoRoute(
-    path: '/createEvent',
-    builder: (context, state) => CreateEventScreen(),
   ),
   GoRoute(
     path: '/group',
@@ -69,12 +59,10 @@ final router = GoRouter(initialLocation: '/loginState', routes: [
     },
   ),
   GoRoute(
-    path: '/event',
-    builder: (context, state) {
-      return EventScreen(
-        groupRef: state.extra as DocumentReference,
-      );
-    },
+    path: '/createEvent',
+    builder: (context, state) => CreateEventScreen(
+      groupRef: state.extra as DocumentReference,
+    ),
   ),
   GoRoute(
     path: '/login',
@@ -90,12 +78,6 @@ final router = GoRouter(initialLocation: '/loginState', routes: [
       builder: (context, state) {
         return BlocProvider<SignInBloc>.value(
             value: signInBloc, child: PinVerifyScreen());
-      }),
-  GoRoute(
-      path: '/arhive',
-      builder: (context, state) {
-        return BlocProvider<SignInBloc>.value(
-            value: signInBloc, child: HomeScreanArchive());
       }),
   GoRoute(
       path: '/profile',

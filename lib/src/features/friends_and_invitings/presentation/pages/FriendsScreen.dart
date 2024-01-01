@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tally_up/src/core/widgets/contactsListWidget.dart';
+import 'package:tally_up/src/core/widgets/contacts/ContactsListWidget.dart';
 import 'package:tally_up/src/features/friends_and_invitings/presentation/bloc/friends/friends_bloc.dart';
 
 class FriendsScreen extends StatefulWidget {

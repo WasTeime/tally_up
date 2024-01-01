@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tally_up/src/features/home/domain/models/EventModel.dart';
 
-enum Role { member, creator }
+enum Role { participant, creator }
 
 class GroupModel {
   final String groupName;

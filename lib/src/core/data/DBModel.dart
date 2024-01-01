@@ -9,6 +9,7 @@ abstract class DBModel {
     _collection = _getCollectionByCollectionsDocsPath(pathToCollection);
   }
 
+  //получить коллекцию последнего уровня
   CollectionReference getCollection(
           {Map<String, String?>? anotherCollectionDocPaths}) =>
       anotherCollectionDocPaths == null
@@ -16,7 +17,8 @@ abstract class DBModel {
           : _getCollectionByCollectionsDocsPath(anotherCollectionDocPaths);
 
   CollectionReference _getCollectionByCollectionsDocsPath(
-      Map<String, String?> collectionsDocsPath) {
+    Map<String, String?> collectionsDocsPath,
+  ) {
     CollectionReference? finalCollection;
     String? prevLayerDoc;
     var count = 0;
@@ -41,8 +43,6 @@ abstract class DBModel {
     }
     return finalCollection!;
   }
-
-  //DocumentReference getDoc(String docId) => _collection.doc(docId);
 
   Stream<QuerySnapshot> get getStream => _collection.snapshots();
 }

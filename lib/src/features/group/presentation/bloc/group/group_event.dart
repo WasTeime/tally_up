@@ -7,3 +7,9 @@ class LoadGroup extends GroupEvent {
 
   LoadGroup(this.querySnapshot);
 }
+
+class GetGroupParticipants extends GroupEvent {
+  final DocumentReference groupRef;
+
+  GetGroupParticipants(this.groupRef);
+}

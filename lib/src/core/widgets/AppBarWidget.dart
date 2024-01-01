@@ -1,66 +1,98 @@
 import 'package:flutter/material.dart';
-import 'package:tally_up/src/core/widgets/SearchWidget.dart';
 
 //todo доделать, приделать функционал
-class AppBarWidget extends StatelessWidget {
+class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
   //можно поменять эти поля на типо такого
   //final Function enableAcceptButton; с помощью callback или типо того можно сделать
-  final bool enableSearch;
-  final bool enableArchive;
-  final bool enableBackButton;
-  final bool enableAcceptButton;
-  final bool enableEditButton;
+  final Widget? titleWidget;
+  final VoidCallback? enableArchive;
+  final VoidCallback? enableBackButton;
+  final VoidCallback? enableAcceptButton;
+  final VoidCallback? enableEditButton;
+
+  @override
+  final Size preferredSize = const Size.fromHeight(kToolbarHeight +
+      20); //todo! надо поменять чтобы высота в зависимости от контента считалась
+
+  @override
+  State<AppBarWidget> createState() => _AppBarWidgetState();
 
   const AppBarWidget({
     super.key,
-    required this.enableSearch,
+    this.titleWidget,
+    this.enableArchive,
+    this.enableBackButton,
+    this.enableAcceptButton,
+    this.enableEditButton,
+  });
+
+  const AppBarWidget.searchAndArchive({
+    super.key,
+    this.enableAcceptButton,
+    this.enableBackButton,
+    required this.titleWidget,
     required this.enableArchive,
-    required this.enableBackButton,
+    this.enableEditButton,
+  });
+
+  const AppBarWidget.withAcceptButton({
+    super.key,
     required this.enableAcceptButton,
+    required this.enableBackButton,
+    required this.titleWidget,
+    this.enableArchive,
+    this.enableEditButton,
+  });
+
+  const AppBarWidget.withEditButton({
+    super.key,
     required this.enableEditButton,
-  });
-
-  const AppBarWidget.homePage({
-    super.key,
-    this.enableArchive = true,
-    this.enableSearch = true,
-    this.enableAcceptButton = false,
-    this.enableBackButton = false,
-    this.enableEditButton = false,
-  });
-
-  const AppBarWidget.create({
-    super.key,
-    this.enableArchive = false,
-    this.enableSearch = false,
-    this.enableAcceptButton = true,
-    this.enableBackButton = true,
-    this.enableEditButton = false,
+    required this.enableBackButton,
+    required this.titleWidget,
+    this.enableAcceptButton,
+    this.enableArchive,
   });
 
   List<Widget>? get actionsAppBar {
-    if (enableAcceptButton) {
-      return [IconButton(onPressed: () {}, icon: const Icon(Icons.check))];
+    if (enableAcceptButton != null) {
+      return [
+        IconButton(
+            onPressed: () => enableAcceptButton!(),
+            icon: const Icon(Icons.check))
+      ];
     }
-    if (enableArchive) {
-      return [IconButton(onPressed: () {}, icon: const Icon(Icons.archive))];
+    if (enableArchive != null) {
+      return [
+        IconButton(
+          onPressed: () => enableArchive!(),
+          icon: const Icon(Icons.archive),
+        )
+      ];
     }
-    if (enableEditButton) {
-      return [IconButton(onPressed: () {}, icon: const Icon(Icons.edit))];
+    if (enableEditButton != null) {
+      return [
+        IconButton(
+          onPressed: () => enableEditButton!(),
+          icon: const Icon(Icons.edit),
+        )
+      ];
     }
     return [];
   }
+}
 
+class _AppBarWidgetState extends State<AppBarWidget> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: enableBackButton ? const BackButton() : null,
-      title: enableSearch
-          ? SearchWidget(
-              textController: TextEditingController(),
-            )
-          : null,
-      actions: actionsAppBar,
+      toolbarHeight: const Size.fromHeight(kToolbarHeight + 20)
+          .height, //todo! надо поменять чтобы высота в зависимости от контента считалась
+      title: widget.titleWidget,
+      actions: widget.actionsAppBar,
+      leading: BackButton(
+        onPressed: widget.enableBackButton,
+      ),
+      centerTitle: true,
     );
   }
 }
