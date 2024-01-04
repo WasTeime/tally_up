@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:popover/popover.dart';
 import 'package:tally_up/src/features/qr_scaner/presentation/widgets/view.dart';
+import 'package:tally_up/src/features/qr_scaner/presentation/widgets/window_items.dart';
 
 import '../../../../core/theme.dart';
+import '../widgets/ttt.dart';
 import 'QRResultScreen.dart';
 
 const BGColor = Colors.white70;
@@ -140,10 +143,10 @@ class _QRScanerState extends State<QRScaner> {
                             ),
                           )),
                     ),
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
+                        Text(
                           "Или введите чек",
                           style: TextStyle(
                               fontSize: 15,
@@ -151,23 +154,10 @@ class _QRScanerState extends State<QRScaner> {
                               fontFamily: 'Rubik',
                               fontWeight: FontWeight.bold),
                         ),
-                        TextButton(
-                          style: ButtonStyle(
-                            foregroundColor:
-                                MaterialStateProperty.all<Color>(Colors.white),
-                          ),
-                          onPressed: () {},
-                          child: const Text(
-                            "вручную",
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontFamily: 'Rubik',
-                                decoration: TextDecoration.underline,
-                                decorationColor: Colors.white,
-                                decorationThickness: 1,
-                                fontWeight: FontWeight.w900),
-                          ),
-                        )
+                        SizedBox(
+                          width: 6,
+                        ),
+                        TextUnderline(),
                       ],
                     )
                   ],
