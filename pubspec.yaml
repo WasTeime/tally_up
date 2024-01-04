@@ -51,7 +51,11 @@ dependencies:
   qr_flutter: ^4.1.0
   qr_code_scanner: ^1.0.1
   intl: ^0.18.1
+<<<<<<< HEAD
   popover: ^0.2.8+2
+=======
+  mockito: ^5.4.3
+>>>>>>> 2c1a5aaef0fa732eb2609a2b247fecc413f7fc26
 
 dev_dependencies:
   flutter_test:
