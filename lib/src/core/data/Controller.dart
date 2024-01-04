@@ -2,13 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class Controller {
+  final db = FirebaseFirestore.instance;
+
   final _user = FirebaseAuth.instance.currentUser;
 
   String get getUserUid => _user!.uid;
 
   User? get getUser => _user;
 
-  //получить данные документы по ссылке (DocumentReference) на документ
+  //получить data документа по ссылке (DocumentReference) на документ
   Future<Map<String, dynamic>> getDocFieldsByRef(
     DocumentReference docRef,
   ) async {

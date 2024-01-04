@@ -8,27 +8,49 @@ part 'group_event.dart';
 part 'group_state.dart';
 
 class GroupBloc extends Bloc<GroupEvent, GroupState> {
-  late final GroupController _groupController;
-  late final StreamSubscription groupEventsSub;
-  final DocumentReference groupRef;
+  final GroupController _groupController = GroupController();
+  late final StreamSubscription _groupEventsSub;
 
-  GroupBloc({required this.groupRef}) : super(GroupInitial()) {
-    _groupController = GroupController(groupRef: groupRef);
-
-    groupEventsSub = _groupController.getGroupEventsListStream
-        .listen((QuerySnapshot querySnapshot) => add(LoadGroup(querySnapshot)));
+  GroupBloc({DocumentReference? groupRef}) : super(GroupInitial()) {
+    if (groupRef != null) {
+      _groupEventsSub =
+          _groupController.getGroupEventsListStream(groupRef: groupRef).listen(
+                (QuerySnapshot querySnapshot) => add(
+                  LoadGroup(querySnapshot, groupRef: groupRef),
+                ),
+              );
+    }
+    // on<LoadGroupEvents>((event, emit) {
+    //   _groupEventsSub = _groupController
+    //       .getGroupEventsListStream(groupRef: event.groupRef)
+    //       .listen(
+    //         (QuerySnapshot querySnapshot) => add(
+    //           LoadGroup(querySnapshot, groupRef: event.groupRef),
+    //         ),
+    //       );
+    // });
 
     on<LoadGroup>((event, emit) async {
       emit(GroupLoading());
       await _groupController
-          .getGroupDataWithEvents(event.querySnapshot)
+          .getGroupData(
+            groupRef: event.groupRef,
+          )
           .then((data) => emit(GroupLoaded(data)));
+    });
+
+    on<CreateGroup>((event, emit) async {
+      emit(GroupCreating());
+
+      await _groupController
+          .createGroup(event.groupName, event.groupParticipants)
+          .then((createdGroupRef) => emit(GroupCreated(createdGroupRef)));
     });
   }
 
   @override
   Future<void> close() {
-    groupEventsSub.cancel();
+    _groupEventsSub.cancel();
     return super.close();
   }
 }

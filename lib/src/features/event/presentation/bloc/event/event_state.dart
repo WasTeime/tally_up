@@ -12,9 +12,9 @@ class EventInitial extends EventState {}
 //CREATE EVENT
 class EventCreated extends EventState {}
 
-class EventCreatedLoading extends EventState {}
+class EventCreating extends EventState {}
 
-class EventCreatedFailure extends EventState {}
+class EventCreateFailure extends EventState {}
 
 //EVENT LOAD
 class EventLoaded extends EventState {

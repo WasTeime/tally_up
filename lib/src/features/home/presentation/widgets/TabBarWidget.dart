@@ -9,6 +9,7 @@ class HomeTabBarWidget extends StatelessWidget {
     required TabController tabController,
   }) : _tabController = tabController;
 
+  //ячейки меню (Группы|Мероприятия)
   @override
   Widget build(BuildContext context) {
     return TabBar(
@@ -38,6 +39,7 @@ class HomeTabBarScreens extends StatelessWidget {
     required tabController,
   }) : _tabController = tabController;
 
+  //экраны, отображающиеся по нажатию на ячейку меню
   @override
   Widget build(BuildContext context) {
     return Expanded(

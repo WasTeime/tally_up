@@ -7,20 +7,12 @@ class BottomNavigationBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      currentIndex: 1,
       backgroundColor: Color.fromARGB(255, 218, 235, 255),
-      items: [
-        BottomNavigationBarItem(
-          label: "",
-          icon: Image.asset('assets/images/myCheque.png'),
-        ),
-        BottomNavigationBarItem(
-          label: "",
-          icon: Image.asset('assets/images/home.png'),
-        ),
-        BottomNavigationBarItem(
-          label: "",
-          icon: Image.asset('assets/images/profile.png'),
-        )
+      items: const [
+        BottomNavigationBarItem(label: "", icon: Icon(Icons.description)),
+        BottomNavigationBarItem(label: "", icon: Icon(Icons.home)),
+        BottomNavigationBarItem(label: "", icon: Icon(Icons.person))
       ],
       onTap: (int index) {
         switch (index) {

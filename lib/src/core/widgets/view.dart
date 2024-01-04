@@ -2,6 +2,7 @@ export './contacts/ContactsListCardWidget.dart';
 export './contacts/ContactsListWidget.dart';
 export './helper_widgets/ColumnGapWidget.dart';
 export './helper_widgets/LoadingWidget.dart';
+export 'helper_widgets/LoadingOnWhiteBackgroundWidget.dart';
 export './input_widgets/InputWidget.dart';
 export './input_widgets/SearchBarWidget.dart';
 export './input_widgets/SearchWidget.dart';

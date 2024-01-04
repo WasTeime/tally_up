@@ -27,26 +27,26 @@ class _GroupScreenState extends State<GroupScreen> {
       create: (context) => GroupBloc(groupRef: widget.groupRef),
       child: BlocBuilder<GroupBloc, GroupState>(
         builder: (context, state) {
-          return MainLayout(
-            appBarWidget: (state is GroupLoaded)
-                ? AppBarWidget.withEditButton(
-                    enableEditButton: () => print('press on edit button'),
-                    enableBackButton: () => context.go('/'),
-                    titleWidget: CardWithNameAndParticipantsWidget.forGroup(
-                      titleText: state.groupDetails['groupName'],
-                      peopleCount: state.groupDetails['participants'].length,
-                    ),
-                  )
-                : null,
-            contentWidget: (state is GroupLoaded)
-                ? EventsListWidget(data: state.groupDetails['events'])
-                : const LoadingWidget(),
-            underContentButtonWidget: FloatingActionButton(
-              onPressed: () =>
-                  context.go('/createEvent', extra: widget.groupRef),
-              child: const Icon(Icons.add),
-            ),
-          );
+          if (state is GroupLoaded) {
+            return MainLayout(
+              appBarWidget: AppBarWidget.withEditButton(
+                enableEditButton: () => print('press on edit button'),
+                enableBackButton: () => context.go('/'),
+                titleWidget: CardWithNameAndParticipantsWidget.forGroup(
+                  titleText: state.groupDetails['groupName'],
+                  peopleCount: state.groupDetails['participants'].length,
+                ),
+              ),
+              contentWidget:
+                  EventsListWidget(data: state.groupDetails['events']),
+              underContentButtonWidget: FloatingActionButton(
+                onPressed: () =>
+                    context.go('/createEvent', extra: widget.groupRef),
+                child: const Icon(Icons.add),
+              ),
+            );
+          }
+          return const LoadingOnWhiteBackgroundWidget();
         },
       ),
     );

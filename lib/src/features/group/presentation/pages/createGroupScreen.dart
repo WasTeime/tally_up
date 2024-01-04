@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tally_up/src/core/layouts/mainLayout.dart';
 import 'package:tally_up/src/core/widgets/view.dart';
-import 'package:tally_up/src/features/friends_and_invitings/presentation/bloc/friends/friends_bloc.dart';
-import 'package:tally_up/src/features/group/presentation/bloc/create_group/create_group_bloc.dart';
+import 'package:tally_up/src/features/contacts_invitings/presentation/bloc/contacts/contacts_bloc.dart';
+import 'package:tally_up/src/features/group/presentation/bloc/group/group_bloc.dart';
 
 class CreateGroupScreen extends StatefulWidget {
   const CreateGroupScreen({super.key});
@@ -19,78 +19,69 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
   final _groupNameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  final CreateGroupBloc _createGroupBloc = CreateGroupBloc();
-  final FriendsBloc _friendsBloc = FriendsBloc();
+  final GroupBloc _groupBloc = GroupBloc();
+  final ContactsBloc _contactsBloc = ContactsBloc();
 
   @override
   Widget build(BuildContext context) {
-    return MainLayout(
-      appBarWidget: AppBarWidget.withAcceptButton(
-        enableAcceptButton: () {
-          if (_formKey.currentState!.validate()) {
-            List<DocumentReference>? selectedFriends = ContactsListCardWidget
-                .globalKey.currentState?.getValidateContacts;
-            if (selectedFriends != null) {
-              _createGroupBloc.add(
-                CreateGroup(
-                  _groupNameController.text,
-                  selectedFriends,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(value: _groupBloc),
+        BlocProvider.value(value: _contactsBloc),
+      ],
+      child: BlocListener<GroupBloc, GroupState>(
+        listener: (context, state) {
+          if (state is GroupCreated) {
+            context.go('/group', extra: state.createdGroupRef);
+          }
+        },
+        child: BlocBuilder<ContactsBloc, ContactsState>(
+          builder: (context, state) {
+            if (state is ContactsLoaded) {
+              return MainLayout(
+                appBarWidget: AppBarWidget.withAcceptButton(
+                  enableAcceptButton: () {
+                    if (_formKey.currentState!.validate()) {
+                      List<DocumentReference>? selectedContacts =
+                          ContactsListCardWidget
+                              .globalKey.currentState?.getValidateContacts;
+                      if (selectedContacts != null) {
+                        _groupBloc.add(
+                          CreateGroup(
+                            _groupNameController.text,
+                            selectedContacts,
+                          ),
+                        );
+                      }
+                    }
+                  },
+                  enableBackButton: () => context.go('/'),
+                  titleWidget: const Text(
+                    "Создать",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+                subAppBarWidget: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 50),
+                  child: Form(
+                    key: _formKey,
+                    child: InputWidget(
+                      hintText: "Название",
+                      inputController: _groupNameController,
+                    ),
+                  ),
+                ),
+                contentWidget: Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: ContactsListCardWidget(
+                      data: state.contacts,
+                    ),
+                  ),
                 ),
               );
             }
-          }
-        },
-        enableBackButton: () => context.go('/'),
-        titleWidget: const Text(
-          "Создать",
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
-      contentWidget: MultiBlocProvider(
-        providers: [
-          BlocProvider.value(value: _createGroupBloc),
-          BlocProvider.value(value: _friendsBloc)
-        ],
-        child: BlocConsumer<CreateGroupBloc, CreateGroupState>(
-          listener: (context, state) {
-            if (state is CreateGroupLoaded) {
-              context.go('/group', extra: state.createdGroupRef);
-            }
-          },
-          builder: (context, state) {
-            if (state is CreateGroupLoading) {
-              return const LoadingWidget();
-            }
-            return BlocBuilder<FriendsBloc, FriendsState>(
-              builder: (context, state) {
-                if (state is FriendsLoaded) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 50),
-                          child: Form(
-                            key: _formKey,
-                            child: InputWidget(
-                              hintText: "Название",
-                              inputController: _groupNameController,
-                            ),
-                          ),
-                        ),
-                        const ColumnGapWidget(),
-                        Expanded(
-                          child: ContactsListCardWidget(
-                            data: state.friends,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }
-                return const LoadingWidget();
-              },
-            );
+            return const LoadingOnWhiteBackgroundWidget();
           },
         ),
       ),

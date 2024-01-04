@@ -32,7 +32,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: _eventBloc..add(LoadEvent()),
+      value: _eventBloc,
       child: BlocBuilder<EventBloc, EventState>(
         builder: (context, state) {
           if (state is EventLoaded) {
@@ -40,15 +40,11 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
               appBarWidget: AppBarWidget.withAcceptButton(
                 enableAcceptButton: () {
                   if (_formKey.currentState!.validate()) {
-                    List<DocumentReference>? selectedParticipants =
-                        ContactsListCardWidget
-                            .globalKey.currentState?.getValidateContacts;
-                    if (selectedParticipants != null) {
-                      _eventBloc.add(CreateGroupEventEvent(
-                        groupName: _eventNameController.text,
-                        groupParticipants: selectedParticipants,
-                      ));
-                    }
+                    _eventBloc.add(
+                      CreateGroupEvent(
+                        eventName: _eventNameController.text,
+                      ),
+                    );
                   }
                 },
                 enableBackButton: () => context.go('/'),
@@ -71,17 +67,10 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                   const ChooseEventIconWidget(),
                 ],
               ),
-              contentWidget: Expanded(
-                child: ContactsListCardWidget(
-                  data: state.eventParticipants,
-                ),
-              ),
+              contentWidget: Container(),
             );
           }
-          return Container(
-            color: Colors.white,
-            child: const LoadingWidget(),
-          );
+          return const LoadingOnWhiteBackgroundWidget();
         },
       ),
     );

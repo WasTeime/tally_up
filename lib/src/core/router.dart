@@ -6,16 +6,18 @@ import 'package:tally_up/src/features/auth/presentation/bloc/auth/auth_bloc.dart
 import 'package:tally_up/src/features/auth/presentation/bloc/sign_in/sign_in_bloc.dart';
 import 'package:tally_up/src/features/auth/presentation/pages/LoginScreen.dart';
 import 'package:tally_up/src/features/auth/presentation/pages/PinVerifyScreen.dart';
+import 'package:tally_up/src/features/contacts_invitings/presentation/pages/ContactsInvitingsScreen.dart';
 import 'package:tally_up/src/features/event/presentation/pages/createEventScreen.dart';
 import 'package:tally_up/src/features/profile/presentation/pages/ProfileScreen.dart';
 import 'package:tally_up/src/features/group/presentation/pages/createGroupScreen.dart';
-import 'package:tally_up/src/features/friends_and_invitings/presentation/pages/friendsAndInvitingsScreen.dart';
 import 'package:tally_up/src/features/cheque_list/presentation/pages/ChequeListInEvent.dart';
 import 'package:tally_up/src/features/group/presentation/pages/GroupScreen.dart';
 import 'package:tally_up/src/features/home/presentation/pages/HomeScreen.dart';
 
 final signInBloc = SignInBloc();
 
+//todo подключить все страницы
+//todo сделать структуру типо /group/create, а не /group, /createGroup
 final router = GoRouter(initialLocation: '/loginState', routes: [
   GoRoute(
     path: '/loginState',
@@ -43,8 +45,8 @@ final router = GoRouter(initialLocation: '/loginState', routes: [
     },
   ),
   GoRoute(
-    path: '/friendsAndInvitings',
-    builder: (context, state) => FriendsAndInvitingsScreen(),
+    path: '/contactsAndInvitings',
+    builder: (context, state) => ContactsInvitingsScreen(),
   ),
   GoRoute(
     path: '/createGroup',

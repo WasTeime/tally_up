@@ -1,25 +1,33 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tally_up/src/core/data/Controller.dart';
-import 'package:tally_up/src/features/home/data/models/GroupsDBModel.dart';
+import 'package:tally_up/src/features/group/data/models/GroupsDBModel.dart';
+import 'package:tally_up/src/features/group/data/repository/groupController.dart';
 
 class GroupsController extends Controller {
+  final _groupController = GroupController();
   late final GroupsDBModel _groupsDBModel;
 
   GroupsController() {
     _groupsDBModel = GroupsDBModel(super.getUserUid);
   }
 
-  Stream<QuerySnapshot> get getGroupsListStram => _groupsDBModel.getStream;
+  Stream<QuerySnapshot> get getGroupsListStream => _groupsDBModel.getStream;
 
-  @override
-  Future<List<Map<String, dynamic>>> getCollectionDocs(
-      QuerySnapshot querySnapshot) async {
-    List<Map<String, dynamic>> docsList = [];
+  Future<List<Map<String, dynamic>>> getGroupsList(
+    QuerySnapshot querySnapshot,
+  ) async {
+    List<Map<String, dynamic>> docs = [];
+
     for (var doc in querySnapshot.docs) {
-      var data = doc.data() as Map<String, dynamic>;
+      Map<String, dynamic> data =
+          await _groupController.getGroupData(groupRef: doc.reference);
+      //добавляем group_ref к data, чтобы потом при нажатии на карточку группы понимать
+      //на какую группу нажали (для того, чтобы backend понимал куда данные добавлять)
       data['group_ref'] = doc.reference;
-      docsList.add(data);
+
+      docs.add(data);
     }
-    return docsList;
+
+    return docs;
   }
 }

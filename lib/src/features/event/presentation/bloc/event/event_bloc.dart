@@ -12,22 +12,25 @@ class EventBloc extends Bloc<EventEvent, EventState> {
   final _eventController = EventController();
   late final GroupController? _groupController;
 
-  EventBloc({DocumentReference? groupRef}) : super(EventInitial()) {
-    _groupController =
-        groupRef == null ? null : GroupController(groupRef: groupRef);
+  EventBloc({required DocumentReference groupRef}) : super(EventInitial()) {
+    _groupController = GroupController();
 
-    on<CreateGroupEventEvent>((event, emit) {});
+    on<CreateGroupEvent>((event, emit) {
+      _eventController.createEvent(event.eventName, groupRef);
+    });
 
     on<LoadEvent>((event, emit) async {
-      emit(EventLoading());
-      if (_groupController != null) {
-        await _groupController!.getGroupParticipants().then((data) {
-          for (var element in data) {
-            element['check'] = ValueNotifier(false);
-          }
-          emit(EventLoaded(eventParticipants: data));
-        });
-      }
+      // emit(EventLoading());
+      // if (_groupController != null) {
+      //   await _groupController!
+      //       .getGroupParticipants(groupRef: groupRef)
+      //       .then((data) {
+      //     for (var element in data) {
+      //       element['check'] = ValueNotifier(false);
+      //     }
+      //     emit(EventLoaded(eventParticipants: data));
+      //   });
+      // }
     });
   }
 }

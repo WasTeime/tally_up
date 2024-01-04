@@ -12,13 +12,14 @@ class GroupsBloc extends Bloc<GroupsEvent, GroupsState> {
   late final StreamSubscription groupsSub;
 
   GroupsBloc() : super(GroupsInitial()) {
-    groupsSub = groupsController.getGroupsListStram.listen(
-        (QuerySnapshot querySnapshot) => add(LoadGroups(querySnapshot)));
+    groupsSub = groupsController.getGroupsListStream.listen(
+      (QuerySnapshot querySnapshot) => add(LoadGroups(querySnapshot)),
+    );
 
     on<LoadGroups>((event, emit) async {
       emit(GroupsLoading());
       await groupsController
-          .getCollectionDocs(event.querySnapshot)
+          .getGroupsList(event.querySnapshot)
           .then((groupsList) => emit(GroupsLoaded(groupsList)));
     });
   }

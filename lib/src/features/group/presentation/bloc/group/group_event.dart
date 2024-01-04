@@ -4,12 +4,20 @@ abstract class GroupEvent {}
 
 class LoadGroup extends GroupEvent {
   final QuerySnapshot querySnapshot;
-
-  LoadGroup(this.querySnapshot);
-}
-
-class GetGroupParticipants extends GroupEvent {
   final DocumentReference groupRef;
 
-  GetGroupParticipants(this.groupRef);
+  LoadGroup(this.querySnapshot, {required this.groupRef});
+}
+
+// class LoadGroupEvents extends GroupEvent {
+//   final DocumentReference groupRef;
+
+//   LoadGroupEvents({required this.groupRef});
+// }
+
+class CreateGroup extends GroupEvent {
+  final String groupName;
+  final List<DocumentReference> groupParticipants;
+
+  CreateGroup(this.groupName, this.groupParticipants);
 }

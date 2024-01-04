@@ -7,13 +7,11 @@ abstract class EventEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class CreateGroupEventEvent extends EventEvent {
-  final String groupName;
-  final List<DocumentReference> groupParticipants;
+class CreateGroupEvent extends EventEvent {
+  final String eventName;
 
-  const CreateGroupEventEvent({
-    required this.groupName,
-    required this.groupParticipants,
+  const CreateGroupEvent({
+    required this.eventName,
   });
 }
 
