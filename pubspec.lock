@@ -145,7 +145,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.1"
->>>>>>> 2c1a5aaef0fa732eb2609a2b247fecc413f7fc26
   crypto:
     dependency: transitive
     description:
