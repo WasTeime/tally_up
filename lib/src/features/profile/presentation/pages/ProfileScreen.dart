@@ -88,9 +88,11 @@ class ProfileScreen extends StatefulWidget {
 class __ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 218, 235, 255),
-        body: Stack(
-          children: [ProfilePage(), const BottomNavigationBarWidget()],
-        ));
+      backgroundColor: Color.fromARGB(255, 218, 235, 255),
+      body: Stack(
+        children: [ProfilePage()],
+      ),
+      bottomNavigationBar: BottomNavigationBarWidget(),
+    );
   }
 }

@@ -51,42 +51,45 @@ class _InvitingsListState extends State<InvitingsList> {
           },
           child: Scaffold(
             body: Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Column(children: [
                 Expanded(
                     flex: 1,
-                    child: Container(
-                        color: Colors.green,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: SearchBarWidget(
-                                hint: '+7 (000) 00-00-00',
-                                inputFormatters: [_maskFormatter],
-                                textInputType: TextInputType.phone,
-                                inputController: _searchController,
-                              ),
-                            ),
-                            IconButton(
-                                onPressed: () {
-                                  _invitingsBloc.add(SearchUserForPhone(
-                                      '+7${_maskFormatter.getUnmaskedText()}'));
-                                },
-                                icon: Icon(Icons.add))
-                          ],
-                        ))),
-                Expanded(
-                    flex: 5,
-                    child: Container(
-                        color: Colors.amber,
-                        child: Column(children: [
-                          const Text(
-                            "Приглашения",
-                            style: TextStyle(fontSize: 25),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: SearchBarWidget(
+                            hint: '+7 (000) 00-00-00',
+                            inputFormatters: [_maskFormatter],
+                            textInputType: TextInputType.phone,
+                            inputController: _searchController,
                           ),
-                          Expanded(
-                              child: BlocBuilder<InvitingsBloc, InvitingsState>(
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              _invitingsBloc.add(SearchUserForPhone(
+                                  '+7${_maskFormatter.getUnmaskedText()}'));
+                            },
+                            icon: const Icon(
+                              Icons.add,
+                              size: 40,
+                              color: Color(0xFF0079FF),
+                            ))
+                      ],
+                    )),
+                Expanded(
+                  flex: 7,
+                  child: Container(
+                    //color: Colors.amber,
+                    child: Column(
+                      children: [
+                        const Text(
+                          "Приглашения",
+                          style: TextStyle(fontSize: 25),
+                        ),
+                        Expanded(
+                          child: BlocBuilder<InvitingsBloc, InvitingsState>(
                             builder: (context, state) {
                               if (state is InvitingsLoading) {
                                 return const Center(
@@ -94,45 +97,76 @@ class _InvitingsListState extends State<InvitingsList> {
                                 );
                               } else if (state is InvitingsLoaded) {
                                 var invitings = state.invitings;
-                                return ListView.builder(
-                                    itemCount: invitings.length,
-                                    itemBuilder: (context, index) {
+                                return ListView.separated(
+                                  itemCount: invitings.length,
+                                  separatorBuilder: (context, index) {
+                                    if (index > 0 &&
+                                        invitings[index]['username'][0]
+                                                .toUpperCase() ==
+                                            invitings[index - 1]['username'][0]
+                                                .toUpperCase()) {
                                       return Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(invitings[index]['username']),
-                                            Row(
-                                              children: [
-                                                IconButton(
-                                                    onPressed: () {
-                                                      context
-                                                          .read<InvitingsBloc>()
-                                                          .add(AcceptUserToContacts(
-                                                              invitings[index][
-                                                                  'contacts_invitings_doc_id']));
-                                                    },
-                                                    icon: const Icon(
-                                                        Icons.check)),
-                                                IconButton(
-                                                    onPressed: () {
-                                                      context
-                                                          .read<InvitingsBloc>()
-                                                          .add(DiscardUserToContacts(
-                                                              invitings[index][
-                                                                  'contacts_invitings_doc_id']));
-                                                    },
-                                                    icon: const Icon(
-                                                        Icons.delete)),
-                                              ],
-                                            )
-                                          ]);
-                                    });
+                                        children: [
+                                          Text(invitings[index]['username'][0]),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Expanded(
+                                            child: Container(
+                                              height: 1,
+                                              color: Colors.black,
+                                            ),
+                                          )
+                                        ],
+                                      );
+                                    } else {
+                                      return const SizedBox.shrink();
+                                    }
+                                  },
+                                  itemBuilder: (context, index) {
+                                    return ListTile(
+                                      leading: CircleAvatar(
+                                        child: Text(invitings[index]['username']
+                                                [0]
+                                            .toUpperCase()),
+                                      ),
+                                      title: Text(invitings[index]['username']),
+                                      trailing: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          IconButton(
+                                            onPressed: () {
+                                              context.read<InvitingsBloc>().add(
+                                                  AcceptUserToContacts(invitings[
+                                                          index][
+                                                      'contacts_invitings_doc_id']));
+                                            },
+                                            icon: const Icon(Icons.check),
+                                          ),
+                                          IconButton(
+                                            onPressed: () {
+                                              context.read<InvitingsBloc>().add(
+                                                  DiscardUserToContacts(invitings[
+                                                          index][
+                                                      'contacts_invitings_doc_id']));
+                                            },
+                                            icon: const Icon(Icons.delete),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                );
+                              } else {
+                                return const SizedBox.shrink();
                               }
-                              return const SizedBox.shrink();
                             },
-                          ))
-                        ])))
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ]),
             ),
           ),
