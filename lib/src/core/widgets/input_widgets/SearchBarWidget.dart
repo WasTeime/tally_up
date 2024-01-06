@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -17,29 +19,42 @@ class SearchBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      inputFormatters: inputFormatters,
-      keyboardType: textInputType,
-      controller: inputController,
-      decoration: InputDecoration(
-        prefixIcon: const Icon(Icons.search),
-        fillColor: Colors.white,
-        enabledBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(40)),
-          borderSide: BorderSide(
-            color: Color.fromRGBO(207, 203, 203, 0.989),
-            width: 1,
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 15),
+      child: SizedBox(
+        height: 50,
+        child: TextField(
+          textAlign: TextAlign.start,
+          textAlignVertical: TextAlignVertical.bottom,
+          inputFormatters: inputFormatters,
+          keyboardType: textInputType,
+          controller: inputController,
+          decoration: InputDecoration(
+            prefixIcon: const Icon(Icons.search),
+            fillColor: Colors.white,
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+            border: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(45.0)),
+            ),
+            enabledBorder: const OutlineInputBorder(
+              borderRadius: const BorderRadius.all(Radius.circular(45.0)),
+              borderSide: BorderSide(
+                color: Color.fromRGBO(207, 203, 203, 0.989),
+                width: 1,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: const BorderRadius.all(Radius.circular(45.0)),
+              borderSide: const BorderSide(
+                color: Colors.blue,
+                width: 3,
+              ),
+            ),
+            hintText: hint,
+            hintStyle: const TextStyle(color: Colors.black26),
           ),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(40),
-          borderSide: const BorderSide(
-            color: Colors.blue,
-            width: 3,
-          ),
-        ),
-        hintText: hint,
-        hintStyle: const TextStyle(color: Colors.black),
       ),
     );
   }
