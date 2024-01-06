@@ -17,7 +17,7 @@ class _DetailedChequeScreenState extends State<DetailedChequeScreen> {
   final List<Product> products = [
     Product(1, "Чоколадка Милка", ValueNotifier(1), 54),
     Product(2, "CoolCola", ValueNotifier(1), 100),
-    Product(3, "Негр", ValueNotifier(1), 20),
+    Product(3, "Кофе", ValueNotifier(1), 20),
   ];
 
   Widget _namberCheque() {

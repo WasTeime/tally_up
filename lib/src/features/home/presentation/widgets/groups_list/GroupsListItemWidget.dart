@@ -19,7 +19,7 @@ class GroupsListItemWidget extends StatelessWidget {
     return Card(
       elevation: 10,
       shadowColor: Colors.black54,
-      color: Colors.blue,
+      color: Colors.white,
       child: SizedBox(
         width: double.infinity,
         child: Padding(

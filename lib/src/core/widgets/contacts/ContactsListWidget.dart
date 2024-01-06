@@ -40,16 +40,17 @@ class _ContactsListWidgetState extends State<ContactsListWidget> {
   }
 
   Widget contactsListDivider(letter) {
+    final theme = Theme.of(context);
     return Row(
       children: [
-        Text(letter),
+        Text(letter, style: theme.textTheme.bodyMedium),
         const SizedBox(
           width: 10,
         ),
         Expanded(
           child: Container(
             height: 1,
-            color: Colors.black,
+            color: Color(0xff50A3FF),
           ),
         )
       ],
@@ -68,6 +69,9 @@ class _ContactsListWidgetState extends State<ContactsListWidget> {
             onChanged: (onChanged) {
               checkboxIsChecked.value = onChanged!;
             },
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.0),
+            ),
           );
         },
       );
@@ -77,11 +81,16 @@ class _ContactsListWidgetState extends State<ContactsListWidget> {
 
   Widget contactsListItem(
     Map<String, dynamic> contactData, {
-    Widget contactAvatar = const Icon(Icons.circle),
+    Widget contactAvatar = const Icon(
+      Icons.circle,
+      color: Color(0xff8EBBFF),
+    ),
   }) {
+    final theme = Theme.of(context);
     return ListTile(
       leading: contactAvatar,
-      title: Text(contactData['username']),
+      title: Text(contactData['username'],
+          style: theme.textTheme.bodyMedium?.copyWith(color: Colors.black)),
       trailing: contactsListItemTrailingWidget(contactData['check']),
     );
   }

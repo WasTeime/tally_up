@@ -19,6 +19,11 @@ class AppTheme {
             fontSize: 18,
             color: Colors.black,
           ),
+          bodyMedium: TextStyle(
+            fontFamily: 'Rubik',
+            fontSize: 15,
+            color: Color(0xFF50A3FF),
+          ),
           titleLarge: TextStyle(
             fontFamily: 'RubikMonoOne',
             fontSize: 50,

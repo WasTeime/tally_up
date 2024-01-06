@@ -61,6 +61,8 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                       child: InputWidget(
                         inputController: _eventNameController,
                         hintText: "Название мероприятия",
+                        mainColor: Color(0XFF0079FF),
+                        hintColor: Colors.white,
                       ),
                     ),
                   ),

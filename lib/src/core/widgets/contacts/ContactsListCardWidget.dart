@@ -44,23 +44,47 @@ class _ContactsListCardWidgetState extends State<ContactsListCardWidget> {
   }
 
   Widget errorContainerBorder() {
-    return Card(
-      color: Colors.white,
-      shape: !isPeopleSelected.value
-          ? const RoundedRectangleBorder(
-              side: BorderSide(
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: !isPeopleSelected.value
+            ? Border.all(
                 color: Colors.redAccent,
                 width: 2,
-              ),
-              borderRadius: BorderRadius.all(Radius.circular(10)))
-          : null,
-      elevation: 5,
+              )
+            : null,
+        borderRadius: !isPeopleSelected.value
+            ? BorderRadius.all(Radius.circular(10))
+            : null,
+      ),
+      height: 5,
       child: ContactsListWidget(
         contacts: widget.data,
         enableCheckboxes: true,
       ),
     );
   }
+
+//Оставил с карточкой, изменил на контейнер, чтобы цвет был белым
+
+  // Widget errorContainerBorder() {
+  //   return Card(
+  //     color: Colors.white,
+  //     shape: !isPeopleSelected.value
+  //         ? const RoundedRectangleBorder(
+  //             side: BorderSide(
+  //               color: Colors.redAccent,
+  //               width: 2,
+  //             ),
+  //             borderRadius: BorderRadius.all(Radius.circular(10)))
+  //         : null,
+  //     elevation: 5,
+  //     child: ContactsListWidget(
+  //       contacts: widget.data,
+  //       enableCheckboxes: true,
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {

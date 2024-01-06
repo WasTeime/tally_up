@@ -24,6 +24,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(value: _groupBloc),
@@ -56,21 +57,26 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                     }
                   },
                   enableBackButton: () => context.go('/'),
-                  titleWidget: const Text(
+                  titleWidget: Text(
                     "Создать",
-                    style: TextStyle(fontSize: 20),
+                    style: theme.textTheme.headlineMedium
+                        ?.copyWith(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                 ),
                 subAppBarWidget: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50),
-                  child: Form(
-                    key: _formKey,
-                    child: InputWidget(
-                      hintText: "Название",
-                      inputController: _groupNameController,
-                    ),
-                  ),
-                ),
+                    padding: const EdgeInsets.symmetric(horizontal: 50),
+                    child: Container(
+                      height: 50,
+                      child: Form(
+                        key: _formKey,
+                        child: InputWidget(
+                          hintText: "Название",
+                          inputController: _groupNameController,
+                          mainColor: Color(0XFF0079FF),
+                          hintColor: Colors.white,
+                        ),
+                      ),
+                    )),
                 contentWidget: Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30),
