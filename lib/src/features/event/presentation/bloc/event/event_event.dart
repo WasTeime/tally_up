@@ -15,4 +15,8 @@ class CreateGroupEvent extends EventEvent {
   });
 }
 
-class LoadEvent extends EventEvent {}
+class LoadEvent extends EventEvent {
+  final QuerySnapshot querySnapshot;
+
+  const LoadEvent({required this.querySnapshot});
+}

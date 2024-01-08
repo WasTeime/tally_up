@@ -6,7 +6,13 @@ import 'package:tally_up/src/features/auth/presentation/bloc/auth/auth_bloc.dart
 import 'package:tally_up/src/features/auth/presentation/bloc/sign_in/sign_in_bloc.dart';
 import 'package:tally_up/src/features/auth/presentation/pages/LoginScreen.dart';
 import 'package:tally_up/src/features/auth/presentation/pages/PinVerifyScreen.dart';
+import 'package:tally_up/src/features/cheque/presentation/pages/ChequeScreen.dart';
+import 'package:tally_up/src/features/cheque/presentation/pages/variants_for_input_cheque/CreateChequeManuallyScreen.dart';
+import 'package:tally_up/src/features/cheque/presentation/pages/variants_for_input_cheque/CreateChequeQRScannerScreen.dart';
+import 'package:tally_up/src/features/cheque_list/presentation/pages/CreateNewChequeScreen.dart';
+import 'package:tally_up/src/features/cheque_list/presentation/pages/EnterProductsManuallyScreen.dart';
 import 'package:tally_up/src/features/contacts_invitings/presentation/pages/ContactsInvitingsScreen.dart';
+import 'package:tally_up/src/features/event/presentation/pages/EventScreen.dart';
 import 'package:tally_up/src/features/event/presentation/pages/createEventScreen.dart';
 import 'package:tally_up/src/features/profile/presentation/pages/ProfileScreen.dart';
 import 'package:tally_up/src/features/group/presentation/pages/createGroupScreen.dart';
@@ -53,6 +59,10 @@ final router = GoRouter(initialLocation: '/loginState', routes: [
     builder: (context, state) => CreateGroupScreen(),
   ),
   GoRoute(
+    path: '/chequeEnterManually',
+    builder: (context, state) => CreateChequeManuallyScreen(),
+  ),
+  GoRoute(
     path: '/group',
     builder: (context, state) {
       return GroupScreen(
@@ -61,10 +71,26 @@ final router = GoRouter(initialLocation: '/loginState', routes: [
     },
   ),
   GoRoute(
+    path: '/event',
+    builder: (context, state) => EventScreen(
+      eventRef: state.extra as DocumentReference,
+    ),
+  ),
+  GoRoute(
     path: '/createEvent',
     builder: (context, state) => CreateEventScreen(
       groupRef: state.extra as DocumentReference,
     ),
+  ),
+  GoRoute(
+    path: '/cheque',
+    builder: (context, state) => ChequeScreen(
+      chequeFNSInfoFromScanner: state.extra as String,
+    ),
+  ),
+  GoRoute(
+    path: '/createCheque',
+    builder: (context, state) => CreateChequeQRScannerScreen(),
   ),
   GoRoute(
     path: '/login',
@@ -86,11 +112,5 @@ final router = GoRouter(initialLocation: '/loginState', routes: [
       builder: (context, state) {
         return BlocProvider<SignInBloc>.value(
             value: signInBloc, child: ProfileScreen());
-      }),
-  GoRoute(
-      path: '/cheque',
-      builder: (context, state) {
-        return BlocProvider<SignInBloc>.value(
-            value: signInBloc, child: ChequeListInEvent());
       }),
 ]);

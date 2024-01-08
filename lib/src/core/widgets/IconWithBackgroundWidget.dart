@@ -13,7 +13,7 @@ class IconWithBackgroundWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
-        color: Colors.amber,
+        color: Colors.grey.shade400,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Icon(icon),

@@ -89,9 +89,11 @@ class _AppBarWidgetState extends State<AppBarWidget> {
           .height, //todo! надо поменять чтобы высота в зависимости от контента считалась
       title: widget.titleWidget,
       actions: widget.actionsAppBar,
-      leading: BackButton(
-        onPressed: widget.enableBackButton,
-      ),
+      leading: widget.enableBackButton != null
+          ? BackButton(
+              onPressed: widget.enableBackButton,
+            )
+          : null,
       centerTitle: true,
     );
   }

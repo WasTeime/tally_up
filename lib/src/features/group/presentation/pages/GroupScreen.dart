@@ -37,8 +37,9 @@ class _GroupScreenState extends State<GroupScreen> {
                   peopleCount: state.groupDetails['participants'].length,
                 ),
               ),
-              contentWidget:
-                  EventsListWidget(data: state.groupDetails['events']),
+              contentWidget: EventsListWidget(
+                data: state.groupDetails['events'],
+              ),
               underContentButtonWidget: FloatingActionButton(
                 onPressed: () =>
                     context.go('/createEvent', extra: widget.groupRef),

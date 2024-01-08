@@ -5,11 +5,12 @@ class FinalPriceWidget extends StatelessWidget {
   final String word;
   final double price;
   final String button;
-  const FinalPriceWidget(
-      {super.key,
-      required this.word,
-      required this.price,
-      required this.button});
+  const FinalPriceWidget({
+    super.key,
+    required this.word,
+    required this.price,
+    required this.button,
+  });
 
   @override
   Widget build(BuildContext context) {

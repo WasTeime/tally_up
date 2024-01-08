@@ -4,38 +4,46 @@ import 'package:tally_up/src/features/event/models/EventModel.dart';
 import 'package:tally_up/src/features/group/data/repository/groupController.dart';
 
 class EventController extends Controller {
-  final _db = FirebaseFirestore.instance;
   final _groupController = GroupController();
 
-  void createEvent(
+  Stream<QuerySnapshot> getChequesListStream({
+    required DocumentReference eventRef,
+  }) =>
+      eventRef.collection('cheques').snapshots();
+
+  //todo добавить try catch
+  Future<void> createEvent(
     String eventName,
     DocumentReference groupRef,
   ) async {
-    // var event = EventModel(eventName: eventName);
-    // var groupParticipants =
-    //     await _groupController.getGroupParticipantsRefs(groupRef: groupRef);
-
-    // for (var participant in groupParticipants) {
-    //   _db
-    //       .collection('users')
-    //       .doc(pa)
-    //       .collection('groups')
-    //       .doc(groupRef.id)
-    //       .collection('events')
-    //       .add(event.toJson());
-    // }
-    // _db
-    //     .collection('users')
-    //     .doc(getUserUid)
-    //     .collection('groups')
-    //     .doc(groupRef.id)
-    //     .collection('events')
-    //     .add(event.toJson());
+    var event = EventModel(eventName: eventName);
+    await groupRef.collection('events').add(event.toJson());
   }
 
   void deleteEvent() {}
 
   void changeEvent() {}
+
+  //данные по мероприятию вместе с количеством участников из коллекции "participants" и списком чеков из коллекции "cheques"
+  Future<Map<String, dynamic>> getEventFullData({
+    required QuerySnapshot chequesCollectionSnapshot,
+    required DocumentReference groupRef,
+    required DocumentReference eventRef,
+  }) async {
+    Map<String, dynamic> data = {
+      "data": await getEventData(eventRef).then(
+        (data) async {
+          data.addAll({
+            "participants_count":
+                await _groupController.getCountParticipants(groupRef: groupRef)
+          });
+          return data;
+        },
+      ),
+      "cheques": await getCollectionDocs(chequesCollectionSnapshot),
+    };
+    return data;
+  }
 
   Future<Map<String, dynamic>> getEventData(DocumentReference eventRef) async =>
       await getDocFieldsByRef(eventRef);

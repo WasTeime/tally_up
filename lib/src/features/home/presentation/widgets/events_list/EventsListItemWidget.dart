@@ -1,12 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class EventsListItemWidget extends StatelessWidget {
   final IconData icon;
   final String eventName;
   final String date;
-  final int index;
+  final DocumentReference eventRef;
 
-  const EventsListItemWidget(this.index, this.icon, this.eventName, this.date,
+  const EventsListItemWidget(
+      this.eventRef, this.icon, this.eventName, this.date,
       {super.key});
 
   @override
@@ -26,9 +29,7 @@ class EventsListItemWidget extends StatelessWidget {
     }
 
     return InkWell(
-      onTap: () {
-        print(index);
-      },
+      onTap: () => context.go('/event', extra: eventRef),
       child: Card(
         elevation: 10,
         shadowColor: Colors.black54,
@@ -37,24 +38,26 @@ class EventsListItemWidget extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           child: Row(children: [
             cardIcon(),
-            const SizedBox(
-              width: 40,
-            ),
+            const SizedBox(width: 20),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   eventName,
                   style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 22),
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 22,
+                  ),
                 ),
-                Text(date,
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 17))
+                Text(
+                  date,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 17,
+                  ),
+                )
               ],
             )
           ]),

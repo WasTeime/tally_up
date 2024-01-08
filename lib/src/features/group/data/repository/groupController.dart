@@ -50,15 +50,34 @@ class GroupController extends Controller {
     return groupParticipantsRefs;
   }
 
+  Future<int?> getCountParticipants({
+    required DocumentReference groupRef,
+  }) async {
+    return await groupRef
+        .collection('participants')
+        .count()
+        .get()
+        .then((participants) => participants.count);
+  }
+
   Future<List<Map<String, dynamic>>> getListGroupEvents({
     required DocumentReference groupRef,
   }) async {
+    List<Map<String, dynamic>> data = [];
     return await db
         .collection('groups')
         .doc(groupRef.id)
         .collection('events')
         .get()
-        .then((querySnapshot) => getCollectionDocs(querySnapshot));
+        .then((querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        data.add({
+          "data": doc.data(),
+          "event_ref": doc.reference,
+        });
+      }
+      return data;
+    });
   }
 
   Future<DocumentReference> createGroup(

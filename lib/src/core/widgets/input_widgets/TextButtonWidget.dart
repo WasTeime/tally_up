@@ -21,15 +21,16 @@ class TextButtonWidget extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Text(textOnButton,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontFamily: 'Raleway-medium',
-              fontSize: 20,
-              color: Colors.white,
-              fontWeight: FontWeight.w500,
-              letterSpacing: -0.02,
-            )),
+        child: Text(
+          textOnButton,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontFamily: 'Raleway-medium',
+            fontSize: 15,
+            color: Colors.white,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
       ),
     );
   }

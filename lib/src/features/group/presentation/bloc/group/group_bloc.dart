@@ -12,6 +12,7 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
   late final StreamSubscription _groupEventsSub;
 
   GroupBloc({DocumentReference? groupRef}) : super(GroupInitial()) {
+    //если groupRef == null значит мы создаем группу и поэтому ссылки на неё нет
     if (groupRef != null) {
       _groupEventsSub =
           _groupController.getGroupEventsListStream(groupRef: groupRef).listen(
@@ -20,15 +21,6 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
                 ),
               );
     }
-    // on<LoadGroupEvents>((event, emit) {
-    //   _groupEventsSub = _groupController
-    //       .getGroupEventsListStream(groupRef: event.groupRef)
-    //       .listen(
-    //         (QuerySnapshot querySnapshot) => add(
-    //           LoadGroup(querySnapshot, groupRef: event.groupRef),
-    //         ),
-    //       );
-    // });
 
     on<LoadGroup>((event, emit) async {
       emit(GroupLoading());

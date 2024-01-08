@@ -3,10 +3,10 @@ import 'package:get_it/get_it.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:popover/popover.dart';
 import 'package:tally_up/src/features/qr_scaner/presentation/widgets/view.dart';
-import 'package:tally_up/src/features/qr_scaner/presentation/widgets/window_items.dart';
+import 'package:tally_up/src/features/cheque/presentation/widgets/EnterManuallyPopMenuItems.dart';
 
 import '../../../../core/theme.dart';
-import '../widgets/ttt.dart';
+import '../../../cheque/presentation/widgets/EnterManuallyPopMenuButton.dart';
 import 'QRResultScreen.dart';
 
 const BGColor = Colors.white70;
@@ -58,7 +58,7 @@ class _QRScanerState extends State<QRScaner> {
                 }
               },
             ),
-            QRScannerOverlay(overlayColour: Colors.black.withOpacity(0.5)),
+            QRScannerOverlay(overlayColor: Colors.black.withOpacity(0.5)),
             Positioned(
               top: 30,
               right: 20,
@@ -157,7 +157,7 @@ class _QRScanerState extends State<QRScaner> {
                         SizedBox(
                           width: 6,
                         ),
-                        TextUnderline(),
+                        EnterManuallyPopMenuButton(),
                       ],
                     )
                   ],

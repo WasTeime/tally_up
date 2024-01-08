@@ -1,36 +1,41 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:tally_up/src/features/event/data/repository/eventController.dart';
-import 'package:tally_up/src/features/group/data/repository/groupController.dart';
-
 part 'event_event.dart';
 part 'event_state.dart';
 
 class EventBloc extends Bloc<EventEvent, EventState> {
   final _eventController = EventController();
-  late final GroupController? _groupController;
 
-  EventBloc({required DocumentReference groupRef}) : super(EventInitial()) {
-    _groupController = GroupController();
+  EventBloc({required DocumentReference groupRef, DocumentReference? eventRef})
+      : super(EventInitial()) {
+    if (eventRef != null) {
+      _eventController.getChequesListStream(eventRef: eventRef).listen(
+            (QuerySnapshot querySnapshot) => add(
+              LoadEvent(querySnapshot: querySnapshot),
+            ),
+          );
+    }
 
-    on<CreateGroupEvent>((event, emit) {
-      _eventController.createEvent(event.eventName, groupRef);
+    on<CreateGroupEvent>((event, emit) async {
+      emit(EventCreating());
+      await _eventController
+          .createEvent(event.eventName, groupRef)
+          .then((value) => emit(EventCreated()));
     });
 
+    on<EventEvent>((event, emit) {});
+
     on<LoadEvent>((event, emit) async {
-      // emit(EventLoading());
-      // if (_groupController != null) {
-      //   await _groupController!
-      //       .getGroupParticipants(groupRef: groupRef)
-      //       .then((data) {
-      //     for (var element in data) {
-      //       element['check'] = ValueNotifier(false);
-      //     }
-      //     emit(EventLoaded(eventParticipants: data));
-      //   });
-      // }
+      emit(EventLoading());
+      await _eventController
+          .getEventFullData(
+            chequesCollectionSnapshot: event.querySnapshot,
+            groupRef: groupRef,
+            eventRef: eventRef!,
+          )
+          .then((data) => emit(EventLoaded(data: data)));
     });
   }
 }

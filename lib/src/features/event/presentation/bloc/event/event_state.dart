@@ -18,9 +18,9 @@ class EventCreateFailure extends EventState {}
 
 //EVENT LOAD
 class EventLoaded extends EventState {
-  final List<Map<String, dynamic>> eventParticipants;
+  final Map<String, dynamic> data;
 
-  const EventLoaded({required this.eventParticipants});
+  const EventLoaded({required this.data});
 }
 
 class EventLoading extends EventState {}

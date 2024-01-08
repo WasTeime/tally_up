@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 class QRScannerOverlay extends StatelessWidget {
-  const QRScannerOverlay({Key? key, required this.overlayColour})
-      : super(key: key);
+  final Color overlayColor;
 
-  final Color overlayColour;
+  const QRScannerOverlay({
+    super.key,
+    required this.overlayColor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,14 +17,16 @@ class QRScannerOverlay extends StatelessWidget {
     return Stack(children: [
       ColorFiltered(
         colorFilter: ColorFilter.mode(
-            overlayColour, BlendMode.srcOut), // This one will create the magic
+          overlayColor,
+          BlendMode.srcOut,
+        ), // This one will create the magic
         child: Stack(
           children: [
             Container(
               decoration: const BoxDecoration(
-                  color: Colors.red,
-                  backgroundBlendMode: BlendMode
-                      .dstOut), // This one will handle background + difference out
+                color: Colors.red,
+                backgroundBlendMode: BlendMode.dstOut,
+              ), // This one will handle background + difference out
             ),
             Align(
               alignment: Alignment.center,

@@ -1,1 +1,1 @@
-export 'qrscaneroverlay.dart';
+export '../../../cheque/presentation/widgets/qrscaneroverlay.dart';

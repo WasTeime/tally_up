@@ -7,12 +7,15 @@ class MainLayout extends StatefulWidget {
   final Widget? contentWidget;
   final Widget? underContentButtonWidget;
 
+  final bool enableContentPaddings;
+
   const MainLayout({
     super.key,
     required this.appBarWidget,
     this.subAppBarWidget,
     required this.contentWidget,
     this.underContentButtonWidget,
+    this.enableContentPaddings = true,
   });
 
   @override
@@ -21,12 +24,20 @@ class MainLayout extends StatefulWidget {
 
 class _MainLayoutState extends State<MainLayout>
     with SingleTickerProviderStateMixin {
+  //var contentPadding = const EdgeInsets.symmetric(horizontal: 10, vertical: 10);
+
   Widget get subAppBarWithContent {
     if (widget.subAppBarWidget != null && widget.contentWidget != null) {
       return Column(
         children: [
           widget.subAppBarWidget!,
-          widget.contentWidget!,
+          widget.contentWidget!
+          // widget.enableContentPaddings
+          //     ? Padding(
+          //         padding: contentPadding,
+          //         child: widget.contentWidget!,
+          //       )
+          //     : widget.contentWidget!,
         ],
       );
     }
