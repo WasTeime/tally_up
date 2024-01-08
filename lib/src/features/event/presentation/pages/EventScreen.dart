@@ -56,14 +56,17 @@ class _EventScreenState extends State<EventScreen> {
                   peopleCount: eventData['participants_count'],
                 ),
               ),
-              subAppBarWidget: Text(
-                DateFormat('dd.MM.yyyy').format(
-                  (eventData['created_at'] as Timestamp).toDate(),
-                ),
-                style: theme.textTheme.headlineSmall?.copyWith(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xFF0079FF),
+              subAppBarWidget: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  DateFormat('dd.MM.yyyy').format(
+                    (eventData['created_at'] as Timestamp).toDate(),
+                  ),
+                  style: theme.textTheme.headlineSmall?.copyWith(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xFF0079FF),
+                  ),
                 ),
               ),
               //todo сделать чтобы высота была до кнопки типо через media query и вот это вот всё, чтобы короче динамически было
@@ -80,9 +83,19 @@ class _EventScreenState extends State<EventScreen> {
               underContentButtonWidget: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  IconButton.filled(
+                  ElevatedButton(
                     onPressed: () => context.go('/createCheque'),
-                    icon: const Icon(Icons.add),
+                    style: ElevatedButton.styleFrom(
+                      shape: const CircleBorder(),
+                      padding: const EdgeInsets.all(7),
+                      backgroundColor: const Color(0xFF0079FF),
+                      foregroundColor: Colors.blue,
+                    ),
+                    child: const Icon(
+                      Icons.add,
+                      color: Colors.white,
+                      size: 50,
+                    ),
                   ),
                   if (chequesList.isNotEmpty)
                     EventFinalSumButtonWidget(

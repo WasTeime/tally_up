@@ -20,7 +20,7 @@ class SearchBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 15),
+      margin: const EdgeInsets.symmetric(horizontal: 15),
       child: SizedBox(
         height: 50,
         child: TextField(
@@ -31,7 +31,6 @@ class SearchBarWidget extends StatelessWidget {
           controller: inputController,
           decoration: InputDecoration(
             prefixIcon: const Icon(Icons.search),
-            fillColor: Colors.white,
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
             border: const OutlineInputBorder(
@@ -44,13 +43,15 @@ class SearchBarWidget extends StatelessWidget {
                 width: 1,
               ),
             ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: const BorderRadius.all(Radius.circular(45.0)),
-              borderSide: const BorderSide(
+            focusedBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(45.0)),
+              borderSide: BorderSide(
                 color: Colors.blue,
                 width: 3,
               ),
             ),
+            filled: true, // Устанавливаем заполнение
+            fillColor: Colors.white,
             hintText: hint,
             hintStyle: const TextStyle(color: Colors.black26),
           ),

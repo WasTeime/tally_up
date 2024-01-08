@@ -31,31 +31,81 @@ class _GroupsListWidgetState extends State<GroupsListWidget> {
             return ListView.builder(
               itemCount: state.groups.length,
               itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        context.go(
-                          '/group',
-                          extra: state.groups[index]['group_ref'],
-                        );
-                      },
-                      child: GroupsListItemWidget(
-                        List<Widget>.generate(
-                          state.groups[index]['participants'].length,
-                          (index) => Icon(Icons.circle),
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: SizedBox(
+                    height: 90, // Высота карточки
+                    child: Card(
+                      surfaceTintColor: Colors.white,
+                      elevation: 10,
+                      shadowColor: Colors.black54,
+                      child: Center(
+                        child: ListTile(
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 20.0, vertical: 8.0),
+                          title: Text(
+                            state.groups[index]['groupName'],
+                            style: const TextStyle(
+                              fontFamily: 'Rubik',
+                              fontSize: 18,
+                              color: Colors.black,
+                            ),
+                          ),
+                          subtitle: Wrap(
+                            // spacing:
+                            //     -10, // Устанавливаем расстояние между иконками
+                            children: List<Widget>.generate(
+                              state.groups[index]['participants'].length,
+                              (index) => const Icon(Icons.circle, size: 24),
+                            ),
+                          ),
+                          trailing: const Icon(
+                            Icons.more_vert,
+                            color: Colors.blue,
+                            size: 30,
+                          ),
+                          onTap: () {
+                            context.go(
+                              '/group',
+                              extra: state.groups[index]['group_ref'],
+                            );
+                          },
                         ),
-                        state.groups[index]['groupName'],
-                        '03.10.2023',
                       ),
                     ),
-                    const ColumnGapWidget(
-                      height: 10,
-                    ),
-                  ],
+                  ),
                 );
               },
             );
+
+            // return ListView.builder(
+            //   itemCount: state.groups.length,
+            //   itemBuilder: (context, index) {
+            //     return Column(
+            //       children: [
+            //         InkWell(
+            //           onTap: () {
+            //             context.go(
+            //               '/group',
+            //               extra: state.groups[index]['group_ref'],
+            //             );
+            //           },
+            //           child: GroupsListItemWidget(
+            //             List<Widget>.generate(
+            //               state.groups[index]['participants'].length,
+            //               (index) => Icon(Icons.circle),
+            //             ),
+            //             state.groups[index]['groupName'],
+            //             '03.10.2023',
+            //           ),
+            //         ),
+            //         const ColumnGapWidget(
+            //           height: 10,
+            //         ),
+            //       ],
+            //     );
+            //   },
+            // );
           }
           return const SizedBox.shrink();
         },

@@ -8,11 +8,22 @@ class BottomNavigationBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       currentIndex: 1,
-      backgroundColor: Color.fromARGB(255, 218, 235, 255),
+      backgroundColor: Color(0xFFF1F7FF),
+      // backgroundColor: Color.fromARGB(255, 218, 235, 255),
       items: const [
-        BottomNavigationBarItem(label: "", icon: Icon(Icons.description)),
-        BottomNavigationBarItem(label: "", icon: Icon(Icons.home)),
-        BottomNavigationBarItem(label: "", icon: Icon(Icons.person))
+        BottomNavigationBarItem(
+            label: "",
+            icon: Icon(
+              Icons.description,
+              size: 30,
+            )),
+        BottomNavigationBarItem(label: "", icon: Icon(Icons.home, size: 30)),
+        BottomNavigationBarItem(
+            label: "",
+            icon: Icon(
+              Icons.person,
+              size: 30,
+            ))
       ],
       onTap: (int index) {
         switch (index) {

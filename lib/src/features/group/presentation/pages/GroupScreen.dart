@@ -40,11 +40,30 @@ class _GroupScreenState extends State<GroupScreen> {
               contentWidget: EventsListWidget(
                 data: state.groupDetails['events'],
               ),
-              underContentButtonWidget: FloatingActionButton(
+              underContentButtonWidget: ElevatedButton(
                 onPressed: () =>
                     context.go('/createEvent', extra: widget.groupRef),
-                child: const Icon(Icons.add),
+                style: ElevatedButton.styleFrom(
+                  shape: const CircleBorder(),
+                  padding: const EdgeInsets.all(7),
+                  backgroundColor: const Color(0xFF0079FF),
+                  foregroundColor: Colors.blue,
+                ),
+                child: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                  size: 50,
+                ),
               ),
+              // underContentButtonWidget: FloatingActionButton(
+              //   onPressed: () =>
+              //       context.go('/createEvent', extra: widget.groupRef),
+              //   child: const Icon(
+              //     Icons.add,
+              //     color: Colors.white,
+              //     size: 50,
+              //   ),
+              // ),
             );
           }
           return const LoadingOnWhiteBackgroundWidget();

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter/material.dart';
 
-
+import '../../../../core/layouts/mainLayout.dart';
 import '../../../../core/widgets/view.dart';
 import '../widgets/view.dart';
 import 'ProfileScreen.dart';
@@ -47,19 +47,13 @@ class EditProfilePage extends StatelessWidget {
   }
 
   Widget build(BuildContext context) {
-    final color = Theme.of(context).colorScheme.primary;
-    return Scaffold(
-      appBar: PreferredSize(
+    final color = Color(0xFFF1F7FF);
+    return MainLayout(
+      appBarWidget: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: AppBarForEditScreen(color: color, name: 'Редактировать'),
-      ), // Using an instance of AppBarForEditScreen
-      backgroundColor: Color.fromARGB(255, 218, 235, 255),
-      body: Stack(
-        children: [
-          PhotoAndBox(color),
-          const BottomNavigationBarWidget(),
-        ],
       ),
+      contentWidget: PhotoAndBox(color),
     );
   }
 }

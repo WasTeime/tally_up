@@ -11,7 +11,7 @@ class AppBarForEditScreen extends StatelessWidget
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return AppBar(
-      backgroundColor: Color.fromARGB(255, 218, 235, 255),
+      backgroundColor: Color(0xFFF1F7FF),
       title: Center(
         child: Text(
           name,

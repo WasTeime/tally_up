@@ -12,9 +12,10 @@ class CardTitleForGroupWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Column(
       children: [
-        Text(titleText),
+        Text(titleText, style: theme.textTheme.titleMedium),
         Text('$peopleCount участников'),
       ],
     );

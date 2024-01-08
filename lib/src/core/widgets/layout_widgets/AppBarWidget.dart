@@ -53,19 +53,35 @@ class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
     this.enableArchive,
   });
 
+  const AppBarWidget.onlyEdit({
+    super.key,
+    required this.enableEditButton,
+    this.enableBackButton,
+    this.titleWidget,
+    this.enableAcceptButton,
+    this.enableArchive,
+  });
   List<Widget>? get actionsAppBar {
     if (enableAcceptButton != null) {
       return [
         IconButton(
             onPressed: () => enableAcceptButton!(),
-            icon: const Icon(Icons.check))
+            icon: const Icon(
+              Icons.check,
+              size: 30,
+              color: Colors.blue,
+            ))
       ];
     }
     if (enableArchive != null) {
       return [
         IconButton(
           onPressed: () => enableArchive!(),
-          icon: const Icon(Icons.archive),
+          icon: const Icon(
+            Icons.archive,
+            size: 30,
+            color: Colors.blue,
+          ),
         )
       ];
     }
@@ -73,7 +89,11 @@ class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
       return [
         IconButton(
           onPressed: () => enableEditButton!(),
-          icon: const Icon(Icons.edit),
+          icon: const Icon(
+            Icons.edit,
+            size: 25,
+            color: Colors.blue,
+          ),
         )
       ];
     }
@@ -85,6 +105,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: Color(0xFFF1F7FF),
       toolbarHeight: const Size.fromHeight(kToolbarHeight + 20)
           .height, //todo! надо поменять чтобы высота в зависимости от контента считалась
       title: widget.titleWidget,
@@ -92,6 +113,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
       leading: widget.enableBackButton != null
           ? BackButton(
               onPressed: widget.enableBackButton,
+              color: Colors.blue,
             )
           : null,
       centerTitle: true,

@@ -46,7 +46,6 @@ class _ContactsListCardWidgetState extends State<ContactsListCardWidget> {
   Widget errorContainerBorder() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
         border: !isPeopleSelected.value
             ? Border.all(
                 color: Colors.redAccent,
