@@ -35,44 +35,41 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
       value: _eventBloc,
       child: BlocBuilder<EventBloc, EventState>(
         builder: (context, state) {
-          if (state is EventLoaded) {
-            return MainLayout(
-              appBarWidget: AppBarWidget.withAcceptButton(
-                enableAcceptButton: () {
-                  if (_formKey.currentState!.validate()) {
-                    _eventBloc.add(
-                      CreateGroupEvent(
-                        eventName: _eventNameController.text,
-                      ),
-                    );
-                  }
-                },
-                enableBackButton: () => context.go('/'),
-                titleWidget: const Text(
-                  "Создать",
-                  style: TextStyle(fontSize: 20),
-                ),
+          return MainLayout(
+            appBarWidget: AppBarWidget.withAcceptButton(
+              enableAcceptButton: () {
+                if (_formKey.currentState!.validate()) {
+                  _eventBloc.add(
+                    CreateGroupEvent(
+                      eventName: _eventNameController.text,
+                    ),
+                  );
+                }
+              },
+              enableBackButton: () => context.go('/'),
+              titleWidget: const Text(
+                "Создать",
+                style: TextStyle(fontSize: 20),
               ),
-              subAppBarWidget: Row(
-                children: [
-                  Expanded(
-                    child: Form(
-                      key: _formKey,
-                      child: InputWidget(
-                        inputController: _eventNameController,
-                        hintText: "Название мероприятия",
-                        mainColor: Color(0XFF0079FF),
-                        hintColor: Colors.white,
-                      ),
+            ),
+            subAppBarWidget: Row(
+              children: [
+                Expanded(
+                  child: Form(
+                    key: _formKey,
+                    child: InputWidget(
+                      inputController: _eventNameController,
+                      hintText: "Название мероприятия",
+                      mainColor: Color(0XFF0079FF),
+                      hintColor: Colors.white,
                     ),
                   ),
-                  const ChooseEventIconWidget(),
-                ],
-              ),
-              contentWidget: Container(),
-            );
-          }
-          return const LoadingOnWhiteBackgroundWidget();
+                ),
+                const ChooseEventIconWidget(),
+              ],
+            ),
+            contentWidget: Container(),
+          );
         },
       ),
     );
