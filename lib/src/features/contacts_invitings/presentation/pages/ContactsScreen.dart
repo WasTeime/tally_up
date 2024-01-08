@@ -39,7 +39,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                       child: Text('У вас пока нет друзей'),
                     );
             }
-            return const LoadingWidget();
+            return const LoadingOnWhiteBackgroundWidget();
           },
         ),
       ),

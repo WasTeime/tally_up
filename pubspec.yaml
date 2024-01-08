@@ -53,6 +53,7 @@ dependencies:
     intl: ^0.18.1
     popover: ^0.2.8+2
     mockito: ^5.4.3
+    collection: ^1.15.0
 
 dev_dependencies:
     flutter_test:

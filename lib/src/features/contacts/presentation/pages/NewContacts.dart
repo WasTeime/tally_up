@@ -14,8 +14,8 @@ class _NewContactState extends State<NewContact> {
   @override
   Widget _textForm() {
     return Container(
-        margin: EdgeInsets.only(top: 340),
-        child: Column(
+        margin: const EdgeInsets.only(top: 340),
+        child: const Column(
           children: [
             FormFriendWidget(text: 'Имя'),
             SizedBox(
