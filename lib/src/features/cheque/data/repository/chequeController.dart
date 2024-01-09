@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:tally_up/src/core/data/Controller.dart';
 import 'package:tally_up/src/features/cheque/models/ChequeModel.dart';
 import 'package:tally_up/src/features/cheque/models/ProductModel.dart';
@@ -84,5 +85,33 @@ class ChequeController extends Controller {
     );
   }
 
-  void getChequeData({required DocumentReference chequeRef}) {}
+  //можно переписать функцию getCollectionDocs с добавлением своей data через callback
+  Future getChequeProductsList({
+    required DocumentReference chequeRef,
+  }) async {
+    List<Map<String, dynamic>> productsList = [];
+    await chequeRef.collection('products').get().then((productsColSnapshot) {
+      for (var productDoc in productsColSnapshot.docs) {
+        var data = productDoc.data();
+        data.addAll({
+          //добавленные данные для экрана
+          'id': productsList.length,
+          'original_quantity': data['quantity'],
+        });
+        data['quantity'] = ValueNotifier(data['quantity'] as int);
+        productsList.add(data);
+      }
+    });
+    return productsList;
+  }
+
+  Future<Map<String, dynamic>> getChequeData({
+    required DocumentReference chequeRef,
+  }) async {
+    Map<String, dynamic> chequeData = {
+      'data': await getDocFieldsByRef(chequeRef),
+      'products': await getChequeProductsList(chequeRef: chequeRef),
+    };
+    return chequeData;
+  }
 }

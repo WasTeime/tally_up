@@ -36,6 +36,17 @@ class EventController extends Controller {
     return docsList;
   }
 
+  Future<Map<String, dynamic>> getEventNameWithCountParticipants({
+    required DocumentReference eventRef,
+  }) async {
+    var groupRef = eventRef.parent.parent as DocumentReference;
+    return {
+      'name': await getDocFieldsByRef(eventRef).then((data) => data['name']),
+      'participants_count':
+          await _groupController.getCountParticipants(groupRef: groupRef),
+    };
+  }
+
   //данные по мероприятию вместе с количеством участников из коллекции "participants" и списком чеков из коллекции "cheques"
   Future<Map<String, dynamic>> getEventFullData({
     required QuerySnapshot chequesCollectionSnapshot,

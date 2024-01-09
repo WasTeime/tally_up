@@ -9,3 +9,4 @@ export './enterManuallyTabBarScreens/EnterChequeManuallyProducts.dart';
 
 export './EnterChequeManuallyTabBarWidget.dart';
 export './qrscaneroverlay.dart';
+export './ChequeRowInfoFieldWidget.dart';

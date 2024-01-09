@@ -7,7 +7,7 @@ import 'package:tally_up/src/core/layouts/mainLayout.dart';
 import 'package:tally_up/src/core/widgets/view.dart';
 import 'package:tally_up/src/features/cheque/presentation/bloc/bloc/cheque_bloc.dart';
 import 'package:tally_up/src/features/event/presentation/bloc/event/event_bloc.dart';
-import 'package:tally_up/src/features/event/presentation/widgets/EventFinalSumButtonWidget.dart';
+import 'package:tally_up/src/features/event/presentation/widgets/FinalSumButtonWidget.dart';
 import 'package:tally_up/src/features/event/presentation/widgets/cheques_list/ChequesListWidget.dart';
 import 'package:tally_up/src/features/group/presentation/widgets/CardWithNameAndParticipantsWidget.dart';
 
@@ -106,9 +106,10 @@ class _EventScreenState extends State<EventScreen> {
                     ),
                   ),
                   if (chequesList.isNotEmpty)
-                    EventFinalSumButtonWidget(
+                    FinalSumButtonWidget(
                       title: "Итого",
-                      sum: getFinalSumForAllCheques(chequesList),
+                      sum: getFinalSumForAllCheques(chequesList).toString(),
+                      buttonText: "разделить\nпоровну",
                       onButtonPressedEvent: () => {},
                     )
                 ],

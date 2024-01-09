@@ -7,7 +7,11 @@ abstract class ChequeEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class LoadCheque extends ChequeEvent {}
+class LoadCheque extends ChequeEvent {
+  final DocumentReference chequeRef;
+
+  const LoadCheque({required this.chequeRef});
+}
 
 class CreateCheque extends ChequeEvent {
   final String chequeQRRaw;

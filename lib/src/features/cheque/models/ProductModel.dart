@@ -1,7 +1,7 @@
 class ProductModel {
   final String name;
   final double price;
-  final int quantity;
+  final double quantity;
 
   ProductModel({
     required this.name,

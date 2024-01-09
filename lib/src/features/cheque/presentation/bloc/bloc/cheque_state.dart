@@ -12,7 +12,11 @@ class ChequeInitial extends ChequeState {}
 //LOAD CHEQUE
 class ChequeLoading extends ChequeState {}
 
-class ChequeLoaded extends ChequeState {}
+class ChequeLoaded extends ChequeState {
+  final Map<String, dynamic> data;
+
+  const ChequeLoaded({required this.data});
+}
 
 class ChequeFailure extends ChequeState {}
 

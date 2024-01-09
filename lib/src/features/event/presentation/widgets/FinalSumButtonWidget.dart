@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:tally_up/src/core/widgets/input_widgets/TextButtonWidget.dart';
 
-class EventFinalSumButtonWidget extends StatelessWidget {
+class FinalSumButtonWidget extends StatelessWidget {
   final String title;
-  final double sum;
+  final String sum;
+  final String buttonText;
   final Function() onButtonPressedEvent;
 
-  const EventFinalSumButtonWidget({
+  const FinalSumButtonWidget({
     super.key,
     required this.title,
     required this.sum,
     required this.onButtonPressedEvent,
+    required this.buttonText,
   });
 
   @override
@@ -33,7 +35,7 @@ class EventFinalSumButtonWidget extends StatelessWidget {
               ),
               TextButtonWidget(
                 onButtonPressedEvent,
-                "разделить\nпоровну",
+                buttonText,
               ),
             ],
           ),
