@@ -24,6 +24,18 @@ class EventController extends Controller {
 
   void changeEvent() {}
 
+  Future<List<Map<String, dynamic>>> getChequesList(
+    QuerySnapshot querySnapshot,
+  ) async {
+    List<Map<String, dynamic>> docsList = [];
+    for (var doc in querySnapshot.docs) {
+      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+      data.addAll({'cheque_ref': doc.reference});
+      docsList.add(data);
+    }
+    return docsList;
+  }
+
   //данные по мероприятию вместе с количеством участников из коллекции "participants" и списком чеков из коллекции "cheques"
   Future<Map<String, dynamic>> getEventFullData({
     required QuerySnapshot chequesCollectionSnapshot,
@@ -40,7 +52,7 @@ class EventController extends Controller {
           return data;
         },
       ),
-      "cheques": await getCollectionDocs(chequesCollectionSnapshot),
+      "cheques": await getChequesList(chequesCollectionSnapshot),
     };
     return data;
   }

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tally_up/src/features/event/presentation/widgets/cheques_list/ChequesListItemWidget.dart';
 
@@ -25,8 +26,9 @@ class ChequesListWidget extends StatelessWidget {
         itemCount: cheques.length,
         itemBuilder: (BuildContext context, int index) {
           return ChequesListItemWidget(
+            chequeRef: cheques[index]['cheque_ref'] as DocumentReference,
             chequeName: "Чек ${index + 1}",
-            sum: 20,
+            sum: cheques[index]['final_sum'],
           );
         },
       ),

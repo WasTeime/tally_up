@@ -9,4 +9,8 @@ abstract class ChequeEvent extends Equatable {
 
 class LoadCheque extends ChequeEvent {}
 
-class CreateCheque extends ChequeEvent {}
+class CreateCheque extends ChequeEvent {
+  final String chequeQRRaw;
+
+  const CreateCheque({required this.chequeQRRaw});
+}

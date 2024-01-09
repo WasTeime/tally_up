@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tally_up/src/core/widgets/input_widgets/TextButtonWidget.dart';
-import 'package:tally_up/src/features/cheque/presentation/widgets/EnterChequeManuallyProductsInputField.dart';
+import 'package:tally_up/src/features/cheque/presentation/widgets/view.dart';
 
 class EnterChequeManuallyProducts extends StatelessWidget {
   const EnterChequeManuallyProducts({super.key});

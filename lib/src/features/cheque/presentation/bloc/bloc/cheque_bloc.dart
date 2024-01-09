@@ -9,9 +9,18 @@ part 'cheque_state.dart';
 class ChequeBloc extends Bloc<ChequeEvent, ChequeState> {
   final _chequeController = ChequeController();
 
-  ChequeBloc({DocumentReference? chequeRef}) : super(ChequeInitial()) {
-    on<CreateCheque>((event, emit) {});
+  ChequeBloc({
+    required DocumentReference eventRef,
+    DocumentReference? chequeRef,
+  }) : super(ChequeInitial()) {
+    on<CreateCheque>((event, emit) async {
+      await _chequeController.createCheque(
+        eventRef: eventRef,
+        chequeQRRaw: event.chequeQRRaw,
+      );
+      print(1);
+    });
 
-    on<LoadCheque>((event, emit) {});
+    on<LoadCheque>((event, emit) async {});
   }
 }

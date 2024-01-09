@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:popover/popover.dart';
-import 'package:tally_up/src/features/cheque/presentation/widgets/EnterManuallyPopMenuItems.dart';
+import 'package:tally_up/src/features/cheque/presentation/widgets/enterManuallyPopMenu/EnterManuallyPopMenuItems.dart';
 
 class EnterManuallyPopMenuButton extends StatelessWidget {
   const EnterManuallyPopMenuButton({super.key});

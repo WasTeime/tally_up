@@ -85,12 +85,14 @@ final router = GoRouter(initialLocation: '/loginState', routes: [
   GoRoute(
     path: '/cheque',
     builder: (context, state) => ChequeScreen(
-      chequeFNSInfoFromScanner: state.extra as String,
+      chequeRef: state.extra as DocumentReference,
     ),
   ),
   GoRoute(
     path: '/createCheque',
-    builder: (context, state) => CreateChequeQRScannerScreen(),
+    builder: (context, state) => CreateChequeQRScannerScreen(
+      eventRef: state.extra as DocumentReference,
+    ),
   ),
   GoRoute(
     path: '/login',

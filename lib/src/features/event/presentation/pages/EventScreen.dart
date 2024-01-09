@@ -25,7 +25,7 @@ class EventScreen extends StatefulWidget {
 
 class _EventScreenState extends State<EventScreen> {
   late final EventBloc _eventBloc;
-  final ChequeBloc _chequeBloc = ChequeBloc();
+  late final ChequeBloc _chequeBloc;
 
   @override
   void initState() {
@@ -34,6 +34,15 @@ class _EventScreenState extends State<EventScreen> {
       groupRef: widget.eventRef.parent.parent as DocumentReference,
       eventRef: widget.eventRef,
     );
+    _chequeBloc = ChequeBloc(eventRef: widget.eventRef);
+  }
+
+  double getFinalSumForAllCheques(List<Map<String, dynamic>> chequesList) {
+    double finalSum = 0;
+    for (var cheque in chequesList) {
+      finalSum += cheque['final_sum'];
+    }
+    return finalSum;
   }
 
   @override
@@ -70,24 +79,23 @@ class _EventScreenState extends State<EventScreen> {
               contentWidget: Container(
                 height: 500,
                 child: chequesList.isNotEmpty
-                    ? ChequesListWidget(
-                        cheques: chequesList,
-                      )
-                    : const Center(
-                        child: Text("У вас пока нет чеков"),
-                      ),
+                    ? ChequesListWidget(cheques: chequesList)
+                    : const Center(child: Text("У вас пока нет чеков")),
               ),
               underContentButtonWidget: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   IconButton.filled(
-                    onPressed: () => context.go('/createCheque'),
+                    onPressed: () => context.go(
+                      '/createCheque',
+                      extra: widget.eventRef,
+                    ),
                     icon: const Icon(Icons.add),
                   ),
                   if (chequesList.isNotEmpty)
                     EventFinalSumButtonWidget(
                       title: "Итого",
-                      sum: 2000,
+                      sum: getFinalSumForAllCheques(chequesList),
                       onButtonPressedEvent: () => {},
                     )
                 ],

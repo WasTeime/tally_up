@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ChequesListItemWidget extends StatelessWidget {
+  final DocumentReference chequeRef;
   final String chequeName;
   final double sum;
 
@@ -8,14 +11,13 @@ class ChequesListItemWidget extends StatelessWidget {
     super.key,
     required this.chequeName,
     required this.sum,
+    required this.chequeRef,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        print("Card Clicked");
-      },
+      onTap: () => context.go('/cheque', extra: chequeRef),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,

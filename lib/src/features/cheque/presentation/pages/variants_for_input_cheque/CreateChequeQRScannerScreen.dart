@@ -1,11 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:tally_up/src/core/widgets/helper_widgets/ColumnGapWidget.dart';
+import 'package:tally_up/src/features/cheque/presentation/bloc/bloc/cheque_bloc.dart';
 import 'package:tally_up/src/features/cheque/presentation/widgets/qrscaneroverlay.dart';
 
 class CreateChequeQRScannerScreen extends StatefulWidget {
-  const CreateChequeQRScannerScreen({super.key});
+  final DocumentReference eventRef;
+
+  const CreateChequeQRScannerScreen({
+    super.key,
+    required this.eventRef,
+  });
 
   @override
   State<CreateChequeQRScannerScreen> createState() =>
@@ -26,6 +33,7 @@ class _CreateChequeQRScannerScreenState
   @override
   Widget build(BuildContext context) {
     bool isQRCodeFound = false;
+    final chequeBloc = ChequeBloc(eventRef: widget.eventRef);
 
     return Scaffold(
       body: SafeArea(
@@ -39,6 +47,7 @@ class _CreateChequeQRScannerScreenState
                   String code = barcode.rawValue!;
                   isQRCodeFound = true;
                   context.go('/cheque', extra: code);
+                  chequeBloc.add(CreateCheque(chequeQRRaw: code));
                 }
               },
             ),
