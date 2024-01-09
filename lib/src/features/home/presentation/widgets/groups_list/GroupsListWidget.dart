@@ -65,7 +65,7 @@ class _GroupsListWidgetState extends State<GroupsListWidget> {
                             size: 30,
                           ),
                           onTap: () {
-                            context.go(
+                            context.push(
                               '/group',
                               extra: state.groups[index]['group_ref'],
                             );
@@ -77,35 +77,6 @@ class _GroupsListWidgetState extends State<GroupsListWidget> {
                 );
               },
             );
-
-            // return ListView.builder(
-            //   itemCount: state.groups.length,
-            //   itemBuilder: (context, index) {
-            //     return Column(
-            //       children: [
-            //         InkWell(
-            //           onTap: () {
-            //             context.go(
-            //               '/group',
-            //               extra: state.groups[index]['group_ref'],
-            //             );
-            //           },
-            //           child: GroupsListItemWidget(
-            //             List<Widget>.generate(
-            //               state.groups[index]['participants'].length,
-            //               (index) => Icon(Icons.circle),
-            //             ),
-            //             state.groups[index]['groupName'],
-            //             '03.10.2023',
-            //           ),
-            //         ),
-            //         const ColumnGapWidget(
-            //           height: 10,
-            //         ),
-            //       ],
-            //     );
-            //   },
-            // );
           }
           return const SizedBox.shrink();
         },

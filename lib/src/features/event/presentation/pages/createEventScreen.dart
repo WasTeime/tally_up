@@ -46,7 +46,8 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                   );
                 }
               },
-              enableBackButton: () => context.go('/'),
+              enableBackButton: () =>
+                  context.canPop() ? context.pop() : context.go('/'),
               titleWidget: const Text(
                 "Создать",
                 style: TextStyle(fontSize: 20),

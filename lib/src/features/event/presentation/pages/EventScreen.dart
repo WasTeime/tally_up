@@ -58,7 +58,8 @@ class _EventScreenState extends State<EventScreen> {
             return MainLayout(
               appBarWidget: AppBarWidget.withEditButton(
                 enableEditButton: () => print(''),
-                enableBackButton: () => context.go('/'),
+                enableBackButton: () =>
+                    context.canPop() ? context.pop() : context.go('/'),
                 titleWidget: CardWithNameAndParticipantsWidget.forEvent(
                   cardIcon: Icons.abc,
                   titleText: eventData['name'],
@@ -89,7 +90,7 @@ class _EventScreenState extends State<EventScreen> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   ElevatedButton(
-                    onPressed: () => context.go(
+                    onPressed: () => context.push(
                       '/createCheque',
                       extra: widget.eventRef,
                     ),

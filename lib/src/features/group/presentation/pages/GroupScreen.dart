@@ -31,7 +31,8 @@ class _GroupScreenState extends State<GroupScreen> {
             return MainLayout(
               appBarWidget: AppBarWidget.withEditButton(
                 enableEditButton: () => print('press on edit button'),
-                enableBackButton: () => context.go('/'),
+                enableBackButton: () =>
+                    context.canPop() ? context.pop() : context.go('/'),
                 titleWidget: CardWithNameAndParticipantsWidget.forGroup(
                   titleText: state.groupDetails['groupName'],
                   peopleCount: state.groupDetails['participants'].length,
@@ -41,8 +42,10 @@ class _GroupScreenState extends State<GroupScreen> {
                 data: state.groupDetails['events'],
               ),
               underContentButtonWidget: ElevatedButton(
-                onPressed: () =>
-                    context.go('/createEvent', extra: widget.groupRef),
+                onPressed: () => context.push(
+                  '/createEvent',
+                  extra: widget.groupRef,
+                ),
                 style: ElevatedButton.styleFrom(
                   shape: const CircleBorder(),
                   padding: const EdgeInsets.all(7),

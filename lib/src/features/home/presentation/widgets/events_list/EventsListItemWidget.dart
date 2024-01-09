@@ -29,7 +29,7 @@ class EventsListItemWidget extends StatelessWidget {
     }
 
     return InkWell(
-      onTap: () => context.go('/event', extra: eventRef),
+      onTap: () => context.push('/event', extra: eventRef),
       child: Card(
         elevation: 10,
         shadowColor: Colors.black54,

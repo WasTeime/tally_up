@@ -29,22 +29,23 @@ class _HomeScreenState extends State<HomeScreen>
           print('press on archive');
         });
     return MainLayout(
-        appBarWidget: appBarWidget,
-        subAppBarWidget: HomeTabBarWidget(tabController: _tabController),
-        contentWidget: HomeTabBarScreens(tabController: _tabController),
-        underContentButtonWidget: ElevatedButton(
-          onPressed: () => context.go('/createGroup'),
-          style: ElevatedButton.styleFrom(
-            shape: const CircleBorder(),
-            padding: const EdgeInsets.all(7),
-            backgroundColor: const Color(0xFF0079FF),
-            foregroundColor: Colors.blue,
-          ),
-          child: const Icon(
-            Icons.add,
-            color: Colors.white,
-            size: 45,
-          ),
-        ));
+      appBarWidget: appBarWidget,
+      subAppBarWidget: HomeTabBarWidget(tabController: _tabController),
+      contentWidget: HomeTabBarScreens(tabController: _tabController),
+      underContentButtonWidget: ElevatedButton(
+        onPressed: () => context.push('/createGroup'),
+        style: ElevatedButton.styleFrom(
+          shape: const CircleBorder(),
+          padding: const EdgeInsets.all(7),
+          backgroundColor: const Color(0xFF0079FF),
+          foregroundColor: Colors.blue,
+        ),
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+          size: 45,
+        ),
+      ),
+    );
   }
 }

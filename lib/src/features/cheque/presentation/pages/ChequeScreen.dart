@@ -35,7 +35,7 @@ class ChequeScreen extends StatelessWidget {
             return MainLayout(
               appBarWidget: AppBarWidget.withEditButton(
                 enableEditButton: () => (),
-                enableBackButton: () => context.go('/'),
+                enableBackButton: () => context.pop(),
                 titleWidget: CardWithNameAndParticipantsWidget.forEvent(
                   cardIcon: Icons.abc,
                   titleText: eventData['name'],

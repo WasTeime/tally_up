@@ -17,7 +17,7 @@ class ChequesListItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.go('/cheque', extra: chequeRef),
+      onTap: () => context.push('/cheque', extra: chequeRef),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -52,7 +52,7 @@ class ChequesListItemWidget extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                   ),
-                  Text(sum.toString() + " РУБ",
+                  Text("$sum РУБ",
                       style: Theme.of(context).textTheme.titleSmall),
                 ],
               ),

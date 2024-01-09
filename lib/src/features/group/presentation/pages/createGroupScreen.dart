@@ -56,7 +56,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                       }
                     }
                   },
-                  enableBackButton: () => context.go('/'),
+                  enableBackButton: () => context.pop(),
                   titleWidget: Text(
                     "Создать",
                     style: theme.textTheme.headlineMedium

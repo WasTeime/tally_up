@@ -33,7 +33,7 @@ final router = GoRouter(initialLocation: '/loginState', routes: [
         child: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state.status == AuthStatus.authenticated) {
-              context.go('/');
+              context.push('/');
             } else {
               context.go('/login');
             }

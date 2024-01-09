@@ -7,6 +7,7 @@ class BottomNavigationBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      selectedItemColor: const Color(0xff0079FF),
       currentIndex: 1,
       backgroundColor: Color(0xFFF1F7FF),
       // backgroundColor: Color.fromARGB(255, 218, 235, 255),
@@ -28,7 +29,7 @@ class BottomNavigationBarWidget extends StatelessWidget {
       onTap: (int index) {
         switch (index) {
           case 0:
-            context.go('/cheque');
+            context.go('/');
           case 1:
             context.go('/');
           case 2:
