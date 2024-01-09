@@ -26,6 +26,13 @@ class _CreateChequeManuallyScreenState extends State<CreateChequeManuallyScreen>
   Widget build(BuildContext context) {
     return MainLayout(
       appBarWidget: AppBarWidget(
+        titleWidget: Text(
+          "Ввести товары в ручную",
+          style: Theme.of(context)
+              .textTheme
+              .headlineMedium
+              ?.copyWith(fontSize: 22, fontWeight: FontWeight.bold),
+        ),
         enableBackButton: () => context.go('/'),
       ),
       subAppBarWidget: EnterChequeManuallyTabBarWidget(

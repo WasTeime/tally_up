@@ -17,11 +17,17 @@ class FinalSumButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 80,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Card(
+        surfaceTintColor: Colors.white,
+        elevation: 8,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        shadowColor: Colors.black54,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -29,8 +35,9 @@ class FinalSumButtonWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title),
-                  Text('$sum рублей'),
+                  Text(title, style: Theme.of(context).textTheme.displayLarge),
+                  Text('$sum рублей',
+                      style: Theme.of(context).textTheme.displayMedium),
                 ],
               ),
               TextButtonWidget(

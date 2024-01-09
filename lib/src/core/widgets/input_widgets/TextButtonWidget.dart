@@ -8,30 +8,37 @@ class TextButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: onPressedEvent,
-      style: ButtonStyle(
-        backgroundColor:
-            MaterialStateProperty.all<Color>(const Color(0xFF0078FE)),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+    return SizedBox(
+        height: 55,
+        child: TextButton(
+          onPressed: onPressedEvent,
+          style: ButtonStyle(
+            backgroundColor:
+                MaterialStateProperty.all<Color>(const Color(0xFF0078FE)),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(22),
+              ),
+            ),
           ),
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Text(
-          textOnButton,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontFamily: 'Raleway-medium',
-            fontSize: 15,
-            color: Colors.white,
-            fontWeight: FontWeight.w500,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 25,
+            ),
+            child: DefaultTextStyle.merge(
+              style: const TextStyle(
+                fontFamily: 'Raleway-medium',
+                fontSize: 15,
+                color: Colors.white,
+                fontWeight: FontWeight.w500,
+                wordSpacing: -3,
+              ),
+              child: Text(
+                textOnButton,
+                textAlign: TextAlign.center,
+              ),
+            ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

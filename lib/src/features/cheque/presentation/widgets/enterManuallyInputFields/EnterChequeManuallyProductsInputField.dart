@@ -40,19 +40,26 @@ class EnterChequeManuallyProductsInputField extends StatelessWidget {
                             quantity.value--;
                           }
                         },
-                        icon: const Icon(Icons.remove),
+                        icon: const Icon(
+                          Icons.remove,
+                          color: Colors.blue,
+                        ),
                       ),
                       ValueListenableBuilder(
                         valueListenable: quantity,
                         builder: (context, quantity, child) {
-                          return Text("$quantity");
+                          return Text("$quantity",
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18));
                         },
                       ),
                       IconButton(
                         onPressed: () {
                           quantity.value++;
                         },
-                        icon: const Icon(Icons.add),
+                        icon: const Icon(Icons.add, color: Colors.blue),
                       ),
                     ],
                   ),

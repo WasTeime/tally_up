@@ -13,7 +13,7 @@ class ChequesListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
       child: GridView.builder(
         shrinkWrap: true,
         physics: const ClampingScrollPhysics(),

@@ -108,7 +108,6 @@ class _QRScanerState extends State<QRScaner> {
                     ),
                     Card(
                       margin: const EdgeInsets.only(right: 30, left: 30),
-                      elevation: 4, // Add elevation for a shadow effect
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),

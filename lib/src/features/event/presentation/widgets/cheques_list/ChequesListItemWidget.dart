@@ -36,8 +36,8 @@ class ChequesListItemWidget extends StatelessWidget {
               flex: 2,
               child: Image(
                 image: AssetImage('assets/images/cheque.png'),
-                width: 40,
-                height: 40,
+                width: 50,
+                height: 50,
               ),
             ),
             Expanded(
@@ -46,8 +46,14 @@ class ChequesListItemWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(chequeName), // Номер чека
-                  Text(sum.toString()), // Сумма чека в рублях
+                  Text(
+                    chequeName,
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  Text(sum.toString() + " РУБ",
+                      style: Theme.of(context).textTheme.titleSmall),
                 ],
               ),
             ),
