@@ -3,6 +3,8 @@ import 'package:tally_up/src/core/widgets/view.dart';
 import 'package:tally_up/src/features/profile/presentation/pages/ProfileEditScreen.dart';
 import 'package:tally_up/src/features/profile/presentation/widgets/view.dart';
 
+import '../../../../core/layouts/mainLayout.dart';
+
 class ProfilePage extends StatefulWidget {
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -35,46 +37,35 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 228, 236, 246),
-      body: Stack(
-        children: [
-          ListView(
-            padding: const EdgeInsets.only(top: 50),
-            children: <Widget>[
-              Center(child: ProfilePhoto(photo: 'assets/images/events1.png')),
-              const SizedBox(height: 16.0),
-              UserInfoCard(
-                userName: _userName,
-                phoneNumber: _phoneNumber,
-                email: _email,
-              ),
-              const SizedBox(height: 5.0),
-              // Дополнительные карточки информации
-              ProfileActionCard(title: 'Язык', value: 'Русский'),
-              ProfileActionCard(title: 'Тема', value: 'Светлая'),
-              ProfileActionCard(title: 'Мои контакты', value: '20'),
-              ProfileActionCard(title: 'Мои долги', value: '3'),
-              ProfileActionCard(title: 'Импорт контактов', value: 'Готово'),
-              const SizedBox(height: 140.0),
-              // LogoutInProfileButtonWidget(
-              //   name: 'Выход',
-              // )
-            ],
-          ),
-          Positioned(
-            // Иконка редактирования
-            top: 16,
-            right: 16,
-            child: IconButton(
-              onPressed:
-                  _navigateToEditProfilePage, // Нажатие на кнопку редактирования
-              icon: const Icon(Icons.edit, color: Color(0xff0079FF), size: 30),
+    final appBarWidget = AppBarWidget.onlyEdit(enableEditButton: () {
+      _navigateToEditProfilePage();
+    });
+    return MainLayout(
+        appBarWidget: appBarWidget,
+        contentWidget: Stack(
+          children: [
+            ListView(
+              children: <Widget>[
+                Center(child: ProfilePhoto(photo: 'assets/images/events1.png')),
+                const SizedBox(height: 16.0),
+                UserInfoCard(
+                  userName: _userName,
+                  phoneNumber: _phoneNumber,
+                  email: _email,
+                ),
+                const SizedBox(height: 5.0),
+                ProfileActionCard(title: 'Язык', value: 'Русский'),
+                ProfileActionCard(title: 'Тема', value: 'Светлая'),
+                ProfileActionCard(title: 'Мои контакты', value: '20'),
+                ProfileActionCard(title: 'Мои долги', value: '3'),
+                ProfileActionCard(title: 'Импорт контактов', value: 'Готово'),
+                SizedBox(height: 40.0),
+                LogoutInProfileButtonWidget(name: "Выход"),
+              ],
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+        underContentButtonWidget: LogoutInProfileButtonWidget(name: "Выход"));
   }
 }
 
@@ -88,11 +79,9 @@ class ProfileScreen extends StatefulWidget {
 class __ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 218, 235, 255),
       body: Stack(
         children: [ProfilePage()],
       ),
-      bottomNavigationBar: BottomNavigationBarWidget(),
     );
   }
 }

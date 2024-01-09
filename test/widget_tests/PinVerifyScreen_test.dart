@@ -61,6 +61,7 @@ void main() {
     // Находим и взаимодействуем с виджетами
     await tester.enterText(find.byType(Pinput), '123456');
     await tester.tap(find.text('Отправить'));
+    await tester.pumpAndSettle();
 
     // Производим предполагаемые проверки после взаимодействия
     verify(() => mockSignInBloc.add(const SignIn('123456'))).called(1);

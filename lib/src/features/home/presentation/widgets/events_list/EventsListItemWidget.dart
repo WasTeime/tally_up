@@ -16,13 +16,13 @@ class EventsListItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget cardIcon() {
       return Container(
-        padding: const EdgeInsets.all(5),
+        padding: const EdgeInsets.all(10),
         decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(17))),
         child: Icon(
           icon,
-          size: 40,
+          size: 33,
           color: Colors.black,
         ),
       );
@@ -34,33 +34,21 @@ class EventsListItemWidget extends StatelessWidget {
         elevation: 10,
         shadowColor: Colors.black54,
         color: Colors.blue,
+        margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
         child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Row(children: [
-            cardIcon(),
-            const SizedBox(width: 20),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  eventName,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 22,
-                  ),
-                ),
-                Text(
-                  date,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 17,
-                  ),
-                )
-              ],
-            )
-          ]),
+          padding: const EdgeInsets.all(10),
+          child: ListTile(
+            leading: cardIcon(),
+            title:
+                Text(eventName, style: Theme.of(context).textTheme.labelLarge),
+            subtitle:
+                Text(date, style: Theme.of(context).textTheme.headlineLarge),
+            trailing: const Icon(
+              Icons.more_vert,
+              color: Colors.white,
+              size: 30,
+            ),
+          ),
         ),
       ),
     );

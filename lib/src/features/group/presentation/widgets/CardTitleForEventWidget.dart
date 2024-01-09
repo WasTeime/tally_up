@@ -15,6 +15,7 @@ class CardTitleForEventWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
@@ -27,8 +28,8 @@ class CardTitleForEventWidget extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(titleText),
-            Text('$peopleCount участников'),
+            Text(titleText, style: theme.textTheme.titleMedium),
+            Text('$peopleCount участников', style: theme.textTheme.bodyMedium),
           ],
         ),
       ],

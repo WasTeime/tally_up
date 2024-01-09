@@ -31,6 +31,13 @@ class AppTheme {
             fontWeight: FontWeight.w900,
             height: 1,
           ),
+          titleSmall: TextStyle(
+            fontFamily: 'Rubik',
+            fontSize: 17,
+            color: Color(0xFF50A3FF),
+            fontWeight: FontWeight.w900,
+            height: 1,
+          ),
           headlineLarge: TextStyle(
             fontFamily: 'Raleway-medium',
             fontSize: 15,
@@ -39,7 +46,11 @@ class AppTheme {
             letterSpacing: -0.02,
           ),
           titleMedium: TextStyle(fontSize: 20, color: Color(0xff0079FF)),
-          labelLarge: TextStyle(fontSize: 20, color: Colors.white)),
+          labelLarge: TextStyle(
+            fontSize: 22,
+            color: Colors.white,
+            fontWeight: FontWeight.w500,
+          )),
     );
   }
 

@@ -11,10 +11,11 @@ class IconWithBackgroundWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(5),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Colors.grey.shade400,
-        borderRadius: BorderRadius.circular(10),
+        color: Color.fromARGB(255, 255, 255, 255),
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(color: Colors.black12),
       ),
       child: Icon(icon),
     );

@@ -36,6 +36,9 @@ class CardWithNameAndParticipantsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      surfaceTintColor: Colors.white,
+      elevation: 10,
+      shadowColor: Colors.black54,
       child: Padding(
         padding: _paddingForCard,
         child: isCardForGroup
