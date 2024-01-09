@@ -24,6 +24,16 @@ class AppTheme {
             fontSize: 15,
             color: Color(0xFF50A3FF),
           ),
+          displayLarge: TextStyle(
+              fontFamily: 'Rubik',
+              fontSize: 20,
+              color: Colors.black,
+              fontWeight: FontWeight.w600),
+          displayMedium: TextStyle(
+              fontFamily: 'Rubik',
+              fontSize: 19,
+              color: Colors.black,
+              fontWeight: FontWeight.w400),
           titleLarge: TextStyle(
             fontFamily: 'RubikMonoOne',
             fontSize: 50,
@@ -34,7 +44,7 @@ class AppTheme {
           titleSmall: TextStyle(
             fontFamily: 'Rubik',
             fontSize: 17,
-            color: Color(0xFF50A3FF),
+            color: Color(0xff0079FF),
             fontWeight: FontWeight.w900,
             height: 1,
           ),

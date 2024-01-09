@@ -33,6 +33,7 @@ class _CreateChequeQRScannerScreenState
   @override
   Widget build(BuildContext context) {
     bool isQRCodeFound = false;
+    bool isFlashOn = false;
     final chequeBloc = ChequeBloc(eventRef: widget.eventRef);
 
     return Scaffold(
@@ -53,11 +54,11 @@ class _CreateChequeQRScannerScreenState
             ),
             QRScannerOverlay(overlayColor: Colors.black.withOpacity(0.5)),
             Align(
-              alignment: Alignment.topRight,
-              child: CloseButton(
-                onPressed: () => context.go('/'),
-              ),
-            ),
+                alignment: Alignment.topRight,
+                child: IconButton(
+                  onPressed: () => context.go('/'),
+                  icon: const Icon(Icons.close, color: Colors.white, size: 40),
+                )),
             //todo указать margin половину от низа экрана до области сканирования
             Container(
               margin: const EdgeInsets.only(bottom: 60),
@@ -67,32 +68,50 @@ class _CreateChequeQRScannerScreenState
                 children: [
                   ValueListenableBuilder(
                     valueListenable: scannerController.torchState,
-                    builder: (__, torchState, _) {
+                    builder: (context, torchState, _) {
                       return IconButton(
-                        onPressed: () => scannerController.toggleTorch(),
+                        onPressed: () {
+                          if (torchState == TorchState.on) {
+                            scannerController.toggleTorch();
+                          } else {
+                            scannerController.toggleTorch();
+                          }
+                        },
                         icon: torchState == TorchState.on
-                            ? const Icon(Icons.flash_off)
-                            : const Icon(Icons.flash_on),
+                            ? const Icon(Icons.flash_off,
+                                color: Colors.white, size: 40)
+                            : const Icon(
+                                Icons.flash_on,
+                                color: Colors.white,
+                                size: 40,
+                              ),
                       );
                     },
                   ),
-                  const Card(
-                    color: Colors.grey,
-                    child: Padding(
+                  Card(
+                    margin: const EdgeInsets.symmetric(horizontal: 30),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    color: Color.fromARGB(207, 255, 255, 255),
+                    child: const Padding(
                       padding: EdgeInsets.all(8),
                       child: Row(
                         children: [
                           Icon(
                             Icons.qr_code,
-                            size: 40,
+                            size: 55,
                             color: Colors.black,
                           ),
-                          ColumnGapWidget(),
+                          SizedBox(
+                            width: 10,
+                          ),
                           Flexible(
                             child: Text(
                               'Наведите камеру на QR-код на чеке',
                               style: TextStyle(
                                 fontSize: 15,
+                                color: Colors.black,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -101,7 +120,6 @@ class _CreateChequeQRScannerScreenState
                       ),
                     ),
                   ),
-                  const ColumnGapWidget(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

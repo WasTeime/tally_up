@@ -102,12 +102,12 @@ class _EventScreenState extends State<EventScreen> {
                     child: const Icon(
                       Icons.add,
                       color: Colors.white,
-                      size: 50,
+                      size: 45,
                     ),
                   ),
                   if (chequesList.isNotEmpty)
                     EventFinalSumButtonWidget(
-                      title: "Итого",
+                      title: "ИТОГО",
                       sum: getFinalSumForAllCheques(chequesList),
                       onButtonPressedEvent: () => {},
                     )

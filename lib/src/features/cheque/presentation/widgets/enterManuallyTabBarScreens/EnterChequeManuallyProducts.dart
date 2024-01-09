@@ -16,6 +16,7 @@ class EnterChequeManuallyProducts extends StatelessWidget {
       children: [
         Expanded(
           child: Card(
+            surfaceTintColor: Colors.white,
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: Form(

@@ -52,18 +52,9 @@ class _GroupScreenState extends State<GroupScreen> {
                 child: const Icon(
                   Icons.add,
                   color: Colors.white,
-                  size: 50,
+                  size: 45,
                 ),
               ),
-              // underContentButtonWidget: FloatingActionButton(
-              //   onPressed: () =>
-              //       context.go('/createEvent', extra: widget.groupRef),
-              //   child: const Icon(
-              //     Icons.add,
-              //     color: Colors.white,
-              //     size: 50,
-              //   ),
-              // ),
             );
           }
           return const LoadingOnWhiteBackgroundWidget();
