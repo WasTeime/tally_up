@@ -18,7 +18,6 @@ class ChequeBloc extends Bloc<ChequeEvent, ChequeState> {
         eventRef: eventRef,
         chequeQRRaw: event.chequeQRRaw,
       );
-      print(1);
     });
 
     on<LoadCheque>((event, emit) async {});
