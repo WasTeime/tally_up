@@ -26,13 +26,7 @@ class TextButtonWidget extends StatelessWidget {
               horizontal: 25,
             ),
             child: DefaultTextStyle.merge(
-              style: const TextStyle(
-                fontFamily: 'Raleway-medium',
-                fontSize: 15,
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
-                wordSpacing: -3,
-              ),
+              style: Theme.of(context).textTheme.headlineLarge,
               child: Text(
                 textOnButton,
                 textAlign: TextAlign.center,

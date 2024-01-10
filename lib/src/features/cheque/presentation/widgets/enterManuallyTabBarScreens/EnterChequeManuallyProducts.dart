@@ -17,6 +17,8 @@ class EnterChequeManuallyProducts extends StatelessWidget {
         Expanded(
           child: Card(
             surfaceTintColor: Colors.white,
+            elevation: 10,
+            shadowColor: Colors.black38,
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: Form(
@@ -42,10 +44,22 @@ class EnterChequeManuallyProducts extends StatelessWidget {
                         ),
                       ),
                     ),
-                    IconButton.filled(
-                      onPressed: () => countProducts.value++,
-                      icon: const Icon(Icons.add),
-                    )
+                    IconButton(
+                      onPressed: () {
+                        countProducts.value++;
+                      },
+                      icon: Ink(
+                        decoration: const ShapeDecoration(
+                          color: Colors.blue, // Цвет фона
+                          shape: CircleBorder(),
+                        ),
+                        child: const SizedBox(
+                          width: 44,
+                          height: 44,
+                          child: Icon(Icons.add, color: Colors.white),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -53,7 +67,7 @@ class EnterChequeManuallyProducts extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 50),
-        TextButtonWidget(() => null, "продолжить"),
+        TextButtonWidget(() => null, "Продолжить"),
       ],
     );
   }
