@@ -47,6 +47,9 @@ class EnterChequeManuallyCheque extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Card(
+          surfaceTintColor: Colors.white,
+          elevation: 10,
+          shadowColor: Colors.black38,
           child: Form(
             key: formKey,
             child: Column(
@@ -100,9 +103,12 @@ class EnterChequeManuallyCheque extends StatelessWidget {
             ),
           ),
         ),
-        TextButtonWidget(
-          () => null,
-          "Продолжить",
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: TextButtonWidget(
+            () => null,
+            "Продолжить",
+          ),
         ),
       ],
     );
