@@ -147,81 +147,55 @@ class ChequeScreen extends StatelessWidget {
                                         "${product['price']}",
                                         style: theme.textTheme.headlineMedium
                                             ?.copyWith(fontSize: 13)),
-                                    Container(
-                                      height: 37,
-                                      width: 20,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white70,
-                                        borderRadius: BorderRadius.circular(20),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.4),
-                                            blurRadius: 10,
-                                            offset: Offset(4, 8),
+                                    Row(
+                                      children: [
+                                        //todo при зажатии чтобы быстро увеличивалось
+                                        IconButton(
+                                          onPressed: () {
+                                            if (product['quantity'].value >
+                                                product['original_quantity']) {
+                                              product['quantity'].value--;
+                                              debt.value -= product['price'];
+                                            }
+                                          },
+                                          icon: const Icon(
+                                            Icons.remove,
+                                            color: Color(0xFF0079FF),
                                           ),
-                                        ],
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          //todo при зажатии чтобы быстро увеличивалось
-                                          SizedBox(
-                                            width: 50,
-                                            child: IconButton(
-                                              onPressed: () {
-                                                if (product['quantity'].value >
-                                                    product[
-                                                        'original_quantity']) {
-                                                  product['quantity'].value--;
-                                                  debt.value -=
-                                                      product['price'];
-                                                }
-                                              },
-                                              icon: const Icon(
-                                                Icons.remove,
-                                                color: Color(0xFF0079FF),
-                                              ),
+                                        ),
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: ValueListenableBuilder(
+                                            valueListenable:
+                                                product['quantity'],
+                                            builder: (context, int quantity,
+                                                    child) =>
+                                                Text(
+                                              "$quantity",
+                                              style: theme
+                                                  .textTheme.headlineMedium
+                                                  ?.copyWith(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.bold),
                                             ),
                                           ),
+                                        ),
 
-                                          Align(
-                                            alignment: Alignment.center,
-                                            child: ValueListenableBuilder(
-                                              valueListenable:
-                                                  product['quantity'],
-                                              builder: (context, int quantity,
-                                                      child) =>
-                                                  Text(
-                                                "$quantity",
-                                                style: theme
-                                                    .textTheme.headlineMedium
-                                                    ?.copyWith(
-                                                        fontSize: 12,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                              ),
-                                            ),
+                                        //todo при зажатии чтобы быстро уменьшалось
+                                        IconButton(
+                                          onPressed: () {
+                                            if (product['quantity'].value > 0) {
+                                              product['quantity'].value++;
+                                              debt.value += product['price'];
+                                            }
+                                          },
+                                          icon: const Icon(
+                                            Icons.add,
+                                            color: Color(0xFF0079FF),
                                           ),
-
-                                          //todo при зажатии чтобы быстро уменьшалось
-                                          SizedBox(
-                                            width: 50,
-                                            child: IconButton(
-                                              onPressed: () {
-                                                if (product['quantity'].value >
-                                                    0) {
-                                                  product['quantity'].value++;
-                                                  debt.value +=
-                                                      product['price'];
-                                                }
-                                              },
-                                              icon: const Icon(
-                                                Icons.add,
-                                                color: Color(0xFF0079FF),
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                     ValueListenableBuilder(
                                       valueListenable: product['quantity'],
