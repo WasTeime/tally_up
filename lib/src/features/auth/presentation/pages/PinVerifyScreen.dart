@@ -7,7 +7,9 @@ import 'package:tally_up/src/features/auth/presentation/bloc/sign_in/sign_in_blo
 import 'package:tally_up/src/features/auth/presentation/widgets/view.dart';
 
 class PinVerifyScreen extends StatefulWidget {
-  const PinVerifyScreen({super.key});
+  const PinVerifyScreen({
+    super.key,
+  });
 
   @override
   State<PinVerifyScreen> createState() => _PinVerifyScreenState();
@@ -40,7 +42,7 @@ class _PinVerifyScreenState extends State<PinVerifyScreen> {
               BackButton(
                 onPressed: () => context.go('/login'),
               ),
-              const BackgroundCircleWidget(),
+              const AuthBackgroundWidget(),
               _content(context),
             ],
           ),

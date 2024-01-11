@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class BackgroundCircleWidget extends StatelessWidget {
-  const BackgroundCircleWidget({super.key});
+class AuthBackgroundWidget extends StatelessWidget {
+  const AuthBackgroundWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

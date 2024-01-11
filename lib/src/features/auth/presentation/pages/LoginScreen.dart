@@ -1,119 +1,69 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:provider/provider.dart';
 import 'package:tally_up/src/core/theme.dart';
 import 'package:tally_up/src/core/widgets/view.dart';
 import 'package:tally_up/src/features/auth/presentation/widgets/view.dart';
 import 'package:tally_up/src/features/auth/presentation/bloc/sign_in/sign_in_bloc.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
-
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class PhoneErrorMessageProvider extends ChangeNotifier {
-  String? errorText;
-
-  get phoneIsValid {
-    return errorText == null;
-  }
-
-  void getErrorMessage(String phone) {
-    if (phone.isEmpty) {
-      errorText = "Вы не ввели номер телефона";
-    } else if (phone.length < 10) {
-      errorText = "Введите полный номер телефона";
-    } else {
-      errorText = null;
-    }
-    notifyListeners();
-  }
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  final _phoneController = TextEditingController();
-  final _maskFormatter = MaskTextInputFormatter(
+class LoginScreen extends StatelessWidget {
+  final phoneController = TextEditingController();
+  final phoneFormatter = MaskTextInputFormatter(
     mask: '+7 (###) ###-##-##',
     filter: {"#": RegExp(r'[0-9]')},
     type: MaskAutoCompletionType.lazy,
   );
   final theme = GetIt.I<AppTheme>().currentTheme;
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _phoneController.dispose();
-    super.dispose();
-  }
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => PhoneErrorMessageProvider(),
-      builder: (context, child) {
-        return BlocListener<SignInBloc, SignInState>(
-          listener: (context, state) {
-            if (state is SendSmsCodeSuccess) {
-              context.go('/smsCodeVerify');
-            }
-          },
-          child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            body: Stack(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Stack(
+        children: [
+          const AuthBackgroundWidget(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const BackgroundCircleWidget(),
-                _contentWrapper(context)
+                const LogoTextToAuthPageWidget("Введите телефон"),
+                const ColumnGapWidget(),
+                Form(
+                  key: formKey,
+                  child: InputWidget(
+                    hintText: "+7 (000) 00-00-00",
+                    inputController: phoneController,
+                    inputFormatters: [phoneFormatter],
+                    keyboardType: TextInputType.phone,
+                    formValidationEvent: (phone) {
+                      if (phone == null || phone.isEmpty) {
+                        return "Введите номер телефона";
+                      } else if (phone.length < 10) {
+                        return "Введите полный номер";
+                      }
+                      return null;
+                    },
+                    autofocus: true,
+                  ),
+                ),
+                const ColumnGapWidget(height: 30),
+                TextButtonWidget(
+                  () {
+                    if (formKey.currentState!.validate()) {
+                      context.read<SignInBloc>().phone =
+                          phoneFormatter.getUnmaskedText();
+                      context.read<SignInBloc>().add(SendSmsCode());
+                    }
+                  },
+                  "Продолжить",
+                )
               ],
             ),
           ),
-        );
-      },
-    );
-  }
-
-  Widget _contentWrapper(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 200, left: 30, right: 30),
-      child: Column(
-        children: [
-          const LogoTextToAuthPageWidget("Введите телефон"),
-          const ColumnGapWidget(),
-          Selector<PhoneErrorMessageProvider, String?>(
-            selector: (_, provider) => provider.errorText,
-            builder: (_, errorMessage, __) {
-              return InputFieldWidget(
-                "+7 (000) 00-00-00",
-                _phoneController,
-                errorMessage: errorMessage,
-                inputFormatters: [_maskFormatter],
-              );
-            },
-          ),
-          const ColumnGapWidget(),
-          TextButtonWidget(
-            () {
-              var validationProvider =
-                  context.read<PhoneErrorMessageProvider>();
-              validationProvider
-                  .getErrorMessage(_maskFormatter.getUnmaskedText());
-              if (validationProvider.phoneIsValid) {
-                context
-                    .read<SignInBloc>()
-                    .setPhone("+7${_maskFormatter.getUnmaskedText()}");
-                context.read<SignInBloc>().add(SendSmsCode());
-              }
-            },
-            "Продолжить",
-          )
         ],
       ),
     );

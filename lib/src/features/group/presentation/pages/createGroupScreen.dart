@@ -72,7 +72,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                         child: InputWidget(
                           hintText: "Название",
                           inputController: _groupNameController,
-                          mainColor: Color(0XFF0079FF),
+                          fillColor: Color(0XFF0079FF),
                           hintColor: Colors.white,
                         ),
                       ),

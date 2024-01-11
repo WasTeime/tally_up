@@ -8,11 +8,14 @@ class InputFieldWidget extends StatelessWidget {
   String? errorMessage;
   List<TextInputFormatter>? inputFormatters;
 
-  InputFieldWidget(this.hint, this.inputController,
-      {super.key,
-      this.obscure = false,
-      this.errorMessage,
-      this.inputFormatters});
+  InputFieldWidget(
+    this.hint,
+    this.inputController, {
+    super.key,
+    this.obscure = false,
+    this.errorMessage,
+    this.inputFormatters,
+  });
 
   @override
   Widget build(BuildContext context) {

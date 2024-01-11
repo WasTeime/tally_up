@@ -9,27 +9,24 @@ class LogoTextToAuthPageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      const SizedBox(height: 60),
-      Text(
-        'TALLY \nUP',
-        textAlign: TextAlign.center,
-        style: GetIt.I<AppTheme>().currentTheme.textTheme.titleLarge,
-      ),
-      const SizedBox(height: 15),
-      Align(
-        child: Text(
-          labelText,
+    return Column(
+      children: [
+        Text(
+          'TALLY\nUP',
           textAlign: TextAlign.center,
+          style: GetIt.I<AppTheme>().currentTheme.textTheme.titleLarge,
+        ),
+        const SizedBox(height: 15),
+        Text(
+          labelText,
           style: const TextStyle(
             fontFamily: 'Raleway',
             fontSize: 18,
             color: Color(0xFF0079FF),
             fontWeight: FontWeight.w900,
-            letterSpacing: -0.02,
           ),
         ),
-      )
-    ]);
+      ],
+    );
   }
 }

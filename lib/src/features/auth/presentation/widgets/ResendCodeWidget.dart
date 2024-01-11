@@ -4,7 +4,9 @@ import 'package:tally_up/src/features/auth/presentation/bloc/sign_in/sign_in_blo
 import 'package:tally_up/src/features/auth/presentation/widgets/TimerWidget.dart';
 
 class ResendCodeWidget extends StatefulWidget {
-  const ResendCodeWidget({super.key});
+  const ResendCodeWidget({
+    super.key,
+  });
 
   @override
   State<ResendCodeWidget> createState() => _ResendCodeWidgetState();

@@ -14,10 +14,6 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   StreamSubscription<String?>? _verificationErrorsSubscription;
   late String phone;
 
-  void setPhone(phone) {
-    this.phone = phone;
-  }
-
   SignInBloc() : super(SignInInitial()) {
     _verificationErrorsSubscription =
         _authController.verificationErrorsStream.listen((event) {
@@ -35,8 +31,9 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     });
 
     on<SendSmsCode>((event, emit) async {
-      await _authController.sendPhoneCode(phone);
-      emit(SendSmsCodeSuccess());
+      await _authController
+          .sendPhoneCode(phoneNumber: phone)
+          .then((value) => emit(SendSmsCodeSuccess()));
     });
 
     on<SignOut>((event, emit) async {

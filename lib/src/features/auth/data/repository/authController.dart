@@ -14,7 +14,7 @@ class AuthController {
 
   Stream<User?> get userChanges => _firebaseAuth.authStateChanges();
 
-  Future<void> sendPhoneCode(phoneNumber) async {
+  Future<void> sendPhoneCode({required String phoneNumber}) async {
     await _firebaseAuth.verifyPhoneNumber(
       phoneNumber: phoneNumber,
       verificationCompleted: (PhoneAuthCredential credential) async {
@@ -25,6 +25,7 @@ class AuthController {
         // if (e.code == "invalid-phone-number") {
         //   _verificationFailedController.add("Ой что-то пошло не так");
         // }
+        //throw e;
         _verificationFailedController.add("Ой что-то пошло не так");
         FirebaseCrashlytics.instance.recordError(e, e.stackTrace);
       },
@@ -39,7 +40,9 @@ class AuthController {
     try {
       await _firebaseAuth
           .signInWithCredential(PhoneAuthProvider.credential(
-              verificationId: _verificationId, smsCode: smsCode))
+        verificationId: _verificationId,
+        smsCode: smsCode,
+      ))
           .then((userCredential) {
         var authUser = userCredential.user;
         var user = UserModel(authUser!.uid, authUser.metadata.creationTime,
