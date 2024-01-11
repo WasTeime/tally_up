@@ -62,42 +62,43 @@ class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
     this.enableArchive,
   });
   List<Widget>? get actionsAppBar {
+    List<Widget>? widget = [];
+    double iconSize = 35;
     if (enableAcceptButton != null) {
-      return [
+      widget.add(
         IconButton(
-            onPressed: () => enableAcceptButton!(),
-            icon: const Icon(
-              Icons.check,
-              size: 30,
-              color: Colors.blue,
-            ))
-      ];
-    }
-    if (enableArchive != null) {
-      return [
+          onPressed: () => enableAcceptButton!(),
+          icon: Icon(
+            Icons.check,
+            size: iconSize,
+            color: Colors.blue,
+          ),
+        ),
+      );
+    } else if (enableArchive != null) {
+      widget.add(
         IconButton(
           onPressed: () => enableArchive!(),
-          icon: const Icon(
+          icon: Icon(
             Icons.archive,
-            size: 30,
+            size: iconSize,
             color: Colors.blue,
           ),
-        )
-      ];
-    }
-    if (enableEditButton != null) {
-      return [
+        ),
+      );
+    } else if (enableEditButton != null) {
+      widget.add(
         IconButton(
           onPressed: () => enableEditButton!(),
-          icon: const Icon(
+          icon: Icon(
             Icons.edit,
-            size: 25,
+            size: iconSize,
             color: Colors.blue,
           ),
-        )
-      ];
+        ),
+      );
     }
-    return [];
+    return widget;
   }
 }
 
@@ -105,9 +106,9 @@ class _AppBarWidgetState extends State<AppBarWidget> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Color(0xFFF1F7FF),
+      backgroundColor: const Color(0xFFF1F7FF),
       toolbarHeight: const Size.fromHeight(kToolbarHeight + 20)
-          .height, //todo! надо поменять чтобы высота в зависимости от контента считалась
+          .height, //todo надо поменять чтобы высота в зависимости от контента считалась
       title: widget.titleWidget,
       actions: widget.actionsAppBar,
       leading: widget.enableBackButton != null

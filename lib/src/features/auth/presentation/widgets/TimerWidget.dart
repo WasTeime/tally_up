@@ -7,8 +7,12 @@ class TimerWidget extends StatefulWidget {
   bool restartTimer;
   int seconds;
 
-  TimerWidget(this.seconds,
-      {required this.timerIsStop, this.restartTimer = false, super.key});
+  TimerWidget(
+    this.seconds, {
+    required this.timerIsStop,
+    this.restartTimer = false,
+    super.key,
+  });
 
   @override
   State<TimerWidget> createState() => _TimerWidgetState();

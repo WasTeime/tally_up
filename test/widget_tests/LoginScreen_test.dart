@@ -67,7 +67,7 @@ void main() {
       await tester.pumpWidget(MaterialApp(
         home: BlocProvider<SignInBloc>.value(
           value: signInBloc,
-          child: const LoginScreen(),
+          child: LoginScreen(),
         ),
       ));
       // await tester.pumpAndSettle();
@@ -87,7 +87,7 @@ void main() {
       await tester.pumpWidget(MaterialApp(
         home: BlocProvider<SignInBloc>.value(
           value: signInBloc,
-          child: const LoginScreen(),
+          child: LoginScreen(),
         ),
       ));
 
@@ -111,7 +111,7 @@ void main() {
       await tester.pumpWidget(MaterialApp(
         home: BlocProvider<SignInBloc>.value(
           value: signInBloc,
-          child: const LoginScreen(),
+          child: LoginScreen(),
         ),
       ));
 
@@ -131,7 +131,7 @@ void main() {
       await tester.pumpWidget(MaterialApp(
         home: BlocProvider<SignInBloc>.value(
           value: signInBloc,
-          child: const LoginScreen(),
+          child: LoginScreen(),
         ),
       ));
 

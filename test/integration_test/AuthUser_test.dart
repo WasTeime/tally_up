@@ -29,7 +29,7 @@ void main() {
     await tester.pumpWidget(MaterialApp(
       home: BlocProvider<SignInBloc>(
         create: (context) => signInBloc,
-        child: const LoginScreen(),
+        child: LoginScreen(),
       ),
     ));
 
@@ -42,7 +42,7 @@ void main() {
     // Нажимаем кнопку "Продолжить"
     await tester.tap(find.byType(TextButtonWidget));
     await tester.pumpAndSettle();
-    
+
     signInBloc.add(SendSmsCode as SignInEvent);
 
     expect(find.byType(LoginScreen), findsNothing);
@@ -53,7 +53,5 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.byType(HomeScreen), findsOneWidget);
-
-
   });
 }

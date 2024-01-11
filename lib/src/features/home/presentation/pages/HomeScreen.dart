@@ -24,10 +24,9 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     final appBarWidget = AppBarWidget.searchAndArchive(
-        titleWidget: const SearchBarWidget(),
-        enableArchive: () {
-          print('press on archive');
-        });
+      titleWidget: const SearchBarWidget(),
+      enableArchive: () {},
+    );
     return MainLayout(
       appBarWidget: appBarWidget,
       subAppBarWidget: HomeTabBarWidget(tabController: _tabController),
@@ -36,14 +35,13 @@ class _HomeScreenState extends State<HomeScreen>
         onPressed: () => context.push('/createGroup'),
         style: ElevatedButton.styleFrom(
           shape: const CircleBorder(),
-          padding: const EdgeInsets.all(7),
-          backgroundColor: const Color(0xFF0079FF),
-          foregroundColor: Colors.blue,
+          padding: const EdgeInsets.all(10),
+          backgroundColor: Colors.blueAccent,
         ),
         child: const Icon(
           Icons.add,
           color: Colors.white,
-          size: 45,
+          size: 30,
         ),
       ),
     );

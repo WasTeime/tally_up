@@ -26,6 +26,7 @@ class AuthController {
         //   _verificationFailedController.add("Ой что-то пошло не так");
         // }
         //throw e;
+        print(e);
         _verificationFailedController.add("Ой что-то пошло не так");
         FirebaseCrashlytics.instance.recordError(e, e.stackTrace);
       },

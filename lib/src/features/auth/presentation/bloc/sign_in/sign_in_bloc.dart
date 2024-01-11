@@ -12,7 +12,7 @@ part 'sign_in_state.dart';
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
   final _authController = AuthController();
   StreamSubscription<String?>? _verificationErrorsSubscription;
-  late String phone;
+  String? phone;
 
   SignInBloc() : super(SignInInitial()) {
     _verificationErrorsSubscription =
@@ -32,7 +32,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
 
     on<SendSmsCode>((event, emit) async {
       await _authController
-          .sendPhoneCode(phoneNumber: phone)
+          .sendPhoneCode(phoneNumber: phone!)
           .then((value) => emit(SendSmsCodeSuccess()));
     });
 

@@ -13,8 +13,9 @@ class ResendCodeWidget extends StatefulWidget {
 }
 
 class _ResendCodeWidgetState extends State<ResendCodeWidget> {
-  bool timerIsStop = true;
+  bool timerIsStop = true; //?почему true, а не false
   bool restart = false;
+  int secondsBeforeRestart = 30;
 
   void restartTimer() {
     setState(() {
@@ -30,11 +31,14 @@ class _ResendCodeWidgetState extends State<ResendCodeWidget> {
         const Text(
           "Повторить попытку",
           style: TextStyle(
-              fontSize: 13, color: Color(0xFF0079FF), fontFamily: 'Rubik'),
+            fontSize: 13,
+            color: Color(0xFF0079FF),
+            fontFamily: 'Rubik',
+          ),
         ),
         const SizedBox(width: 10),
         TimerWidget(
-          30,
+          secondsBeforeRestart,
           restartTimer: restart,
           timerIsStop: (value) {
             timerIsStop = value;
@@ -46,22 +50,22 @@ class _ResendCodeWidgetState extends State<ResendCodeWidget> {
                 MaterialStateProperty.all<Color>(const Color(0xFF0079FF)),
           ),
           onPressed: () {
-            print(timerIsStop);
             if (timerIsStop) {
               context.read<SignInBloc>().add(SendSmsCode());
               restartTimer();
             }
           },
+          //todo кнопка повторить остаётся всегда одного цвета
           child: Text(
             "повторить",
             style: TextStyle(
-                fontSize: 15,
-                fontFamily: 'Rubik',
-                decoration: TextDecoration.underline,
-                decorationColor: timerIsStop
-                    ? const Color(0xFF0079FF)
-                    : const Color(0xFF0079FF).withOpacity(0.6),
-                decorationThickness: 1),
+              fontSize: 15,
+              fontFamily: 'Rubik',
+              decoration: TextDecoration.underline,
+              decorationColor:
+                  timerIsStop ? const Color(0xFF0079FF) : Colors.amber,
+              decorationThickness: 1,
+            ),
           ),
         )
       ],

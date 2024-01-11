@@ -6,18 +6,15 @@ import 'package:tally_up/src/core/widgets/view.dart';
 import 'package:tally_up/src/features/auth/presentation/bloc/sign_in/sign_in_bloc.dart';
 import 'package:tally_up/src/features/auth/presentation/widgets/view.dart';
 
-class PinVerifyScreen extends StatefulWidget {
+class PinVerifyScreen extends StatelessWidget {
   const PinVerifyScreen({
     super.key,
   });
 
   @override
-  State<PinVerifyScreen> createState() => _PinVerifyScreenState();
-}
-
-class _PinVerifyScreenState extends State<PinVerifyScreen> {
-  @override
   Widget build(BuildContext context) {
+    String code = "";
+
     return BlocConsumer<SignInBloc, SignInState>(
       listener: (context, state) {
         if (state is SignInSuccess) {
@@ -37,45 +34,39 @@ class _PinVerifyScreenState extends State<PinVerifyScreen> {
           return const LoadingOnWhiteBackgroundWidget();
         }
         return Scaffold(
+          resizeToAvoidBottomInset: false,
           body: Stack(
             children: [
-              BackButton(
-                onPressed: () => context.go('/login'),
+              SafeArea(
+                child: IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  iconSize: 35,
+                  onPressed: () => context.pop(),
+                ),
               ),
               const AuthBackgroundWidget(),
-              _content(context),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const LogoTextToAuthPageWidget('Введите код'),
+                  const ColumnGapWidget(),
+                  Pinput(
+                    length: 6,
+                    onCompleted: (pin) => code = pin,
+                  ),
+                  const ColumnGapWidget(height: 50),
+                  TextButtonWidget(
+                    () => {context.read<SignInBloc>().add(SignIn(code))},
+                    "Отправить",
+                  ),
+                  const ColumnGapWidget(height: 30),
+                  const ResendCodeWidget(),
+                ],
+              ),
             ],
           ),
         );
       },
     );
   }
-}
-
-Widget _content(BuildContext context) {
-  String code = "";
-
-  return Padding(
-    padding: const EdgeInsets.only(top: 200, left: 20, right: 20),
-    child: Column(
-      children: [
-        const LogoTextToAuthPageWidget('Введите код'),
-        const ColumnGapWidget(),
-        Container(
-          margin: const EdgeInsets.only(left: 10),
-          child: Pinput(
-            length: 6,
-            onCompleted: (pin) => code = pin,
-          ),
-        ),
-        const ColumnGapWidget(),
-        TextButtonWidget(
-          () => {context.read<SignInBloc>().add(SignIn(code))},
-          "Отправить",
-        ),
-        const ColumnGapWidget(height: 30),
-        const ResendCodeWidget(),
-      ],
-    ),
-  );
 }
