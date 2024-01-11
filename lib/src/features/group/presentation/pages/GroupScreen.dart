@@ -31,8 +31,7 @@ class _GroupScreenState extends State<GroupScreen> {
             return MainLayout(
               appBarWidget: AppBarWidget.withEditButton(
                 enableEditButton: () => print('press on edit button'),
-                enableBackButton: () =>
-                    context.canPop() ? context.pop() : context.go('/'),
+                enableBackButton: context.canPop() ? () => context.pop() : null,
                 titleWidget: CardWithNameAndParticipantsWidget.forGroup(
                   titleText: state.groupDetails['groupName'],
                   peopleCount: state.groupDetails['participants'].length,

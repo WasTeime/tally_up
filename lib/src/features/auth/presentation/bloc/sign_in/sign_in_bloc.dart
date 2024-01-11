@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 import 'package:tally_up/src/features/auth/data/repository/authController.dart';
 
 part 'sign_in_event.dart';

@@ -36,13 +36,12 @@ class PhoneErrorMessageProvider extends ChangeNotifier {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  //TODO: походу надо переменной не в state объявлять, а в классе виджета
-  //functional
   final _phoneController = TextEditingController();
   final _maskFormatter = MaskTextInputFormatter(
-      mask: '+7 (###) ###-##-##',
-      filter: {"#": RegExp(r'[0-9]')},
-      type: MaskAutoCompletionType.lazy);
+    mask: '+7 (###) ###-##-##',
+    filter: {"#": RegExp(r'[0-9]')},
+    type: MaskAutoCompletionType.lazy,
+  );
   final theme = GetIt.I<AppTheme>().currentTheme;
 
   @override
@@ -55,9 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
     _phoneController.dispose();
     super.dispose();
   }
-  //end functional
 
-  //widgets
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -70,13 +67,14 @@ class _LoginScreenState extends State<LoginScreen> {
             }
           },
           child: Scaffold(
-              resizeToAvoidBottomInset: false,
-              body: Stack(
-                children: [
-                  const BackgroundCircleWidget(),
-                  _contentWrapper(context)
-                ],
-              )),
+            resizeToAvoidBottomInset: false,
+            body: Stack(
+              children: [
+                const BackgroundCircleWidget(),
+                _contentWrapper(context)
+              ],
+            ),
+          ),
         );
       },
     );
@@ -85,10 +83,11 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _contentWrapper(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 200, left: 30, right: 30),
-      child: Column(children: [
-        const LogoTextToAuthPageWidget("Введите телефон"),
-        const ColumnGapWidget(),
-        Selector<PhoneErrorMessageProvider, String?>(
+      child: Column(
+        children: [
+          const LogoTextToAuthPageWidget("Введите телефон"),
+          const ColumnGapWidget(),
+          Selector<PhoneErrorMessageProvider, String?>(
             selector: (_, provider) => provider.errorText,
             builder: (_, errorMessage, __) {
               return InputFieldWidget(
@@ -97,20 +96,26 @@ class _LoginScreenState extends State<LoginScreen> {
                 errorMessage: errorMessage,
                 inputFormatters: [_maskFormatter],
               );
-            }),
-        const ColumnGapWidget(),
-        TextButtonWidget(() {
-          var validationProvider = context.read<PhoneErrorMessageProvider>();
-          validationProvider.getErrorMessage(_maskFormatter.getUnmaskedText());
-          if (validationProvider.phoneIsValid) {
-            context
-                .read<SignInBloc>()
-                .setPhone("+7${_maskFormatter.getUnmaskedText()}");
-            context.read<SignInBloc>().add(SendSmsCode());
-          }
-        }, "Продолжить")
-      ]),
+            },
+          ),
+          const ColumnGapWidget(),
+          TextButtonWidget(
+            () {
+              var validationProvider =
+                  context.read<PhoneErrorMessageProvider>();
+              validationProvider
+                  .getErrorMessage(_maskFormatter.getUnmaskedText());
+              if (validationProvider.phoneIsValid) {
+                context
+                    .read<SignInBloc>()
+                    .setPhone("+7${_maskFormatter.getUnmaskedText()}");
+                context.read<SignInBloc>().add(SendSmsCode());
+              }
+            },
+            "Продолжить",
+          )
+        ],
+      ),
     );
   }
-  //end widgets
 }

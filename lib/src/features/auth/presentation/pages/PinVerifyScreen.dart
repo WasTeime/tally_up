@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
-import 'package:provider/provider.dart';
 import 'package:tally_up/src/core/widgets/view.dart';
 import 'package:tally_up/src/features/auth/presentation/bloc/sign_in/sign_in_bloc.dart';
 import 'package:tally_up/src/features/auth/presentation/widgets/view.dart';
@@ -17,40 +16,47 @@ class PinVerifyScreen extends StatefulWidget {
 class _PinVerifyScreenState extends State<PinVerifyScreen> {
   @override
   Widget build(BuildContext context) {
-    return BlocListener<SignInBloc, SignInState>(
+    return BlocConsumer<SignInBloc, SignInState>(
       listener: (context, state) {
         if (state is SignInSuccess) {
           context.go('/');
         }
         if (state is SignInFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
               content: Text(state.message, textAlign: TextAlign.center),
-              backgroundColor: Colors.red));
+              backgroundColor: Colors.red,
+            ),
+          );
         }
       },
-      child: Scaffold(
-        // appBar: AppBar(
-        //   leading: BackButton(onPressed: () => context.go('/login')),
-        // ),
-        // resizeToAvoidBottomInset: false,
-        body: Stack(children: [
-          BackButton(
-              onPressed: () => context.go(
-                  '/login')), // хз, попробовал Стек, контейнер и колонку - выдает ошибку, так вроде работает
-          const BackgroundCircleWidget(),
-          _content(context)
-        ]),
-      ),
+      builder: (context, state) {
+        if (state is SignInProcess) {
+          return const LoadingOnWhiteBackgroundWidget();
+        }
+        return Scaffold(
+          body: Stack(
+            children: [
+              BackButton(
+                onPressed: () => context.go('/login'),
+              ),
+              const BackgroundCircleWidget(),
+              _content(context),
+            ],
+          ),
+        );
+      },
     );
   }
 }
 
 Widget _content(BuildContext context) {
   String code = "";
+
   return Padding(
     padding: const EdgeInsets.only(top: 200, left: 20, right: 20),
     child: Column(
-      children: <Widget>[
+      children: [
         const LogoTextToAuthPageWidget('Введите код'),
         const ColumnGapWidget(),
         Container(
@@ -62,7 +68,9 @@ Widget _content(BuildContext context) {
         ),
         const ColumnGapWidget(),
         TextButtonWidget(
-            () => {context.read<SignInBloc>().add(SignIn(code))}, "Отправить"),
+          () => {context.read<SignInBloc>().add(SignIn(code))},
+          "Отправить",
+        ),
         const ColumnGapWidget(height: 30),
         const ResendCodeWidget(),
       ],

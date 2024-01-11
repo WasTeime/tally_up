@@ -8,14 +8,6 @@ class BackgroundCircleWidget extends StatelessWidget {
     return CustomPaint(
       painter: BackgroundPainter(),
     );
-
-    // Container(
-    //   decoration: const BoxDecoration(
-    //     image: DecorationImage(
-    //         image: AssetImage("assets/images/background.png"),
-    //         fit: BoxFit.cover),
-    //   ),
-    // );
   }
 }
 

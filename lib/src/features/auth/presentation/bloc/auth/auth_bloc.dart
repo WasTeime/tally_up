@@ -17,6 +17,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     _userSubscription = _authController.userChanges.listen((user) {
       add(AuthUserChanged(user));
     });
+
     on<AuthUserChanged>((event, emit) {
       if (event.user != null) {
         emit(AuthState.authenticated(event.user!));

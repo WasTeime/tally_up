@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tally_up/src/features/auth/presentation/bloc/auth/auth_bloc.dart';
@@ -9,14 +9,11 @@ import 'package:tally_up/src/features/auth/presentation/pages/PinVerifyScreen.da
 import 'package:tally_up/src/features/cheque/presentation/pages/ChequeScreen.dart';
 import 'package:tally_up/src/features/cheque/presentation/pages/variants_for_input_cheque/CreateChequeManuallyScreen.dart';
 import 'package:tally_up/src/features/cheque/presentation/pages/variants_for_input_cheque/CreateChequeQRScannerScreen.dart';
-import 'package:tally_up/src/features/cheque_list/presentation/pages/CreateNewChequeScreen.dart';
-import 'package:tally_up/src/features/cheque_list/presentation/pages/EnterProductsManuallyScreen.dart';
 import 'package:tally_up/src/features/contacts_invitings/presentation/pages/ContactsInvitingsScreen.dart';
 import 'package:tally_up/src/features/event/presentation/pages/EventScreen.dart';
 import 'package:tally_up/src/features/event/presentation/pages/createEventScreen.dart';
 import 'package:tally_up/src/features/profile/presentation/pages/ProfileScreen.dart';
 import 'package:tally_up/src/features/group/presentation/pages/createGroupScreen.dart';
-import 'package:tally_up/src/features/cheque_list/presentation/pages/ChequeListInEvent.dart';
 import 'package:tally_up/src/features/group/presentation/pages/GroupScreen.dart';
 import 'package:tally_up/src/features/home/presentation/pages/HomeScreen.dart';
 
@@ -33,7 +30,7 @@ final router = GoRouter(initialLocation: '/loginState', routes: [
         child: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state.status == AuthStatus.authenticated) {
-              context.push('/');
+              context.go('/');
             } else {
               context.go('/login');
             }
@@ -104,15 +101,19 @@ final router = GoRouter(initialLocation: '/loginState', routes: [
     },
   ),
   GoRoute(
-      path: '/smsCodeVerify',
-      builder: (context, state) {
-        return BlocProvider<SignInBloc>.value(
-            value: signInBloc, child: PinVerifyScreen());
-      }),
+    path: '/smsCodeVerify',
+    builder: (context, state) {
+      return BlocProvider<SignInBloc>.value(
+        value: signInBloc,
+        child: PinVerifyScreen(),
+      );
+    },
+  ),
   GoRoute(
-      path: '/profile',
-      builder: (context, state) {
-        return BlocProvider<SignInBloc>.value(
-            value: signInBloc, child: ProfileScreen());
-      }),
+    path: '/profile',
+    builder: (context, state) {
+      return BlocProvider<SignInBloc>.value(
+          value: signInBloc, child: ProfileScreen());
+    },
+  ),
 ]);

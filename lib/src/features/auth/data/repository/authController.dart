@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:tally_up/src/features/auth/domain/models/UserModel.dart';
+import 'package:tally_up/src/features/auth/models/UserModel.dart';
 
 class AuthController {
   final _firebaseAuth = FirebaseAuth.instance;
