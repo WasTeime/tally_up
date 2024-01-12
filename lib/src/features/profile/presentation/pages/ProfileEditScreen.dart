@@ -1,59 +1,42 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter/material.dart';
-
-import '../../../../core/layouts/mainLayout.dart';
-import '../../../../core/widgets/view.dart';
-import '../widgets/view.dart';
-import 'ProfileScreen.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tally_up/src/core/layouts/mainLayout.dart';
+import 'package:tally_up/src/core/widgets/view.dart';
+import 'package:tally_up/src/features/profile/presentation/widgets/ProfilePhotoEditWidget.dart';
+import 'package:tally_up/src/features/profile/presentation/widgets/view.dart';
 
 class EditProfilePage extends StatelessWidget {
-  final String userName;
-  final String phoneNumber;
-  final String email;
+  final String? username;
+  final String? email;
 
   const EditProfilePage({
-    Key? key,
-    required this.userName,
-    required this.phoneNumber,
-    required this.email,
-  }) : super(key: key);
+    super.key,
+    this.username,
+    this.email,
+  });
 
-  Widget PhotoAndBox(color) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Align(
-          alignment: Alignment.topCenter,
-          child: Stack(
-            children: [
-              ProfilePhoto(photo: 'assets/images/events1.png'),
-              Positioned(
-                bottom: 0,
-                right: 4,
-                child: EditIconOnPhoto(color: color),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(
-          height: 40,
-        ),
-        UserInfoCardEditable(title: 'Name', initialValue: userName),
-        UserInfoCardEditable(title: 'Phone', initialValue: phoneNumber),
-        UserInfoCardEditable(title: 'Email', initialValue: email),
-      ],
-    );
-  }
-
+  @override
   Widget build(BuildContext context) {
-    final color = Color(0xFFF1F7FF);
     return MainLayout(
-      appBarWidget: PreferredSize(
-        preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: AppBarForEditScreen(color: color, name: 'Редактировать'),
+      appBarWidget: AppBarWidget.withAcceptButton(
+        enableAcceptButton: () => {
+          //здесь нужно сохранять дату в бд (через bloc)
+          context.pop()
+        },
+        enableBackButton: () => context.pop(),
       ),
-      contentWidget: PhotoAndBox(color),
+      contentWidget: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 60),
+        child: Column(
+          children: [
+            const ProfilePhotoEditWidget(),
+            const ColumnGapWidget(height: 50),
+            UserInfoCardEditable(title: 'имя', value: username),
+            const ColumnGapWidget(),
+            UserInfoCardEditable(title: 'почта', value: email),
+          ],
+        ),
+      ),
     );
   }
 }

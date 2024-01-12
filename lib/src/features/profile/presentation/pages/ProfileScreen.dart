@@ -1,73 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tally_up/src/core/layouts/mainLayout.dart';
 import 'package:tally_up/src/core/widgets/view.dart';
 import 'package:tally_up/src/features/profile/presentation/pages/ProfileEditScreen.dart';
 import 'package:tally_up/src/features/profile/presentation/widgets/view.dart';
-
-import '../../../../core/layouts/mainLayout.dart';
-
-class ProfilePage extends StatefulWidget {
-  @override
-  _ProfilePageState createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
-  String _userName = 'Иван';
-  String _phoneNumber = '123-456-789';
-  String _email = 'example@example.com';
-
-  void _navigateToEditProfilePage() async {
-    final result = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => EditProfilePage(
-          userName: _userName,
-          phoneNumber: _phoneNumber,
-          email: _email,
-        ),
-      ),
-    );
-
-    if (result == true) {
-      // Обновляем информацию пользователя, если были сохранены изменения
-      setState(() {
-        // Обновляем состояние с учётом нового имени
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final appBarWidget = AppBarWidget.onlyEdit(enableEditButton: () {
-      _navigateToEditProfilePage();
-    });
-    return MainLayout(
-        appBarWidget: appBarWidget,
-        contentWidget: Stack(
-          children: [
-            ListView(
-              children: <Widget>[
-                Center(child: ProfilePhoto(photo: 'assets/images/events1.png')),
-                const SizedBox(height: 16.0),
-                UserInfoCard(
-                  userName: _userName,
-                  phoneNumber: _phoneNumber,
-                  email: _email,
-                ),
-                const SizedBox(height: 5.0),
-                ProfileActionCard(title: 'Язык', value: 'Русский'),
-                ProfileActionCard(title: 'Тема', value: 'Светлая'),
-                ProfileActionCard(title: 'Мои контакты', value: '20'),
-                ProfileActionCard(title: 'Мои долги', value: '3'),
-                ProfileActionCard(title: 'Импорт контактов', value: 'Готово'),
-                SizedBox(height: 40.0),
-                LogoutInProfileButtonWidget(name: "Выход"),
-              ],
-            ),
-          ],
-        ),
-        underContentButtonWidget: LogoutInProfileButtonWidget(name: "Выход"));
-  }
-}
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -77,10 +13,83 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class __ProfileScreenState extends State<ProfileScreen> {
+  String userName = 'Иван';
+  String phoneNumber = '123-456-789';
+  String email = 'example@example.com';
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [ProfilePage()],
+    final theme = Theme.of(context);
+
+    List<Map<String, String>> settingsList = [
+      {'name': 'Язык', 'value': 'Русский'},
+      {'name': 'Тема', 'value': 'Светлая'},
+      {'name': 'Мои контакты', 'value': '20'},
+      {'name': 'Импорт контактов', 'value': 'Готово'},
+    ];
+
+    return MainLayout(
+      appBarWidget: AppBarWidget.withEditButton(
+        enableEditButton: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => EditProfilePage(
+              username: userName,
+              email: email,
+            ),
+          ),
+        ),
+      ),
+      contentWidget: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 60),
+        child: Column(
+          children: [
+            const ProfilePhotoWidget(),
+            const ColumnGapWidget(height: 30),
+            UserInfoCard(
+              username: userName,
+              phoneNumber: phoneNumber,
+              email: email,
+            ),
+            const ColumnGapWidget(height: 30),
+            Expanded(
+              child: ListView.separated(
+                itemCount: settingsList.length,
+                itemBuilder: (context, index) {
+                  VoidCallback? onTapEvent;
+                  switch (index) {
+                    case 2:
+                      onTapEvent = () => context.push('/contactsAndInvitings');
+                  }
+                  return SettingItemCardWidget(
+                    title: settingsList[index]['name'] as String,
+                    value: settingsList[index]['value'] as String,
+                    onTapEvent: onTapEvent,
+                  );
+                },
+                separatorBuilder: (_, index) => const ColumnGapWidget(
+                  height: 10,
+                ),
+              ),
+            ),
+            const ColumnGapWidget(),
+          ],
+        ),
+      ),
+      underContentButtonWidget: ElevatedButton(
+        onPressed: () {},
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+          backgroundColor: Colors.blueAccent.shade200,
+        ),
+        child: Text(
+          'выйти',
+          style: theme.textTheme.headlineMedium?.copyWith(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
     );
   }

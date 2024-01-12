@@ -21,7 +21,7 @@ class HomeTabBarForFrendsWidget extends StatelessWidget {
       unselectedLabelColor: Colors.grey,
       indicatorColor: Colors.blue,
       tabs: const [
-        Tab(text: "Друзья"),
+        Tab(text: "Контакты"),
         Tab(text: "Приглашения"),
       ],
     );

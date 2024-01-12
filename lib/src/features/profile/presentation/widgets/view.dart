@@ -1,6 +1,5 @@
-export 'EditIconOnPhotoWidget.dart';
-export 'ProfilePhotoWidgwt.dart';
+export 'ProfilePhotoWidget.dart';
 export 'UserInfoCardEditableWidget.dart';
 export 'LogoutInProfileButtonWidget.dart';
-export 'ProfileActionCardWidget.dart';
+export 'SettingItemCardWidget.dart';
 export 'UserInfoCardWidget.dart';

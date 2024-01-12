@@ -31,7 +31,7 @@ class _NewContactState extends State<NewContact> {
       body: Stack(children: [
         NamePage(text: 'Новый контакт'),
         const BottomNavigationBarWidget(),
-        ProfilePhoto(photo: 'assets/images/profile.png'),
+        ProfilePhotoWidget(),
         _textForm()
       ]),
     );

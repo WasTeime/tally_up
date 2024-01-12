@@ -19,12 +19,15 @@ class LogoutInProfileButtonWidget extends StatelessWidget {
           },
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(name,
-                style: theme.textTheme.headlineMedium?.copyWith(
-                    color: const Color(0XFF0079FF),
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.underline)),
+            child: Text(
+              name,
+              style: theme.textTheme.headlineMedium?.copyWith(
+                color: const Color(0XFF0079FF),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                decoration: TextDecoration.underline,
+              ),
+            ),
           ),
         ),
       ],

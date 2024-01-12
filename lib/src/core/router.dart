@@ -113,7 +113,9 @@ final router = GoRouter(initialLocation: '/loginState', routes: [
     path: '/profile',
     builder: (context, state) {
       return BlocProvider<SignInBloc>.value(
-          value: signInBloc, child: ProfileScreen());
+        value: signInBloc,
+        child: ProfileScreen(),
+      );
     },
   ),
 ]);

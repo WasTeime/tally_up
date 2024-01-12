@@ -11,8 +11,9 @@ class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
   final VoidCallback? enableEditButton;
 
   @override
-  final Size preferredSize = const Size.fromHeight(kToolbarHeight +
-      20); //todo! надо поменять чтобы высота в зависимости от контента считалась
+  final Size preferredSize = const Size.fromHeight(
+    kToolbarHeight + 20,
+  ); //todo! надо поменять чтобы высота в зависимости от контента считалась
 
   @override
   State<AppBarWidget> createState() => _AppBarWidgetState();
@@ -30,7 +31,7 @@ class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
     super.key,
     this.enableAcceptButton,
     this.enableBackButton,
-    required this.titleWidget,
+    this.titleWidget,
     required this.enableArchive,
     this.enableEditButton,
   });
@@ -38,8 +39,8 @@ class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
   const AppBarWidget.withAcceptButton({
     super.key,
     required this.enableAcceptButton,
-    required this.enableBackButton,
-    required this.titleWidget,
+    this.enableBackButton,
+    this.titleWidget,
     this.enableArchive,
     this.enableEditButton,
   });
@@ -47,25 +48,15 @@ class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
   const AppBarWidget.withEditButton({
     super.key,
     required this.enableEditButton,
-    required this.enableBackButton,
-    required this.titleWidget,
-    this.enableAcceptButton,
-    this.enableArchive,
-  });
-
-  const AppBarWidget.onlyEdit({
-    super.key,
-    required this.enableEditButton,
     this.enableBackButton,
     this.titleWidget,
     this.enableAcceptButton,
     this.enableArchive,
   });
-  List<Widget>? get actionsAppBar {
-    List<Widget>? widget = [];
-    double iconSize = 35;
+
+  List<Widget>? actionsAppBar({required double iconSize}) {
     if (enableAcceptButton != null) {
-      widget.add(
+      return [
         IconButton(
           onPressed: () => enableAcceptButton!(),
           icon: Icon(
@@ -73,10 +64,10 @@ class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
             size: iconSize,
             color: Colors.blue,
           ),
-        ),
-      );
+        )
+      ];
     } else if (enableArchive != null) {
-      widget.add(
+      return [
         IconButton(
           onPressed: () => enableArchive!(),
           icon: Icon(
@@ -84,35 +75,40 @@ class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
             size: iconSize,
             color: Colors.blue,
           ),
-        ),
-      );
+        )
+      ];
     } else if (enableEditButton != null) {
-      widget.add(
+      return [
         IconButton(
           onPressed: () => enableEditButton!(),
-          icon: Icon(
+          icon: const Icon(
             Icons.edit,
-            size: iconSize,
+            size: 30,
             color: Colors.blue,
           ),
-        ),
-      );
+        )
+      ];
     }
-    return widget;
+    return [];
   }
 }
 
 class _AppBarWidgetState extends State<AppBarWidget> {
+  double iconSize = 35; //кроме иконки редактирования
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      automaticallyImplyLeading: false,
       backgroundColor: const Color(0xFFF1F7FF),
       toolbarHeight: const Size.fromHeight(kToolbarHeight + 20)
           .height, //todo надо поменять чтобы высота в зависимости от контента считалась
       title: widget.titleWidget,
-      actions: widget.actionsAppBar,
+      actions: widget.actionsAppBar(iconSize: iconSize),
       leading: widget.enableBackButton != null
-          ? BackButton(
+          ? IconButton(
+              icon: const Icon(Icons.arrow_back),
+              iconSize: 35,
               onPressed: widget.enableBackButton,
               color: Colors.blue,
             )

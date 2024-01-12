@@ -1,54 +1,37 @@
 import 'package:flutter/material.dart';
 
-class UserInfoCardEditable extends StatefulWidget {
-  final String title;
-  final String initialValue;
+class UserInfoCardEditable extends StatelessWidget {
+  final String? title;
+  final String? value;
 
   const UserInfoCardEditable({
-    Key? key,
+    super.key,
     required this.title,
-    required this.initialValue,
-  }) : super(key: key);
-
-  @override
-  _UserInfoCardEditableState createState() => _UserInfoCardEditableState();
-}
-
-class _UserInfoCardEditableState extends State<UserInfoCardEditable> {
-  late TextEditingController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = TextEditingController(text: widget.initialValue);
-  }
+    required this.value,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context); // Получаем тему из контекста
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 42.0),
-      padding: const EdgeInsets.all(10.0),
-      height: 50,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      child: Center(
-        // Выравниваем текст по центру
-        child: TextFormField(
-          textAlign: TextAlign.left,
-          style: theme
-              .textTheme.headlineMedium, // Используем стиль из текущей темы
-          decoration: InputDecoration(
-            hintText: 'Enter your ${widget.title}',
-            border: InputBorder.none,
-          ),
-          controller: _controller,
-          onChanged: (value) {
-            // Handle user input changes
-          },
+    final theme = Theme.of(context);
+    final controller = TextEditingController(text: value);
+
+    return TextFormField(
+      controller: controller,
+      style: theme.textTheme.headlineMedium,
+      decoration: InputDecoration(
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: BorderSide.none,
         ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: const BorderSide(color: Color(0XFF0079FF)),
+        ),
+        labelText: '$title',
+        labelStyle: const TextStyle(color: Color(0XFF0079FF)),
+        border: InputBorder.none,
+        filled: true,
+        fillColor: Colors.white,
       ),
     );
   }

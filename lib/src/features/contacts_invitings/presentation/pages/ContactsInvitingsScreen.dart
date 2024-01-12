@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tally_up/src/features/auth/data/repository/authController.dart';
-import 'package:tally_up/src/features/contacts_invitings/presentation/pages/ContactsScreen.dart';
-import 'package:tally_up/src/features/contacts_invitings/presentation/pages/InvitingsFriendsScreen.dart';
 
 import '../../../../core/layouts/mainLayout.dart';
 import '../../../../core/widgets/view.dart';
@@ -26,18 +23,18 @@ class _ContactsInvitingsScreenState extends State<ContactsInvitingsScreen>
     _tabController = TabController(length: 2, vsync: this);
   }
 
-  Widget title() {
-    final theme = Theme.of(context);
-    return Text("Друзья и приглашения",
-        style: theme.textTheme.headlineMedium
-            ?.copyWith(fontSize: 20, fontWeight: FontWeight.bold));
-  }
-
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return MainLayout(
       appBarWidget: AppBarWidget(
-        titleWidget: title(),
+        titleWidget: Text(
+          "Контакты и приглашения",
+          style: theme.textTheme.headlineMedium
+              ?.copyWith(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        enableBackButton: context.canPop() ? () => context.pop() : null,
       ),
       subAppBarWidget: HomeTabBarForFrendsWidget(tabController: _tabController),
       contentWidget: HomeTabBarForFrendsScreens(tabController: _tabController),

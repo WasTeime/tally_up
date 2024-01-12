@@ -47,10 +47,10 @@ class _MainLayoutState extends State<MainLayout>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF1F7FF),
+      backgroundColor: const Color(0xFFF1F7FF),
       appBar: widget.appBarWidget,
       body: subAppBarWithContent,
-      bottomNavigationBar: const BottomNavigationBarWidget(),
+      bottomNavigationBar: BottomNavigationBarWidget(),
       floatingActionButton: widget.underContentButtonWidget,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
