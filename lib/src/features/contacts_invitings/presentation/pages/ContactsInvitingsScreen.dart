@@ -6,7 +6,11 @@ import '../../../../core/widgets/view.dart';
 import '../widgets/TabBarForFrends.dart';
 
 class ContactsInvitingsScreen extends StatefulWidget {
-  const ContactsInvitingsScreen({super.key});
+  final int currentTabIndex;
+  const ContactsInvitingsScreen({
+    super.key,
+    this.currentTabIndex = 0,
+  });
 
   @override
   State<ContactsInvitingsScreen> createState() =>
@@ -20,7 +24,11 @@ class _ContactsInvitingsScreenState extends State<ContactsInvitingsScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(
+      length: 2,
+      vsync: this,
+      initialIndex: widget.currentTabIndex,
+    );
   }
 
   @override

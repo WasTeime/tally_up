@@ -53,7 +53,7 @@ class _ContactsListCardWidgetState extends State<ContactsListCardWidget> {
               )
             : null,
         borderRadius: !isPeopleSelected.value
-            ? BorderRadius.all(Radius.circular(10))
+            ? const BorderRadius.all(Radius.circular(10))
             : null,
       ),
       height: 5,

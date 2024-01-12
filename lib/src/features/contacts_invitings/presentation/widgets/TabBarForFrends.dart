@@ -42,14 +42,8 @@ class HomeTabBarForFrendsScreens extends StatelessWidget {
       child: TabBarView(
         controller: _tabController,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-            child: FriendsScreen(),
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-            child: InvitingsList(),
-          ),
+          FriendsScreen(),
+          const InvitingsList(),
         ],
       ),
     );

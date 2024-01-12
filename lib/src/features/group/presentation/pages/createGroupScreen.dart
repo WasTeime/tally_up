@@ -59,24 +59,24 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                   enableBackButton: () => context.pop(),
                   titleWidget: Text(
                     "Создать",
-                    style: theme.textTheme.headlineMedium
-                        ?.copyWith(fontSize: 22, fontWeight: FontWeight.bold),
+                    style: theme.textTheme.headlineMedium?.copyWith(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 subAppBarWidget: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 50),
-                    child: Container(
-                      height: 50,
-                      child: Form(
-                        key: _formKey,
-                        child: InputWidget(
-                          hintText: "Название",
-                          inputController: _groupNameController,
-                          fillColor: Color(0XFF0079FF),
-                          hintColor: Colors.white,
-                        ),
-                      ),
-                    )),
+                  padding: const EdgeInsets.symmetric(horizontal: 50),
+                  child: Form(
+                    key: _formKey,
+                    child: InputWidget(
+                      hintText: "Название",
+                      inputController: _groupNameController,
+                      fillColor: const Color(0XFF0079FF),
+                      hintColor: Colors.white,
+                    ),
+                  ),
+                ),
                 contentWidget: Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30),

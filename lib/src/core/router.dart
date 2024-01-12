@@ -49,7 +49,9 @@ final router = GoRouter(initialLocation: '/loginState', routes: [
   ),
   GoRoute(
     path: '/contactsAndInvitings',
-    builder: (context, state) => ContactsInvitingsScreen(),
+    builder: (context, state) => ContactsInvitingsScreen(
+      currentTabIndex: state.extra as int,
+    ),
   ),
   GoRoute(
     path: '/createGroup',

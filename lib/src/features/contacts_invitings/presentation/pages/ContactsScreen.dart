@@ -26,7 +26,8 @@ class _FriendsScreenState extends State<FriendsScreen> {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: _contactsBloc,
-      child: Padding(
+      child: Container(
+        color: Colors.white,
         padding: const EdgeInsets.all(10),
         child: BlocBuilder<ContactsBloc, ContactsState>(
           builder: (context, state) {

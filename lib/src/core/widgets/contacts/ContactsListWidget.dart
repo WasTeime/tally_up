@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tally_up/src/core/widgets/view.dart';
 
 class ContactsListWidget extends StatefulWidget {
@@ -125,8 +126,31 @@ class _ContactsListWidgetState extends State<ContactsListWidget> {
   @override
   Widget build(BuildContext context) {
     if (contacts.isEmpty) {
-      return const Center(
-        child: Text("У вас пока нет друзей"),
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "Добавьте своего первого друга",
+              style: TextStyle(fontSize: 20),
+            ),
+            const ColumnGapWidget(),
+            OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                backgroundColor: Colors.white,
+              ),
+              //в extra находится индекс для tabBar
+              onPressed: () => context.push('/contactsAndInvitings', extra: 1),
+              child: const Padding(
+                padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+                child: Icon(
+                  Icons.add,
+                  color: Colors.black,
+                ),
+              ),
+            )
+          ],
+        ),
       );
     }
     if (widget.enableSearch) {
