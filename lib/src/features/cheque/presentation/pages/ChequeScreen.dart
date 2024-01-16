@@ -20,6 +20,7 @@ class ChequeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final ChequeBloc chequeBloc = ChequeBloc(chequeRef: chequeRef);
     var debt = ValueNotifier(0.0);
 
@@ -45,16 +46,33 @@ class ChequeScreen extends StatelessWidget {
               contentWidget: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Card(
+                  Container(
+                    color: Colors.white,
+                    width: 370,
                     child: Padding(
                       padding: const EdgeInsets.all(10),
                       child: Column(
                         children: [
                           Column(
                             children: [
-                              Text('${chequeData['shop_name']}'),
-                              Text('${chequeData['shop_address']}'),
-                              Text('${chequeData['date_time']}'),
+                              Text(
+                                  textAlign: TextAlign.center,
+                                  '${chequeData['shop_name']}',
+                                  style: theme.textTheme.displayLarge
+                                      ?.copyWith(fontSize: 13)),
+                              Text(
+                                  textAlign: TextAlign.center,
+                                  '${chequeData['shop_address']}',
+                                  style: theme.textTheme.displayLarge
+                                      ?.copyWith(fontSize: 13)),
+                              Text(
+                                  textAlign: TextAlign.center,
+                                  '${chequeData['date_time']}',
+                                  style: theme.textTheme.displayLarge
+                                      ?.copyWith(fontSize: 13)),
+                              SizedBox(
+                                height: 7,
+                              )
                             ],
                           ),
                           Container(
@@ -62,98 +80,179 @@ class ChequeScreen extends StatelessWidget {
                           ),
                           Table(
                             columnWidths: const <int, TableColumnWidth>{
-                              0: FixedColumnWidth(30),
+                              0: FixedColumnWidth(20),
                               1: FlexColumnWidth(),
                               2: FixedColumnWidth(60),
                               3: FlexColumnWidth(),
                               4: FixedColumnWidth(50),
                             },
                             children: <TableRow>[
-                              const TableRow(
+                              TableRow(
                                 children: [
-                                  Center(child: Text('№')),
-                                  Text('Название'),
-                                  Text('Цена'),
-                                  Text('Кол-во'),
-                                  Text('Сумма'),
+                                  Center(
+                                    child: Text(
+                                      textAlign: TextAlign.center,
+                                      '№',
+                                      style: theme.textTheme.headlineMedium
+                                          ?.copyWith(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15),
+                                    ),
+                                  ),
+                                  Text(
+                                    'Название',
+                                    style: theme.textTheme.headlineMedium
+                                        ?.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15),
+                                  ),
+                                  Text(
+                                    'Цена',
+                                    textAlign: TextAlign.center,
+                                    style: theme.textTheme.headlineMedium
+                                        ?.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15),
+                                  ),
+                                  Text(
+                                    'Кол-во',
+                                    textAlign: TextAlign.center,
+                                    style: theme.textTheme.headlineMedium
+                                        ?.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15),
+                                  ),
+                                  Text(
+                                    'Сумма',
+                                    style: theme.textTheme.headlineMedium
+                                        ?.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15),
+                                  ),
                                 ],
                               ),
                               for (var product in chequeProductsList)
                                 TableRow(
                                   children: [
-                                    Center(child: Text('${product['id']}')),
-                                    Text(product['name']),
-                                    Text("${product['price']}"),
-                                    Card(
-                                      child: Row(
-                                        children: [
-                                          //todo при зажатии чтобы быстро увеличивалось
-                                          IconButton(
-                                            onPressed: () {
-                                              if (product['quantity'].value <
-                                                  product[
-                                                      'original_quantity']) {
-                                                product['quantity'].value++;
-                                                debt.value -= product['price'];
-                                              }
-                                            },
-                                            icon: const Icon(Icons.remove),
+                                    Center(
+                                        child: Text('${product['id']}',
+                                            style: theme
+                                                .textTheme.headlineMedium
+                                                ?.copyWith(fontSize: 13))),
+                                    Text(product['name'],
+                                        style: theme.textTheme.headlineMedium
+                                            ?.copyWith(fontSize: 13)),
+                                    Text(
+                                        textAlign: TextAlign.center,
+                                        "${product['price']}",
+                                        style: theme.textTheme.headlineMedium
+                                            ?.copyWith(fontSize: 13)),
+                                    Row(
+                                      children: [
+                                        //todo при зажатии чтобы быстро увеличивалось
+                                        IconButton(
+                                          onPressed: () {
+                                            if (product['quantity'].value >
+                                                product['original_quantity']) {
+                                              product['quantity'].value--;
+                                              debt.value -= product['price'];
+                                            }
+                                          },
+                                          icon: const Icon(
+                                            Icons.remove,
+                                            color: Color(0xFF0079FF),
                                           ),
-                                          ValueListenableBuilder(
+                                        ),
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: ValueListenableBuilder(
                                             valueListenable:
                                                 product['quantity'],
                                             builder: (context, int quantity,
                                                     child) =>
-                                                Text("$quantity"),
+                                                Text(
+                                              "$quantity",
+                                              style: theme
+                                                  .textTheme.headlineMedium
+                                                  ?.copyWith(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
                                           ),
-                                          //todo при зажатии чтобы быстро уменьшалось
-                                          IconButton(
-                                            onPressed: () {
-                                              if (product['quantity'].value >
-                                                  0) {
-                                                product['quantity'].value--;
-                                                debt.value += product['price'];
-                                              }
-                                            },
-                                            icon: const Icon(Icons.add),
+                                        ),
+
+                                        //todo при зажатии чтобы быстро уменьшалось
+                                        IconButton(
+                                          onPressed: () {
+                                            if (product['quantity'].value > 0) {
+                                              product['quantity'].value++;
+                                              debt.value += product['price'];
+                                            }
+                                          },
+                                          icon: const Icon(
+                                            Icons.add,
+                                            color: Color(0xFF0079FF),
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                     ValueListenableBuilder(
                                       valueListenable: product['quantity'],
                                       builder: (context, int quantity, child) =>
                                           Text(
-                                              '${quantity * product['price']}'),
+                                        textAlign: TextAlign.center,
+                                        '${quantity * product['price']}',
+                                        style: theme.textTheme.headlineMedium
+                                            ?.copyWith(fontSize: 13),
+                                      ),
                                     ),
                                   ],
                                 ),
                             ],
                           ),
+                          SizedBox(
+                            height: 7,
+                          ),
                           Container(decoration: DottedDecoration()),
                           ChequeRowInfoFieldWidget(
                             text: "Итого:",
+                            textStyle: theme.textTheme.headlineMedium!.copyWith(
+                                fontWeight: FontWeight.bold, fontSize: 22),
                             value: chequeData['final_sum'].toString(),
                           ),
                           ChequeRowInfoFieldWidget(
                             text: "Наличные",
+                            textStyle: theme.textTheme.headlineMedium!
+                                .copyWith(fontSize: 13),
                             value: chequeData['cash_sum'].toString(),
                           ),
                           ChequeRowInfoFieldWidget(
                             text: "Карта",
+                            textStyle: theme.textTheme.headlineMedium!
+                                .copyWith(fontSize: 13),
                             value: chequeData['card_sum'].toString(),
+                          ),
+                          SizedBox(
+                            height: 5,
                           ),
                           Container(decoration: DottedDecoration()),
                           ChequeRowInfoFieldWidget(
                             text: "ФН",
+                            textStyle: theme.textTheme.headlineMedium!
+                                .copyWith(fontSize: 13),
                             value: chequeData['fn'].toString(),
                           ),
                           ChequeRowInfoFieldWidget(
                             text: "ФД",
+                            textStyle: theme.textTheme.headlineMedium!
+                                .copyWith(fontSize: 13),
                             value: chequeData['fd'].toString(),
                           ),
                           ChequeRowInfoFieldWidget(
                             text: "ФПД",
+                            textStyle: theme.textTheme.headlineMedium!
+                                .copyWith(fontSize: 13),
                             value: chequeData['fpd'].toString(),
                           ),
                         ],

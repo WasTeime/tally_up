@@ -15,7 +15,7 @@ class ChooseEventIconWidget extends StatelessWidget {
               SizedBox(
                 width: 20,
               ),
-              Text('аааааааа сука')
+              Text('Мероприятие 1')
             ],
           ),
         ),

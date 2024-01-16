@@ -31,6 +31,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return BlocProvider.value(
       value: _eventBloc,
       child: BlocBuilder<EventBloc, EventState>(
@@ -48,24 +49,30 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
               },
               enableBackButton: () =>
                   context.canPop() ? context.pop() : context.go('/'),
-              titleWidget: const Text(
+              titleWidget: Text(
                 "Создать",
-                style: TextStyle(fontSize: 20),
+                style: theme.textTheme.headlineMedium
+                    ?.copyWith(fontSize: 22, fontWeight: FontWeight.bold),
               ),
             ),
             subAppBarWidget: Row(
               children: [
                 Expanded(
-                  child: Form(
-                    key: _formKey,
-                    child: InputWidget(
-                      inputController: _eventNameController,
-                      hintText: "Название мероприятия",
-                      fillColor: Color(0XFF0079FF),
-                      hintColor: Colors.white,
+                    child: Padding(
+                  padding: const EdgeInsets.only(left: 40),
+                  child: Container(
+                    height: 50,
+                    child: Form(
+                      key: _formKey,
+                      child: InputWidget(
+                        inputController: _eventNameController,
+                        hintText: "Название мероприятия",
+                        fillColor: Color(0XFF0079FF),
+                        hintColor: Colors.white,
+                      ),
                     ),
                   ),
-                ),
+                )),
                 const ChooseEventIconWidget(),
               ],
             ),
